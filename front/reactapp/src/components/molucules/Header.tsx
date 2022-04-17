@@ -1,4 +1,4 @@
-import { MouseEvent, useContext } from "react";
+import { MouseEvent, useContext, FC, memo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -12,7 +12,7 @@ import {
 import { signOut } from "../../libs/api/auth";
 import { AuthContext } from "providers/AuthProvider";
 
-export const Header = () => {
+export const Header: FC = memo(() => {
 	const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -80,4 +80,4 @@ export const Header = () => {
 			</AppBar>
 		</>
 	);
-};
+});

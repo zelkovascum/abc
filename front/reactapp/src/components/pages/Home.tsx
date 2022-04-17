@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { FC, memo, useContext } from "react";
 import { Avatar } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 
 // とりあえず認証済みユーザーの名前やメールアドレスを表示
-export const Home = () => {
+export const Home: FC = memo(() => {
 	const { isSignedIn, currentUser } = useContext(AuthContext);
 
 	return (
@@ -19,4 +19,4 @@ export const Home = () => {
 			)}
 		</>
 	);
-};
+});

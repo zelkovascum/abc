@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { ReactElement } from "react";
+import { FC, memo, ReactElement } from "react";
 import { Header } from "../molucules/Header";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 // 全てのページで共通となるレイアウト
-export const CommonLayout = ({ children }: Props) => {
+export const CommonLayout: FC<Props> = memo(({ children }) => {
 	return (
 		<>
 			<header>
@@ -15,11 +15,13 @@ export const CommonLayout = ({ children }: Props) => {
 			</header>
 			<main>
 				<Container maxWidth="lg">
-					<Grid container>
-						<Grid item>{children}</Grid>
+					<Grid container justifyContent="center">
+						<Grid item xs={9}>
+							{children}
+						</Grid>
 					</Grid>
 				</Container>
 			</main>
 		</>
 	);
-};
+});

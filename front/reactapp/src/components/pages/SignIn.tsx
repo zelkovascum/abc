@@ -1,10 +1,9 @@
-import { useState, useContext, MouseEvent } from "react";
+import { useState, useContext, MouseEvent, FC } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
 	Box,
 	Button,
-	CardHeader,
 	CardContent,
 	Typography,
 	TextField,
@@ -13,10 +12,11 @@ import {
 import { signIn } from "../../libs/api/auth";
 import { AlertMessage } from "../utils/AlertMessage";
 import { SignInParams } from "types";
-import { AuthContext } from 'providers/AuthProvider';
+import { AuthContext } from "providers/AuthProvider";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 // サインイン用ページ
-export const SignIn = () => {
+export const SignIn: FC = () => {
 	const navigate = useNavigate();
 
 	const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -61,14 +61,19 @@ export const SignIn = () => {
 	return (
 		<>
 			<form noValidate autoComplete="off">
-				<Card>
-					<CardHeader title="Sign In" />
+				<Card sx={{ textAlign: "center" }}>
+					<CardContent>
+						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+							Photudio
+						</Typography>
+						<CameraAltIcon sx={{ fontSize: 35 }} />
+					</CardContent>
 					<CardContent>
 						<TextField
 							variant="outlined"
 							required
 							fullWidth
-							label="Email"
+							label="メールアドレス"
 							value={email}
 							margin="dense"
 							onChange={(event) => setEmail(event.target.value)}
@@ -77,9 +82,9 @@ export const SignIn = () => {
 							variant="outlined"
 							required
 							fullWidth
-							label="Password"
+							label="パスワード"
 							type="password"
-							placeholder="At least 6 characters"
+							placeholder="最低6文字"
 							value={password}
 							margin="dense"
 							autoComplete="current-password"
@@ -94,12 +99,12 @@ export const SignIn = () => {
 							disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
 							onClick={handleSubmit}
 						>
-							Submit
+							ログイン
 						</Button>
 						<Box textAlign="center">
 							<Typography variant="body2">
-								Don't have an account? &nbsp;
-								<Link to="/signup">Sign Up now!</Link>
+								アカウントをお持ちでないですか？ &nbsp;
+								<Link to="/signup">登録する</Link>
 							</Typography>
 						</Box>
 					</CardContent>
