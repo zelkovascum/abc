@@ -25,3 +25,9 @@ export type User = {
 	created_at: Date;
 	updated_at: Date;
 };
+
+// 緯度経度
+export type LatLng = {
+	lat: number;
+	lng: number;
+};

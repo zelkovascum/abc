@@ -1,25 +1,64 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { Button, Card, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { SearchPlace } from "components/molucules/SearchPlace";
-import { MaterialUIPickers } from "components/molucules/MaterialUIPickers";
+import { DTPickers } from "components/molucules/DTPickers";
+import SendIcon from "@mui/icons-material/Send";
+import { ToGeocode } from "utils/ToGeocode";
 
 export const PostNew: FC = memo(() => {
+	const [placeInputValue, setPlaceInputValue] = useState("");
+	const [dateTimeValue, setDateTimeValue] = useState<Date | null>(null);
+	const [comment, setComment] = useState<string>("");
+
+	const OnClickSubmit = async () => {
+		const geocode = await ToGeocode(placeInputValue)
+			.then((res) => {
+				return res;
+			})
+			.catch((error) => {
+				return error;
+			});
+
+		console.log(geocode);
+		// console.log(dateTimeValue);
+		// console.log(comment);
+	};
+
 	return (
 		<form>
 			<Card sx={{ textAlign: "center" }}>
 				<Container>
 					<Box width={300} mt={1} mb={2}>
-						<SearchPlace />
+						<SearchPlace
+							placeInputValue={placeInputValue}
+							setPlaceInputValue={setPlaceInputValue}
+						/>
 					</Box>
 					<Box width={300} mb={2}>
-						<MaterialUIPickers />
+						<DTPickers
+							dateTimeValue={dateTimeValue}
+							setDateTimeValue={setDateTimeValue}
+						/>
 					</Box>
 					<Box width={300} mb={2}>
-						<TextField sx={{ width: "100%" }} label="コメント" />
+						<TextField
+							value={comment}
+							onChange={(e) => {
+								setComment(e.target.value);
+							}}
+							sx={{ width: "100%" }}
+							label="コメント"
+						/>
 					</Box>
 					<Box>
-						<Button variant="contained" component="span">
+						<Button
+							onClick={OnClickSubmit}
+							disabled={!(placeInputValue && dateTimeValue && comment)}
+							variant="contained"
+							component="span"
+							endIcon={<SendIcon />}
+						>
 							投稿
 						</Button>
 					</Box>
