@@ -1,6 +1,6 @@
 // export {};
 
-import React, { SyntheticEvent } from "react";
+import React, { FC, memo, SyntheticEvent } from "react";
 import { Alert as MuiAlert, Snackbar, AlertProps } from "@mui/material";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -18,22 +18,17 @@ type AlertMessageProps = {
 };
 
 // アラートメッセージ（何かアクションを行なった際の案内用に使い回す）
-export const AlertMessage = ({
-	open,
-	setOpen,
-	severity,
-	message,
-}: AlertMessageProps) => {
-	const handleCloseAlertMessage = (
-		e?: SyntheticEvent | Event,
-		reason?: string
-	) => {
-		if (reason === "clickaway") return;
-		setOpen(false);
-	};
+export const AlertMessage: FC<AlertMessageProps> = memo(
+	({ open, setOpen, severity, message }) => {
+		const handleCloseAlertMessage = (
+			e?: SyntheticEvent | Event,
+			reason?: string
+		) => {
+			if (reason === "clickaway") return;
+			setOpen(false);
+		};
 
-	return (
-		<>
+		return (
 			<Snackbar
 				open={open}
 				autoHideDuration={6000}
@@ -44,6 +39,6 @@ export const AlertMessage = ({
 					{message}
 				</Alert>
 			</Snackbar>
-		</>
-	);
-};
+		);
+	}
+);

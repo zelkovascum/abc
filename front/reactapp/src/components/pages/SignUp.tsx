@@ -1,20 +1,21 @@
-import { useState, useContext, MouseEvent } from "react";
+import { useState, useContext, MouseEvent, FC, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
 	Button,
 	Card,
-	CardHeader,
 	CardContent,
 	TextField,
+	Typography,
 } from "@mui/material";
 import { signUp } from "../../libs/api/auth";
 import { AlertMessage } from "../utils/AlertMessage";
 import { SignUpParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 // サインアップ用ページ
-export const SignUp = () => {
+export const SignUp: FC = memo(() => {
 	const navigate = useNavigate();
 
 	const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
@@ -64,14 +65,19 @@ export const SignUp = () => {
 	return (
 		<>
 			<form noValidate autoComplete="off">
-				<Card>
-					<CardHeader title="Sign Up" />
+				<Card sx={{ textAlign: "center", maxWidth: "500px" }}>
+					<CardContent>
+						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+							Photudio
+						</Typography>
+						<CameraAltIcon sx={{ fontSize: 35 }} />
+					</CardContent>
 					<CardContent>
 						<TextField
 							variant="outlined"
 							required
 							fullWidth
-							label="Name"
+							label="ユーザーネーム"
 							value={name}
 							margin="dense"
 							onChange={(event) => setName(event.target.value)}
@@ -80,7 +86,7 @@ export const SignUp = () => {
 							variant="outlined"
 							required
 							fullWidth
-							label="Email"
+							label="メールアドレス"
 							value={email}
 							margin="dense"
 							onChange={(event) => setEmail(event.target.value)}
@@ -89,8 +95,9 @@ export const SignUp = () => {
 							variant="outlined"
 							required
 							fullWidth
-							label="Password"
+							label="パスワード"
 							type="password"
+							placeholder="最低6文字"
 							value={password}
 							margin="dense"
 							autoComplete="current-password"
@@ -100,7 +107,8 @@ export const SignUp = () => {
 							variant="outlined"
 							required
 							fullWidth
-							label="Password Confirmation"
+							label="パスワード再入力"
+							placeholder="最低6文字"
 							type="password"
 							value={passwordConfirmation}
 							margin="dense"
@@ -120,7 +128,7 @@ export const SignUp = () => {
 							}
 							onClick={handleSubmit}
 						>
-							Submit
+							登録
 						</Button>
 					</CardContent>
 				</Card>
@@ -133,4 +141,4 @@ export const SignUp = () => {
 			/>
 		</>
 	);
-};
+});

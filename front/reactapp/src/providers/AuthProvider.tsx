@@ -1,5 +1,5 @@
 import { getCurrentUser } from "libs/api/auth";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, FC, memo, ReactNode, useEffect, useState } from "react";
 import { User } from "types";
 
 export const AuthContext = createContext(
@@ -13,7 +13,11 @@ export const AuthContext = createContext(
 	}
 );
 
-export const AuthProvider = (props: { children: ReactNode }) => {
+type Props = {
+	children: ReactNode;
+};
+
+export const AuthProvider: FC<Props> = memo((props) => {
 	const { children } = props;
 	const [loading, setLoading] = useState<boolean>(true);
 	const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
@@ -56,4 +60,4 @@ export const AuthProvider = (props: { children: ReactNode }) => {
 			{children}
 		</AuthContext.Provider>
 	);
-};
+});
