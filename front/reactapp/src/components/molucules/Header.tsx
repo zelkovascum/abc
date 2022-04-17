@@ -9,7 +9,7 @@ import {
 	IconButton,
 	// Menu,
 } from "@mui/material";
-import { signOut } from "../../libs/api/auth";
+import { signOut } from "../../utils/api/auth";
 import { AuthContext } from "providers/AuthProvider";
 
 export const Header: FC = memo(() => {

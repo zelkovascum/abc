@@ -30,7 +30,6 @@ export const Router: FC = memo(() => {
 			<Route path="map" element={<Map />} />
 			<Route path="geo" element={<Geo />} />
 			<Route path="post" element={<PostNew />} />
-			<Route path="search" element={<SearchPlace />} />
 			<Route path="/" element={<Private children={<Home />} />} />
 		</Routes>
 	);

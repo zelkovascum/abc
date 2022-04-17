@@ -17,7 +17,6 @@ type AlertMessageProps = {
 	message: string;
 };
 
-// アラートメッセージ（何かアクションを行なった際の案内用に使い回す）
 export const AlertMessage: FC<AlertMessageProps> = memo(
 	({ open, setOpen, severity, message }) => {
 		const handleCloseAlertMessage = (

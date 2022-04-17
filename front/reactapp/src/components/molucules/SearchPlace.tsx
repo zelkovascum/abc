@@ -35,10 +35,14 @@ interface PlaceType {
 	description: string;
 	structured_formatting: StructuredFormatting;
 }
+type Props = {
+	placeInputValue: string;
+	setPlaceInputValue: React.Dispatch<React.SetStateAction<string>>;
+};
 
-export const SearchPlace: React.FC = React.memo(() => {
+export const SearchPlace: React.FC<Props> = React.memo((props) => {
+	const { placeInputValue, setPlaceInputValue } = props;
 	const [value, setValue] = React.useState<PlaceType | null>(null);
-	const [inputValue, setInputValue] = React.useState("");
 	const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
 	const loaded = React.useRef(false);
 
@@ -83,12 +87,12 @@ export const SearchPlace: React.FC = React.memo(() => {
 			return undefined;
 		}
 
-		if (inputValue === "") {
+		if (placeInputValue === "") {
 			setOptions(value ? [value] : []);
 			return undefined;
 		}
 
-		fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
+		fetch({ input: placeInputValue }, (results?: readonly PlaceType[]) => {
 			if (active) {
 				let newOptions: readonly PlaceType[] = [];
 
@@ -107,7 +111,7 @@ export const SearchPlace: React.FC = React.memo(() => {
 		return () => {
 			active = false;
 		};
-	}, [value, inputValue, fetch]);
+	}, [value, placeInputValue, fetch]);
 
 	return (
 		<Autocomplete
@@ -127,7 +131,7 @@ export const SearchPlace: React.FC = React.memo(() => {
 				setValue(newValue);
 			}}
 			onInputChange={(event, newInputValue) => {
-				setInputValue(newInputValue);
+				setPlaceInputValue(newInputValue);
 			}}
 			renderInput={(params) => (
 				<TextField {...params} label="場所を追加" fullWidth />
