@@ -1,6 +1,8 @@
-import { FC, memo } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
+import { fetchPosts } from "utils/api/posts";
+import { Post } from "types";
 
 const containerStyle = {
 	width: "400px",
@@ -12,34 +14,41 @@ const center = {
 	lng: 139.7690174,
 };
 
-const positionAkiba = {
-	lat: 35.659034,
-	lng: 139.7016,
-};
-
-const markerLabelAkiba = {
-	color: "white",
-	fontFamily: "sans-serif",
-	fontSize: "15px",
-	fontWeight: "100",
-	text: "5",
-};
-
 export const Map: FC = memo(() => {
 	const navigate = useNavigate();
+	const [posts, setPosts] = useState<Post[]>();
+
+	useEffect(() => {
+		fetchPosts().then((res) => {
+			setPosts(res.posts);
+			// console.log(res.posts);
+		});
+	}, []);
 
 	return (
 		<LoadScriptNext
 			googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!}
 		>
 			<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
-				<Marker
-					position={positionAkiba}
-					label={markerLabelAkiba}
-					onClick={() => {
-						navigate("/");
-					}}
-				/>
+				{posts?.map((post) => (
+					<Marker
+						key={post.id}
+						position={{
+							lat: Number(post.lat),
+							lng: Number(post.lng),
+						}}
+						label={{
+							color: "white",
+							fontFamily: "sans-serif",
+							fontSize: "15px",
+							fontWeight: "100",
+							text: post.content,
+						}}
+						onClick={() => {
+							navigate("/");
+						}}
+					/>
+				))}
 			</GoogleMap>
 		</LoadScriptNext>
 	);
