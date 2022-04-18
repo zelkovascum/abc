@@ -8,11 +8,11 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { signUp } from "../../utils/api/auth";
-import { AlertMessage } from "../atoms/AlertMessage";
 import { SignUpParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { AlertMessage } from "components/atoms/AlertMessage";
+import { signUp } from "utils/api/auth";
 
 // サインアップ用ページ
 export const SignUp: FC = memo(() => {

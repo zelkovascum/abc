@@ -8,8 +8,8 @@ const containerStyle = {
 };
 
 const center = {
-	lat: 35.658034,
-	lng: 139.701636,
+	lat: 35.6803997,
+	lng: 139.7690174,
 };
 
 const positionAkiba = {
