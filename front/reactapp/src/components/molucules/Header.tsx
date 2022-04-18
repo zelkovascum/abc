@@ -57,6 +57,9 @@ export const Header: FC = memo(() => {
 						<Button component={Link} to="/signup" color="inherit">
 							Sign Up
 						</Button>
+						<Button component={Link} to="/post/new" color="inherit">
+							Post
+						</Button>
 					</>
 				);
 			}

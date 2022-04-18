@@ -9,7 +9,7 @@ import { ToGeocode } from "utils/ToGeocode";
 export const PostNew: FC = memo(() => {
 	const [placeInputValue, setPlaceInputValue] = useState("");
 	const [dateTimeValue, setDateTimeValue] = useState<Date | null>(null);
-	const [comment, setComment] = useState<string>("");
+	const [content, setContent] = useState<string>("");
 
 	const OnClickSubmit = async () => {
 		const geocode = await ToGeocode(placeInputValue)
@@ -21,8 +21,9 @@ export const PostNew: FC = memo(() => {
 			});
 
 		console.log(geocode);
-		// console.log(dateTimeValue);
-		// console.log(comment);
+		console.log(placeInputValue);
+		console.log(dateTimeValue);
+		console.log(content);
 	};
 
 	return (
@@ -43,9 +44,9 @@ export const PostNew: FC = memo(() => {
 					</Box>
 					<Box width={300} mb={2}>
 						<TextField
-							value={comment}
+							value={content}
 							onChange={(e) => {
-								setComment(e.target.value);
+								setContent(e.target.value);
 							}}
 							sx={{ width: "100%" }}
 							label="コメント"
@@ -54,7 +55,7 @@ export const PostNew: FC = memo(() => {
 					<Box>
 						<Button
 							onClick={OnClickSubmit}
-							disabled={!(placeInputValue && dateTimeValue && comment)}
+							disabled={!(placeInputValue && dateTimeValue && content)}
 							variant="contained"
 							component="span"
 							endIcon={<SendIcon />}
