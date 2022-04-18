@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const DTPickers: React.FC<Props> = React.memo((props) => {
-	// const [value, setValue] = React.useState<Date | null>(null);
 	const { dateTimeValue, setDateTimeValue } = props;
 
 	const handleChange = (newValue: Date | null) => {

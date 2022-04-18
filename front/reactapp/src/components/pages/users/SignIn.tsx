@@ -9,8 +9,8 @@ import {
 	TextField,
 	Card,
 } from "@mui/material";
-import { signIn } from "../../utils/api/auth";
-import { AlertMessage } from "../atoms/AlertMessage";
+import { signIn } from "../../../utils/api/auth";
+import { AlertMessage } from "../../atoms/AlertMessage";
 import { SignInParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
