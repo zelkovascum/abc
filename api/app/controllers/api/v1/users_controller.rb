@@ -6,7 +6,12 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    render json: user
+    user_list = {
+      id: user.id,
+      name: user.name,
+      email: user.email
+    }
+    render json: user_list
   end
 
   def update
@@ -23,7 +28,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
-  
+
   def user_params
     params.permit(:name)
   end

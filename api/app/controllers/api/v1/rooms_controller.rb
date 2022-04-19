@@ -3,12 +3,13 @@ class Api::V1::RoomsController < ApplicationController
 
   def index
     rooms = current_api_v1_user.rooms.order(created_at: :desc)
-    rooms_array = rooms.map do |room| {
-      id: room.id,
-      current_user: room.users.where(id: current_api_v1_user.id)[0],
-      other_user: room.users.where.not(id: current_api_v1_user.id)[0],
-      last_message: room.messages[-1]
-    }
+    rooms_array = rooms.map do |room|
+      {
+        id: room.id,
+        current_user: room.users.where(id: current_api_v1_user.id)[0],
+        other_user: room.users.where.not(id: current_api_v1_user.id)[0],
+        last_message: room.messages[-1]
+      }
     end
     render json: rooms_array
   end
