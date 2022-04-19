@@ -13,6 +13,7 @@ export const Home: FC = memo(() => {
 					<Avatar alt={currentUser?.name} src="" />
 					<p>Email: {currentUser?.email}</p>
 					<p>Name: {currentUser?.name}</p>
+					<p>id: {currentUser?.id}</p>
 				</>
 			) : (
 				<p>Not signed in</p>
