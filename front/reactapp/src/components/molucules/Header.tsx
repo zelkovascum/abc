@@ -9,8 +9,8 @@ import {
 	IconButton,
 	// Menu,
 } from "@mui/material";
-import { signOut } from "../../utils/api/auth";
 import { AuthContext } from "providers/AuthProvider";
+import { signOut } from "utils/api/auth";
 
 export const Header: FC = memo(() => {
 	const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
@@ -47,6 +47,9 @@ export const Header: FC = memo(() => {
 					<>
 						<Button component={Link} to="/posts/new" color="inherit">
 							PostaNew
+						</Button>
+						<Button component={Link} to="/rooms" color="inherit">
+							DM
 						</Button>
 						<Button color="inherit" onClick={handleSignOut}>
 							Sign out

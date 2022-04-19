@@ -7,6 +7,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Map } from "components/pages/Map";
 import { PostsNew } from "../components/pages/posts/PostsNew";
 import { PostsIndex } from "components/pages/posts/PostsIndex";
+import { Rooms } from "components/pages/rooms/Rooms";
+import { Room } from "components/pages/rooms/Room";
+import { Profile } from "components/pages/users/Profile";
 
 export const Router: FC = memo(() => {
 	const { loading, isSignedIn } = useContext(AuthContext);
@@ -29,6 +32,9 @@ export const Router: FC = memo(() => {
 			<Route path="map" element={<Map />} />
 			<Route path="posts/new" element={<PostsNew />} />
 			<Route path="posts" element={<PostsIndex />} />
+			<Route path="rooms" element={<Rooms />} />
+			<Route path="rooms/:id" element={<Room />} />
+			<Route path="user/:id" element={<Profile />} />
 			<Route path="/" element={<Private children={<Home />} />} />
 		</Routes>
 	);

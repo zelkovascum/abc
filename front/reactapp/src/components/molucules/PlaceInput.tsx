@@ -40,7 +40,7 @@ type Props = {
 	setPlaceInputValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SearchPlace: React.FC<Props> = React.memo((props) => {
+export const PlaceInput: React.FC<Props> = React.memo((props) => {
 	const { placeInputValue, setPlaceInputValue } = props;
 	const [value, setValue] = React.useState<PlaceType | null>(null);
 	const [options, setOptions] = React.useState<readonly PlaceType[]>([]);

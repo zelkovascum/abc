@@ -1,5 +1,5 @@
-import { getCurrentUser } from "utils/api/auth";
 import { createContext, FC, memo, ReactNode, useEffect, useState } from "react";
+import { getCurrentUser } from "utils/api/auth";
 import { User } from "types";
 
 export const AuthContext = createContext(

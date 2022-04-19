@@ -1,5 +1,3 @@
-// export {};
-
 import React, { FC, memo, SyntheticEvent } from "react";
 import { Alert as MuiAlert, Snackbar, AlertProps } from "@mui/material";
 

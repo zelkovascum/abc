@@ -1,7 +1,8 @@
 import { FC, memo, useEffect, useState } from "react";
 import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
-import { fetchPosts } from "utils/api/posts";
+// import { fetchPosts } from "utils/api/post";
+import { getAllPosts } from "utils/api/post";
 import { Post } from "types";
 
 const containerStyle = {
@@ -18,10 +19,14 @@ export const Map: FC = memo(() => {
 	const navigate = useNavigate();
 	const [posts, setPosts] = useState<Post[]>();
 
+	// useEffect(() => {
+	// 	fetchPosts().then((res) => {
+	// 		setPosts(res.posts);
+	// 	});
+	// }, []);
 	useEffect(() => {
-		fetchPosts().then((res) => {
-			setPosts(res.posts);
-			// console.log(res.posts);
+		getAllPosts().then((res) => {
+			setPosts(res.data);
 		});
 	}, []);
 

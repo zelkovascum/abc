@@ -6,18 +6,18 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 type Props = {
-	dateTimeValue: Date | null;
-	setDateTimeValue: React.Dispatch<React.SetStateAction<Date | null>>;
+	dateTimeInputValue: Date | null;
+	setDateTimeInputValue: React.Dispatch<React.SetStateAction<Date | null>>;
 };
 
-export const DTPickers: React.FC<Props> = React.memo((props) => {
-	const { dateTimeValue, setDateTimeValue } = props;
+export const DateTimeInput: React.FC<Props> = React.memo((props) => {
+	const { dateTimeInputValue, setDateTimeInputValue } = props;
 
 	const handleChange = (newValue: Date | null) => {
-		setDateTimeValue(newValue);
+		setDateTimeInputValue(newValue);
 	};
 
-	console.log(dateTimeValue);
+	console.log(dateTimeInputValue);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -25,7 +25,7 @@ export const DTPickers: React.FC<Props> = React.memo((props) => {
 				<DateTimePicker
 					label="時間を選択"
 					inputFormat="yyyy/MM/dd hh:mm"
-					value={dateTimeValue}
+					value={dateTimeInputValue}
 					onChange={handleChange}
 					renderInput={(params) => <TextField {...params} />}
 				/>
