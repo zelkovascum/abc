@@ -2,19 +2,19 @@ import Cookies from "js-cookie";
 import { SignInParams, SignUpParams } from "types";
 import { client } from "./client";
 
-// サインアップ（新規アカウント作成）
+// サインアップ
 export const signUp = (params: SignUpParams) => {
-	return client.post("auth", params);
+	return client.post("/auth", params);
 };
 
-// サインイン（ログイン）
+// サインイン
 export const signIn = (params: SignInParams) => {
-	return client.post("auth/sign_in", params);
+	return client.post("/auth/sign_in", params);
 };
 
-// サインアウト（ログアウト）
+// サインアウト
 export const signOut = () => {
-	return client.delete("auth/sign_out", {
+	return client.delete("/auth/sign_out", {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
 			"client": Cookies.get("_client") || "",

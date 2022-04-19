@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
       resources :posts
 
-      resources :rooms, only: %i[show index] do
+      # resources :rooms, only: %i[show index] do
+      resources :rooms, only: %i[show index create] do
         member do
           resources :messages, only: %i[create]
         end

@@ -28,19 +28,36 @@ export type User = {
 
 // 投稿
 export type Post = {
-	content: string;
-	created_at: number;
-	date_time: number;
 	id: number;
+	user: {
+		id: number;
+		name: string;
+		email: string;
+	};
 	lat: number;
 	lng: number;
 	place: string;
-	updated_at: Date;
-	user_id: number;
+	date_time: Date;
+	content: string;
 };
 
 // 緯度経度
 export type LatLng = {
 	lat: number;
 	lng: number;
+};
+
+// DM部屋
+export type Room = {
+	id: number;
+	currentUser: User;
+	otherUser: User;
+	lastMessage: Message;
+};
+
+// メッセージ
+export type Message = {
+	id: number;
+	content: string;
+	userId: number;
 };
