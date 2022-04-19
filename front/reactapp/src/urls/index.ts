@@ -1,10 +1,15 @@
 const DEFAULT_API_LOCALHOST = "http://localhost:3000/api/v1";
 
+// GET
 export const postsIndex = `${DEFAULT_API_LOCALHOST}/posts`;
+// POST
 export const postsCreate = `${DEFAULT_API_LOCALHOST}/posts`;
-
-// export const foodsIndex = (restaurantId) =>
-// 	`${DEFAULT_API_LOCALHOST}/restaurants/${restaurantId}/foods`;
-// export const lineFoods = `${DEFAULT_API_LOCALHOST}/line_foods`;
-// export const lineFoodsReplace = `${DEFAULT_API_LOCALHOST}/line_foods/replace`;
-// export const orders = `${DEFAULT_API_LOCALHOST}/orders`;
+// GET
+export const postsShow = (postId: number) =>
+	`${DEFAULT_API_LOCALHOST}/posts/${postId}`;
+// PATCH
+// export const postsUpdate = (postId: number) =>
+// 	`${DEFAULT_API_LOCALHOST}/posts/${postId}`;
+// DELETE
+export const postsDestroy = (postId: number) =>
+	`${DEFAULT_API_LOCALHOST}/posts/${postId}`;

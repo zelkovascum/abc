@@ -44,9 +44,14 @@ export const Header: FC = memo(() => {
 		if (!loading) {
 			if (isSignedIn) {
 				return (
-					<Button color="inherit" onClick={handleSignOut}>
-						Sign out
-					</Button>
+					<>
+						<Button component={Link} to="/posts/new" color="inherit">
+							PostaNew
+						</Button>
+						<Button color="inherit" onClick={handleSignOut}>
+							Sign out
+						</Button>
+					</>
 				);
 			} else {
 				return (
@@ -56,15 +61,6 @@ export const Header: FC = memo(() => {
 						</Button>
 						<Button component={Link} to="/signup" color="inherit">
 							Sign Up
-						</Button>
-						<Button component={Link} to="/posts/new" color="inherit">
-							Post
-						</Button>
-						<Button component={Link} to="/posts" color="inherit">
-							Postindex
-						</Button>
-						<Button component={Link} to="/map" color="inherit">
-							map
 						</Button>
 					</>
 				);
@@ -82,8 +78,14 @@ export const Header: FC = memo(() => {
 						{/* <Menu /> */}
 					</IconButton>
 					<Typography component={Link} to="/" variant="h6">
-						Sample
+						Mypage
 					</Typography>
+					<Button component={Link} to="/posts" color="inherit">
+						Postindex
+					</Button>
+					<Button component={Link} to="/map" color="inherit">
+						map
+					</Button>
 					<AuthButtons />
 				</Toolbar>
 			</AppBar>

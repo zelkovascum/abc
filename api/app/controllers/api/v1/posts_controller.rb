@@ -36,6 +36,6 @@ class Api::V1::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:lat, :lng, :place, :date_time, :content)
+    params.permit(:user_id, :lat, :lng, :place, :date_time, :content)
   end
 end
