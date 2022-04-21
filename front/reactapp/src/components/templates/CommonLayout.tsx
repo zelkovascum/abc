@@ -1,6 +1,6 @@
 import { Container, Grid } from "@mui/material";
 import { FC, memo, ReactElement } from "react";
-import { Header } from "../molucules/Header";
+import { Header } from "../organisms/Header";
 
 type Props = {
 	children: ReactElement;

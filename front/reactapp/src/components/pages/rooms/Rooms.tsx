@@ -12,7 +12,7 @@ export const Rooms: FC = memo(() => {
 
 	const onClickDetailRoom = useCallback(
 		(id: number) => {
-			navigate(`/room/${id}`);
+			navigate(`/rooms/${id}`);
 		},
 		[navigate]
 	);

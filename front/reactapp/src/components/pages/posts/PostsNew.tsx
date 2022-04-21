@@ -127,6 +127,7 @@ export const PostsNew: FC = memo(() => {
 			console.log(e);
 		}
 	};
+
 	return (
 		<Box width="100%" height="100%" p="40px">
 			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
@@ -144,34 +145,34 @@ export const PostsNew: FC = memo(() => {
 					textAlign: "center",
 				}}
 			>
-				<form>
-					<Stack spacing={4}>
-						<PlaceInput
-							placeInputValue={placeInputValue}
-							setPlaceInputValue={setPlaceInputValue}
-						/>
-						<DateTimeInput
-							dateTimeInputValue={dateTimeInputValue}
-							setDateTimeInputValue={setDateTimeInputValue}
-						/>
-						<Input
-							placeholder="content"
-							// value={contentInputValue.content}
-							value={contentInputValue}
-							onChange={(e) => handleChange(e)}
-							type="text"
-							name="content"
-						/>
-						<Button
-							// bg="teal"
-							// color="white"
-							type="submit"
-							onClick={(e) => handleSubmit(e)}
-						>
-							投稿
-						</Button>
-					</Stack>
-				</form>
+				{/* <form> */}
+				<Stack spacing={4}>
+					<PlaceInput
+						placeInputValue={placeInputValue}
+						setPlaceInputValue={setPlaceInputValue}
+					/>
+					<DateTimeInput
+						dateTimeInputValue={dateTimeInputValue}
+						setDateTimeInputValue={setDateTimeInputValue}
+					/>
+					<Input
+						placeholder="content"
+						// value={contentInputValue.content}
+						value={contentInputValue}
+						onChange={(e) => handleChange(e)}
+						type="text"
+						name="content"
+					/>
+					<Button
+						// bg="teal"
+						// color="white"
+						type="submit"
+						onClick={(e) => handleSubmit(e)}
+					>
+						投稿
+					</Button>
+				</Stack>
+				{/* </form> */}
 			</Box>
 		</Box>
 	);

@@ -48,7 +48,7 @@ import { getAllPosts } from "utils/api/post";
 // 	);
 // });
 
-export const PostsIndex: FC = memo(() => {
+export const Home: FC = memo(() => {
 	const [posts, setPosts] = useState<Post[]>([]);
 
 	const navigate = useNavigate();
@@ -77,6 +77,7 @@ export const PostsIndex: FC = memo(() => {
 	useEffect(() => {
 		handleGetAllPosts();
 	}, []);
+  
 	return (
 		<Box p="40px">
 			<Typography sx={{ as: "h1", textAlign: "center", mb: "16px" }}>
@@ -96,14 +97,12 @@ export const PostsIndex: FC = memo(() => {
 							}}
 						>
 							<Box textAlign="center">
-								{/* <Typography
-                onClick={() => onClickDetailPost(post.id)}
-                sx={{color:"teal",
-                fontWeight:"bold",
-                fontSize:"24px"}}
-                >
-                  {post.content}
-                </Typography> */}
+								<Typography
+									// onClick={() => onClickDetailPost(post.id)}
+									sx={{ color: "teal", fontWeight: "bold", fontSize: "24px" }}
+								>
+									{post.content}
+								</Typography>
 								<Box onClick={() => onClickProfile(post.user.id)}>
 									<Typography>{post.user.name}</Typography>
 									<Typography>{post.user.email}</Typography>
