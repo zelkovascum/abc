@@ -11,14 +11,14 @@ import {
 import { SignUpParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { AlertMessage } from "components/atoms/AlertMessage";
+import { AlertMessage } from "components/molucules/AlertMessage";
 import { signUp } from "utils/api/auth";
 
 // サインアップ用ページ
 export const SignUp: FC = memo(() => {
 	const navigate = useNavigate();
 
-	const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
@@ -47,7 +47,7 @@ export const SignUp: FC = memo(() => {
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
 
-				setIsSignedIn(true);
+				setIsSignIn(true);
 				setCurrentUser(res.data.data);
 
 				navigate("/");

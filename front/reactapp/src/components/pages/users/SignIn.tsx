@@ -9,7 +9,7 @@ import {
 	TextField,
 	Card,
 } from "@mui/material";
-import { AlertMessage } from "../../atoms/AlertMessage";
+import { AlertMessage } from "../../molucules/AlertMessage";
 import { SignInParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -19,7 +19,7 @@ import { signIn } from "utils/api/auth";
 export const SignIn: FC = () => {
 	const navigate = useNavigate();
 
-	const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
@@ -43,7 +43,7 @@ export const SignIn: FC = () => {
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
 
-				setIsSignedIn(true);
+				setIsSignIn(true);
 				setCurrentUser(res.data.data);
 
 				navigate("/");

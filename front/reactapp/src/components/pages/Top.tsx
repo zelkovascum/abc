@@ -1,5 +1,9 @@
 import { FC, memo } from "react";
 
 export const Top: FC = memo(() => {
-	return <></>;
+	return (
+		<>
+			<p>photudio...</p>
+		</>
+	);
 });

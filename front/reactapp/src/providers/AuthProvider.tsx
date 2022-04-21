@@ -6,8 +6,8 @@ export const AuthContext = createContext(
 	{} as {
 		loading: boolean;
 		setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-		isSignedIn: boolean;
-		setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+		isSignIn: boolean;
+		setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
 		currentUser: User | undefined;
 		setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	}
@@ -20,7 +20,7 @@ type Props = {
 export const AuthProvider: FC<Props> = memo((props) => {
 	const { children } = props;
 	const [loading, setLoading] = useState<boolean>(true);
-	const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+	const [isSignIn, setIsSignIn] = useState<boolean>(false);
 	const [currentUser, setCurrentUser] = useState<User | undefined>();
 
 	// 認証済みのユーザーがいるかどうかチェック
@@ -29,7 +29,7 @@ export const AuthProvider: FC<Props> = memo((props) => {
 		try {
 			const res = await getCurrentUser();
 			if (res?.data.isLogin === true) {
-				setIsSignedIn(true);
+				setIsSignIn(true);
 				setCurrentUser(res?.data.data);
 				console.log(res?.data.data);
 			} else {
@@ -51,8 +51,8 @@ export const AuthProvider: FC<Props> = memo((props) => {
 			value={{
 				loading,
 				setLoading,
-				isSignedIn,
-				setIsSignedIn,
+				isSignIn,
+				setIsSignIn,
 				currentUser,
 				setCurrentUser,
 			}}

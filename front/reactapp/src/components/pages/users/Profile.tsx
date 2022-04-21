@@ -6,7 +6,7 @@ import { createRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
 
 export const Profile: FC = memo(() => {
-	const { currentUser } = useContext<any>(AuthContext);
+	const { currentUser } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 	const [user, setUser] = useState({
@@ -76,7 +76,7 @@ export const Profile: FC = memo(() => {
 						{user?.name}
 					</Typography>
 					<Typography textAlign="center">{user?.email}</Typography>
-					{user?.id === currentUser.id ? (
+					{user?.id === currentUser?.id ? (
 						<Typography textAlign="center">現在のユーザーです</Typography>
 					) : (
 						<>
