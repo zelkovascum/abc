@@ -31,7 +31,7 @@ export const Room: FC = memo(() => {
 	const handleSubmit = async (id: string, e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		try {
-			const res = await createMessage(id, { content: content });
+			await createMessage(id, { content: content });
 			handleGetDetailRoom(id);
 		} catch (e) {
 			console.error(e);

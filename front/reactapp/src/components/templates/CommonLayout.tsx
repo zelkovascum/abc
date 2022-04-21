@@ -6,18 +6,14 @@ import { Header } from "../organisms/Header";
 export const CommonLayout: FC = memo(() => {
 	return (
 		<>
-			<header>
-				<Header />
-			</header>
-			<main>
-				<Container maxWidth="lg">
-					<Grid container justifyContent="center">
-						<Grid item xs={9}>
-							<Outlet />
-						</Grid>
+			<Header />
+			<Container maxWidth="lg">
+				<Grid container justifyContent="center">
+					<Grid item xs={9}>
+						<Outlet />
 					</Grid>
-				</Container>
-			</main>
+				</Grid>
+			</Container>
 		</>
 	);
 });

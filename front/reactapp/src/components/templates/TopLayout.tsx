@@ -6,19 +6,16 @@ import { Top } from "components/pages/Top";
 export const TopLayout: FC = memo(() => {
 	return (
 		<>
-			<header>{/* <Header /> */}</header>
-			<main>
-				<Container maxWidth="lg">
-					<Grid container justifyContent="center">
-						<Grid item xs={6}>
-							<Top />
-						</Grid>
-						<Grid item xs={6}>
-							<Outlet />
-						</Grid>
+			<Container maxWidth="lg">
+				<Grid container justifyContent="center">
+					<Grid item xs={6}>
+						<Top />
 					</Grid>
-				</Container>
-			</main>
+					<Grid item xs={6}>
+						<Outlet />
+					</Grid>
+				</Grid>
+			</Container>
 		</>
 	);
 });
