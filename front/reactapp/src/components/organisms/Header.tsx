@@ -46,16 +46,19 @@ export const Header: FC = memo(() => {
 	};
 
 	return (
-		<AppBar position="static">
-			<Toolbar>
-				<IconButton component={Link} to="/" color="inherit">
-					<HomeIcon name="home" />
-				</IconButton>
-				<IconButton component={Link} to="/map" color="inherit">
-					<LocationOnIcon name="map" />
-				</IconButton>
-				<BarButtons />
-			</Toolbar>
-		</AppBar>
+		<>
+			<AppBar>
+				<Toolbar>
+					<IconButton component={Link} to="/" color="inherit">
+						<HomeIcon name="home" />
+					</IconButton>
+					<IconButton component={Link} to="/map" color="inherit">
+						<LocationOnIcon name="map" />
+					</IconButton>
+					<BarButtons />
+				</Toolbar>
+			</AppBar>
+			<Toolbar />
+		</>
 	);
 });
