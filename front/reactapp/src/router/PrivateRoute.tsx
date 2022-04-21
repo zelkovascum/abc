@@ -1,8 +1,8 @@
-import { memo, useContext } from "react";
+import { FC, memo, useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "providers/AuthProvider";
 
-export const PrivateRoute = memo(() => {
+export const PrivateRoute: FC = memo(() => {
 	const { loading, isSignIn } = useContext(AuthContext);
 
 	if (!loading) {
