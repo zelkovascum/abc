@@ -15,21 +15,21 @@ class Api::V1::RoomsController < ApplicationController
   end
 
   def create
-    isRoom = false
-    my_entry = Entry.where(user_id: current_api_v1_user.id)
-    other_entry = Entry.where(user_id: params[:id])
-    my_entry.each do |me|
-      other_entry.each do |oe|
+    is_room_exist = false
+    my_entries = Entry.where(user_id: current_api_v1_user.id)
+    other_entries = Entry.where(user_id: params[:id])
+    my_entries.each do |me|
+      other_entries.each do |oe|
         if me.room_id == oe.room_id
-          isRoom = true
+          is_room_exist = true
         end
       end
     end
-    if isRoom
-      my_entry = Entry.where(user_id: current_api_v1_user.id)
-      other_entry = Entry.where(user_id: params[:id])
-      my_entry.each do |me|
-        other_entry.each do |oe|
+    if is_room_exist
+      my_entries = Entry.where(user_id: current_api_v1_user.id)
+      other_entries = Entry.where(user_id: params[:id])
+      my_entries.each do |me|
+        other_entries.each do |oe|
           if me.room_id == oe.room_id
             room = Room.find_by(id: me.room_id)
             render json: room

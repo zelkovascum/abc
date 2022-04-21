@@ -1,7 +1,5 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import { Post } from "types";
-import { postsIndex, postsCreate } from "../../urls/index";
 import { client } from "./client";
 
 // export const fetchPosts = () => {
@@ -52,7 +50,7 @@ export const getAllPosts = () => {
 // };
 
 export const createPost = (
-	params: Pick<Post, "lat" | "lng" | "place" | "date_time" | "content">
+	params: Pick<Post, "lat" | "lng" | "place" | "dateTime" | "content">
 ) => {
 	return client.post("/posts", params, {
 		headers: {

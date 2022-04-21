@@ -7,31 +7,27 @@ import { getDetailUser } from "utils/api/user";
 
 export const Profile: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
-
-	const navigate = useNavigate();
 	const [user, setUser] = useState({
 		id: 0,
 		name: "",
 		email: "",
 	});
+	const navigate = useNavigate();
+	const { id } = useParams();
 
-	const query = useParams();
-
-	const handleGetDetailUser = async (query: any) => {
+	const handleGetDetailUser = async (id: string) => {
 		try {
-			const res = await getDetailUser(query.id);
-			console.log(res.data);
+			const res = await getDetailUser(id);
 			setUser({
 				id: res.data.id,
 				name: res.data.name,
 				email: res.data.email,
 			});
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
-	// ルーム機能API
 	const handleCreateRoom = async (
 		e: React.MouseEvent<HTMLButtonElement>,
 		id: number
@@ -39,17 +35,17 @@ export const Profile: FC = memo(() => {
 		e.preventDefault();
 		try {
 			const res = await createRoom(id);
-			console.log(res);
 			// navigate(`/room/${res.data.id}`);
 			navigate(`/rooms/${res.data.id}`);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
 	useEffect(() => {
-		handleGetDetailUser(query);
-	}, [query]);
+		handleGetDetailUser(id!);
+	}, [id]);
+
 	return (
 		<Box width="100%" height="100%" p="40px">
 			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>

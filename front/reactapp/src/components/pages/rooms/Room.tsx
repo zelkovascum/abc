@@ -1,5 +1,5 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from "react";
-import { Box, Button, Grid, Input, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Message, User } from "types";
 import { getDetailRoom } from "utils/api/room";
@@ -9,53 +9,51 @@ export const Room: FC = memo(() => {
 	const [otherUser, setOtherUser] = useState<User>();
 	const [messages, setMessages] = useState<Message[]>();
 	const [content, setContent] = useState<string>("");
+	const { id } = useParams();
 
 	// スクロール位置指定
 	const messageBox = useRef<HTMLDivElement>(null);
 
-	const query = useParams();
-
-	const handleGetDetailRoom = async (query: any) => {
+	const handleGetDetailRoom = async (id: any) => {
 		try {
-			const res = await getDetailRoom(query.id);
-			console.log(res.data);
+			const res = await getDetailRoom(id);
 			setOtherUser(res.data.otherUser);
 			setMessages(res.data.messages);
 			if (messageBox.current) {
 				messageBox.current.scrollTop = messageBox.current.scrollHeight + 16;
+				messageBox.current.scrollIntoView();
 			}
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
-	const handleSubmit = async (query: any, e: MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = async (id: string, e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		try {
-			const res = await createMessage(query.id, { content: content });
-			console.log(res.data);
-			handleGetDetailRoom(query);
+			const res = await createMessage(id, { content: content });
+			handleGetDetailRoom(id);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 		setContent("");
 	};
 
 	useEffect(() => {
-		handleGetDetailRoom(query);
-	}, [query]);
+		handleGetDetailRoom(id);
+	}, [id]);
 
 	return (
-		<Box width="100%" height="100%" p="40px">
-			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
+		<Box width="100%" height="100%">
+			{/* <Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
 				DM詳細
-			</Typography>
+			</Typography> */}
 			<Box
 				sx={{
 					textAlign: "center",
 					mx: "auto",
 					width: "500px",
-					height: "20%",
+					height: "10%",
 					p: "16px",
 					bg: "white",
 					mb: "16px",
@@ -71,7 +69,7 @@ export const Room: FC = memo(() => {
 			<Box
 				ref={messageBox}
 				sx={{
-					width: "500px",
+					width: "100%",
 					height: "500px",
 					bg: "white",
 					mx: "auto",
@@ -83,38 +81,41 @@ export const Room: FC = memo(() => {
 				{messages?.map((message) => (
 					<Box key={message.id} p="16px">
 						<Grid
+							container
 							justifyContent={
 								message.userId === otherUser?.id ? "flex-start" : "flex-end"
 							}
 						>
-							<Typography
-								color={message.userId === otherUser?.id ? "teal" : "red"}
-							>
-								{`${
-									message.userId === otherUser?.id ? otherUser?.name : "自分"
-								}:${message.content}`}
-							</Typography>
+							<Grid item>
+								<Typography
+									color={message.userId === otherUser?.id ? "teal" : "red"}
+								>
+									{`${
+										message.userId === otherUser?.id ? otherUser?.name : "自分"
+									}:${message.content}`}
+								</Typography>
+							</Grid>
 						</Grid>
 					</Box>
 				))}
 			</Box>
 			<Box sx={{ width: "500px", mx: "auto", bg: "teal", p: "16px" }}>
-				<form>
-					<Grid>
-						<Input
-							placeholder="content"
-							type="text"
-							name="content"
-							id="content"
-							color="primary"
-							value={content}
-							onChange={(e) => setContent(e.target.value)}
-						/>
-						<Button type="submit" onClick={(e) => handleSubmit(query, e)}>
-							送信
-						</Button>
-					</Grid>
-				</form>
+				{/* <form> */}
+				<Grid>
+					<TextField
+						placeholder="content"
+						type="text"
+						name="content"
+						id="content"
+						color="primary"
+						value={content}
+						onChange={(e) => setContent(e.target.value)}
+					/>
+					<Button type="submit" onClick={(e) => handleSubmit(id!, e)}>
+						送信
+					</Button>
+				</Grid>
+				{/* </form> */}
 			</Box>
 		</Box>
 	);

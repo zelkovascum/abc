@@ -15,14 +15,13 @@ import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { signIn } from "utils/api/auth";
 
-// サインイン用ページ
 export const SignIn: FC = () => {
 	const navigate = useNavigate();
 
 	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [email, setEmail] = useState<string>("test@example.com");
+	const [password, setPassword] = useState<string>("password");
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -52,8 +51,8 @@ export const SignIn: FC = () => {
 			} else {
 				setIsAlertMessageOpen(true);
 			}
-		} catch (err) {
-			console.log(err);
+		} catch (e) {
+			console.error(e);
 			setIsAlertMessageOpen(true);
 		}
 	};
@@ -96,7 +95,7 @@ export const SignIn: FC = () => {
 							size="large"
 							fullWidth
 							color="primary"
-							disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
+							disabled={!(email && password)}
 							onClick={handleSubmit}
 						>
 							ログイン
@@ -110,11 +109,11 @@ export const SignIn: FC = () => {
 					</CardContent>
 				</Card>
 			</form>
-			<AlertMessage // エラーが発生した場合はアラートを表示
+			<AlertMessage
 				open={isAlertMessageOpen}
 				setOpen={setIsAlertMessageOpen}
 				severity="error"
-				message="Invalid emai or password"
+				message="メールアドレスまたはパスワードが無効です"
 			/>
 		</>
 	);
