@@ -31,12 +31,11 @@ export const AuthProvider: FC<Props> = memo((props) => {
 			if (res?.data.isLogin === true) {
 				setIsSignIn(true);
 				setCurrentUser(res?.data.data);
-				console.log(res?.data.data);
 			} else {
-				console.log("No current user");
+				console.log("No exist current user");
 			}
-		} catch (err) {
-			console.log(err);
+		} catch (e) {
+			console.error(e);
 		}
 
 		setLoading(false);

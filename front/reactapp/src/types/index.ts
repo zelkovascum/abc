@@ -37,7 +37,21 @@ export type Post = {
 	lat: number;
 	lng: number;
 	place: string;
-	date_time: Date;
+	dateTime: Date;
+	content: string;
+};
+
+export type OutputPost = {
+	id: number;
+	user: {
+		id: number;
+		name: string;
+		email: string;
+	};
+	lat: number;
+	lng: number;
+	place: string;
+	dateTime: string;
 	content: string;
 };
 

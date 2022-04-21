@@ -14,7 +14,6 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { AlertMessage } from "components/molucules/AlertMessage";
 import { signUp } from "utils/api/auth";
 
-// サインアップ用ページ
 export const SignUp: FC = memo(() => {
 	const navigate = useNavigate();
 
@@ -41,8 +40,7 @@ export const SignUp: FC = memo(() => {
 			console.log(res);
 
 			if (res.status === 200) {
-				// アカウント作成と同時にログインさせてしまう
-				// 本来であればメール確認などを挟むべきだが、今回はサンプルなので
+				// アカウント作成と同時にログイン
 				Cookies.set("_access_token", res.headers["access-token"]);
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
@@ -56,8 +54,8 @@ export const SignUp: FC = memo(() => {
 			} else {
 				setIsAlertMessageOpen(true);
 			}
-		} catch (err) {
-			console.log(err);
+		} catch (e) {
+			console.error(e);
 			setIsAlertMessageOpen(true);
 		}
 	};
@@ -121,11 +119,7 @@ export const SignUp: FC = memo(() => {
 							size="large"
 							fullWidth
 							color="primary"
-							disabled={
-								!name || !email || !password || !passwordConfirmation
-									? true
-									: false
-							}
+							disabled={!(name && email && password && passwordConfirmation)}
 							onClick={handleSubmit}
 						>
 							登録
@@ -133,11 +127,11 @@ export const SignUp: FC = memo(() => {
 					</CardContent>
 				</Card>
 			</form>
-			<AlertMessage // エラーが発生した場合はアラートを表示
+			<AlertMessage
 				open={isAlertMessageOpen}
 				setOpen={setIsAlertMessageOpen}
 				severity="error"
-				message="Invalid emai or password"
+				message="メールアドレスまたはパスワードが無効です"
 			/>
 		</>
 	);

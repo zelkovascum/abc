@@ -1,18 +1,9 @@
-import {
-	FC,
-	memo,
-	// useCallback,
-	// useContext,
-	useEffect,
-	// useReducer,
-	useState,
-} from "react";
-import { Box, Grid, Typography } from "@mui/material";
-// import { postsInitState, postsReducer } from "reducers/posts";
-import { Post } from "types";
-// import { fetchPosts } from "utils/api/posts";
+import { FC, memo, useEffect, useState } from "react";
+import { Box, Card, Grid, Typography } from "@mui/material";
+import { OutputPost } from "types";
 import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
+import { transformDateTime, transformPlace } from "utils/transformForRead";
 
 // export const PostsIndex: FC = memo(() => {
 // 	const [postsState, dispatch] = useReducer(postsReducer, postsInitState);
@@ -49,7 +40,7 @@ import { getAllPosts } from "utils/api/post";
 // });
 
 export const Home: FC = memo(() => {
-	const [posts, setPosts] = useState<Post[]>([]);
+	const [posts, setPosts] = useState<OutputPost[]>([]);
 
 	const navigate = useNavigate();
 
@@ -61,7 +52,7 @@ export const Home: FC = memo(() => {
 	// );
 
 	const onClickProfile = (id: number) => {
-		navigate(`/user/${id}`);
+		navigate(`/users/${id}`);
 	};
 
 	const handleGetAllPosts = async () => {
@@ -70,45 +61,48 @@ export const Home: FC = memo(() => {
 			console.log(res.data);
 			setPosts(res.data);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
 	useEffect(() => {
 		handleGetAllPosts();
 	}, []);
-  
+
 	return (
 		<Box p="40px">
-			<Typography sx={{ as: "h1", textAlign: "center", mb: "16px" }}>
+			{/* <Typography sx={{ as: "h1", textAlign: "center", mb: "16px" }}>
 				投稿一覧ページ
-			</Typography>
-			<Grid>
+			</Typography> */}
+			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{posts.map((post) => (
 					<Grid item key={post.id}>
-						<Box
+						<Card
 							sx={{
-								width: "180px",
-								height: "180px",
+								height: "220px",
 								bg: "white",
 								borderRadius: "md",
 								shadow: "md",
 								cursor: "pointer",
 							}}
 						>
-							<Box textAlign="center">
-								<Typography
-									// onClick={() => onClickDetailPost(post.id)}
-									sx={{ color: "teal", fontWeight: "bold", fontSize: "24px" }}
-								>
+							<Box onClick={() => onClickProfile(post.user.id)}>
+								<Typography>{post.user.name}</Typography>
+							</Box>
+							<Box
+							//  onClick={() => onClickDetailPost(post.id)}
+							>
+								<Typography sx={{ color: "teal", fontSize: "16px" }}>
+									{transformPlace(post.place)}
+								</Typography>
+								<Typography sx={{ color: "teal", fontSize: "16px" }}>
+									{transformDateTime(post.dateTime)}
+								</Typography>
+								<Typography sx={{ color: "teal", fontSize: "16px" }}>
 									{post.content}
 								</Typography>
-								<Box onClick={() => onClickProfile(post.user.id)}>
-									<Typography>{post.user.name}</Typography>
-									<Typography>{post.user.email}</Typography>
-								</Box>
 							</Box>
-						</Box>
+						</Card>
 					</Grid>
 				))}
 			</Grid>

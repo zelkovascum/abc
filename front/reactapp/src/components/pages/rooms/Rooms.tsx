@@ -10,25 +10,21 @@ export const Rooms: FC = memo(() => {
 	const [rooms, setRooms] = useState<Room[]>();
 	const navigate = useNavigate();
 
+	const handleGetAllRooms = async () => {
+		try {
+			const res = await getAllRooms();
+			setRooms(res.data);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
 	const onClickDetailRoom = useCallback(
 		(id: number) => {
 			navigate(`/rooms/${id}`);
 		},
 		[navigate]
 	);
-
-	// ルーム一覧API
-	const handleGetAllRooms = async () => {
-		try {
-			const res = await getAllRooms();
-			setRooms(res.data);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	// 最後のメッセージが新しいルーム順
-	rooms?.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id);
 
 	useEffect(() => {
 		handleGetAllRooms();
@@ -40,39 +36,41 @@ export const Rooms: FC = memo(() => {
 				DM一覧
 			</Typography>
 			<Grid>
-				{rooms?.map((room) => (
-					<Grid item key={room.id}>
-						<Box
-							sx={{
-								width: "240px",
-								height: "240px",
-								bg: "white",
-								borderRadius: "md",
-								shadow: "md",
-								cursor: "pointer",
-								p: "16px",
-							}}
-							onClick={() => onClickDetailRoom(room.id)}
-						>
-							<Box textAlign="center">
-								<Typography
-									sx={{ fontWeight: "bold", fontSize: "24px", color: "teal" }}
-								>
-									{room.otherUser.name}
-								</Typography>
-								<Typography>
-									{room.lastMessage === null
-										? "まだメッセージがありません"
-										: `${
-												room.lastMessage.userId === currentUser!.id
-													? `自分：${room.lastMessage.content}`
-													: `${room.otherUser.name}:${room.lastMessage.content}`
-										  }`}
-								</Typography>
+				{rooms
+					?.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id)
+					.map((room) => (
+						<Grid item key={room.id}>
+							<Box
+								sx={{
+									width: "240px",
+									height: "240px",
+									bg: "white",
+									borderRadius: "md",
+									shadow: "md",
+									cursor: "pointer",
+									p: "16px",
+								}}
+								onClick={() => onClickDetailRoom(room.id)}
+							>
+								<Box textAlign="center">
+									<Typography
+										sx={{ fontWeight: "bold", fontSize: "24px", color: "teal" }}
+									>
+										{room.otherUser.name}
+									</Typography>
+									<Typography>
+										{room.lastMessage === null
+											? "まだメッセージがありません"
+											: `${
+													room.lastMessage.userId === currentUser!.id
+														? `自分：${room.lastMessage.content}`
+														: `${room.otherUser.name}:${room.lastMessage.content}`
+											  }`}
+									</Typography>
+								</Box>
 							</Box>
-						</Box>
-					</Grid>
-				))}
+						</Grid>
+					))}
 			</Grid>
 		</Box>
 	);

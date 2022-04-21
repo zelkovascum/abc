@@ -17,8 +17,6 @@ export const DateTimeInput: React.FC<Props> = React.memo((props) => {
 		setDateTimeInputValue(newValue);
 	};
 
-	console.log(dateTimeInputValue);
-
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Stack spacing={3}>
