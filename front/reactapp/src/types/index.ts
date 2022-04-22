@@ -20,7 +20,9 @@ export type User = {
 	email: string;
 	name: string;
 	nickname?: string;
-	image?: string;
+	image?: {
+		url: string;
+	};
 	allowPasswordChange: boolean;
 	created_at: Date;
 	updated_at: Date;

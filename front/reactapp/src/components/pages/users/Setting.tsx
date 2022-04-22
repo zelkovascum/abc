@@ -1,14 +1,17 @@
-import { FC, memo, MouseEvent, useContext } from "react";
+import { FC, memo, MouseEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
 import Cookies from "js-cookie";
 import { AuthContext } from "providers/AuthProvider";
 import { signOut } from "utils/api/auth";
+import { ImageUploadModal } from "components/molucules/ImageUploadModal";
 
 export const Setting: FC = memo(() => {
 	const { loading, isSignIn, setIsSignIn, currentUser } =
 		useContext(AuthContext);
 	const navigate = useNavigate();
+
+	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
 		try {
@@ -58,7 +61,10 @@ export const Setting: FC = memo(() => {
 		<>
 			{isSignIn && currentUser ? (
 				<>
-					<Avatar alt={currentUser?.name} src="" />
+					<Avatar alt={currentUser?.name} src={`${currentUser.image?.url}`} />
+					<Button onClick={() => setIsOpenModal(true)}>
+						プロフィール画像を変更
+					</Button>
 					<p>Email: {currentUser?.email}</p>
 					<p>Name: {currentUser?.name}</p>
 					<p>id: {currentUser?.id}</p>
@@ -67,6 +73,11 @@ export const Setting: FC = memo(() => {
 			) : (
 				<>{/* <p>Not signed in</p> */}</>
 			)}
+			<ImageUploadModal
+				isOpenModal={isOpenModal}
+				setIsOpenModal={setIsOpenModal}
+				userId={currentUser?.id!}
+			/>
 		</>
 	);
 });
