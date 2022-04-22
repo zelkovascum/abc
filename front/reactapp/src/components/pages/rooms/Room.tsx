@@ -1,5 +1,13 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	Card,
+	Grid,
+	TextField,
+	Toolbar,
+	Typography,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Message, User } from "types";
 import { getDetailRoom } from "utils/api/room";
@@ -44,77 +52,93 @@ export const Room: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box width="100%" height="100%">
-			{/* <Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
-				DM詳細
-			</Typography> */}
-			<Box
+		<Box height="85vh">
+			<Toolbar
 				sx={{
 					textAlign: "center",
 					mx: "auto",
-					width: "500px",
-					height: "10%",
-					p: "16px",
+					p: 0.5,
 					bg: "white",
-					mb: "16px",
-					borderRadius: "md",
-					shadow: "md",
 				}}
 			>
-				<Typography color="teal" fontSize="24px" fontWeight="bold">
+				<Typography
+					height="100%"
+					color="teal"
+					fontSize="24px"
+					fontWeight="bold"
+				>
 					{otherUser?.name}
 				</Typography>
-				<Typography>{otherUser?.email}</Typography>
-			</Box>
+			</Toolbar>
 			<Box
 				ref={messageBox}
 				sx={{
-					width: "100%",
-					height: "500px",
+					height: "80%",
 					bg: "white",
 					mx: "auto",
-					borderRadius: "md",
-					shadow: "md",
-					overflow: "scroll",
+					p: 1,
+					border: "none",
+					overflowY: "scroll",
 				}}
 			>
 				{messages?.map((message) => (
-					<Box key={message.id} p="16px">
-						<Grid
-							container
-							justifyContent={
-								message.userId === otherUser?.id ? "flex-start" : "flex-end"
-							}
-						>
-							<Grid item>
+					<Grid
+						key={message.id}
+						container
+						wrap="wrap"
+						justifyContent={
+							message.userId === otherUser?.id ? "flex-start" : "flex-end"
+						}
+						p={1}
+					>
+						<Grid item>
+							<Card
+								sx={{
+									backgroundColor:
+										message.userId === otherUser?.id ? "#eeeeee" : "#7986cb",
+								}}
+							>
 								<Typography
-									color={message.userId === otherUser?.id ? "teal" : "red"}
+									color={message.userId === otherUser?.id ? "black" : "white"}
+									p={1}
 								>
-									{`${
-										message.userId === otherUser?.id ? otherUser?.name : "自分"
-									}:${message.content}`}
+									{message.content}
 								</Typography>
-							</Grid>
+							</Card>
 						</Grid>
-					</Box>
+					</Grid>
 				))}
 			</Box>
-			<Box sx={{ width: "500px", mx: "auto", bg: "teal", p: "16px" }}>
+			<Box
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					mx: "auto",
+					bg: "teal",
+				}}
+			>
 				{/* <form> */}
-				<Grid>
-					<TextField
-						placeholder="content"
-						type="text"
-						name="content"
-						id="content"
-						color="primary"
-						value={content}
-						onChange={(e) => setContent(e.target.value)}
-					/>
-					<Button type="submit" onClick={(e) => handleSubmit(id!, e)}>
-						送信
-					</Button>
-				</Grid>
+				{/* <Grid> */}
+				<TextField
+					placeholder="メッセージを入力..."
+					type="text"
+					// name="content"
+					// id="content"
+					color="primary"
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
+					sx={{ width: "80%" }}
+				/>
+				<Button
+					type="submit"
+					onClick={(e) => handleSubmit(id!, e)}
+					disabled={!content}
+					variant="contained"
+					sx={{ width: "20%", height: "100%", margin: 1 }}
+				>
+					送信
+				</Button>
+				{/* </Grid> */}
 				{/* </form> */}
 			</Box>
 		</Box>

@@ -1,6 +1,6 @@
 import { useContext, FC, memo } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, IconButton } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Container } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -46,7 +46,7 @@ export const Header: FC = memo(() => {
 	};
 
 	return (
-		<>
+		<Container sx={{ height: "10%" }}>
 			<AppBar>
 				<Toolbar>
 					<IconButton component={Link} to="/" color="inherit">
@@ -59,6 +59,6 @@ export const Header: FC = memo(() => {
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
-		</>
+		</Container>
 	);
 });
