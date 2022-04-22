@@ -9,7 +9,7 @@ import { createPost } from "utils/api/post";
 import { useNavigate } from "react-router-dom";
 
 export const PostsNew: FC = memo(() => {
-	const [placeInputValue, setPlaceInputValue] = useState("");
+	const [placeInputValue, setPlaceInputValue] = useState<string>("");
 	const [dateTimeInputValue, setDateTimeInputValue] = useState<Date | null>(
 		null
 	);
