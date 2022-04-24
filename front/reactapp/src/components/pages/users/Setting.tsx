@@ -1,6 +1,6 @@
 import { FC, memo, MouseEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Button, Box } from "@mui/material";
 import Cookies from "js-cookie";
 import { AuthContext } from "providers/AuthProvider";
 import { signOut } from "utils/api/auth";
@@ -36,7 +36,7 @@ export const Setting: FC = memo(() => {
 		if (!loading) {
 			if (isSignIn) {
 				return (
-					<Button color="inherit" onClick={handleSignOut}>
+					<Button color="warning" onClick={handleSignOut}>
 						ログアウト
 					</Button>
 				);
@@ -60,16 +60,18 @@ export const Setting: FC = memo(() => {
 	return (
 		<>
 			{isSignIn && currentUser ? (
-				<>
-					<Avatar alt={currentUser?.name} src={`${currentUser.image?.url}`} />
+				<Box sx={{ p: 1 }}>
+					<Avatar
+						alt={currentUser?.name}
+						src={`${currentUser.image?.url}`}
+						sx={{ width: 50, height: 50 }}
+					/>
 					<Button onClick={() => setIsOpenModal(true)}>
 						プロフィール画像を変更
 					</Button>
-					<p>Email: {currentUser?.email}</p>
 					<p>Name: {currentUser?.name}</p>
-					<p>id: {currentUser?.id}</p>
 					<AuthButtons />
-				</>
+				</Box>
 			) : (
 				<>{/* <p>Not signed in</p> */}</>
 			)}

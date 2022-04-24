@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SignIn } from "components/pages/users/SignIn";
 import { SignUp } from "components/pages/users/SignUp";
 import { Map } from "components/pages/Map";
-import { PostsNew } from "components/pages/posts/PostsNew";
+import { NewPost } from "components/pages/posts/NewPost";
 import { Home } from "components/pages/posts/Home";
 import { Rooms } from "components/pages/rooms/Rooms";
 import { Room } from "components/pages/rooms/Room";
@@ -27,7 +27,7 @@ export const Router: FC = memo(() => {
 					<Route element={<CommonLayout />}>
 						<Route path="/" element={<Home />} />
 						<Route path="/map" element={<Map />} />
-						<Route path="/posts/new" element={<PostsNew />} />
+						<Route path="/posts/new" element={<NewPost />} />
 						<Route path="/users/:id" element={<Profile />} />
 						<Route path="/users/setting" element={<Setting />} />
 						<Route path="/rooms" element={<Rooms />} />

@@ -1,6 +1,6 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { createRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
@@ -11,6 +11,7 @@ export const Profile: FC = memo(() => {
 		id: 0,
 		name: "",
 		email: "",
+		image: "",
 	});
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -22,6 +23,7 @@ export const Profile: FC = memo(() => {
 				id: res.data.id,
 				name: res.data.name,
 				email: res.data.email,
+				image: res.data.image.url,
 			});
 		} catch (e) {
 			console.error(e);
@@ -63,6 +65,7 @@ export const Profile: FC = memo(() => {
 				}}
 			>
 				<Stack width="100%">
+					<Avatar src={user.image} />
 					<Typography
 						textAlign="center"
 						color="teal"
@@ -71,7 +74,6 @@ export const Profile: FC = memo(() => {
 					>
 						{user?.name}
 					</Typography>
-					<Typography textAlign="center">{user?.email}</Typography>
 					{user?.id === currentUser?.id ? (
 						<Typography textAlign="center">現在のユーザーです</Typography>
 					) : (

@@ -35,6 +35,9 @@ export type Post = {
 		id: number;
 		name: string;
 		email: string;
+		image?: {
+			url: string;
+		};
 	};
 	lat: number;
 	lng: number;
@@ -49,6 +52,9 @@ export type OutputPost = {
 		id: number;
 		name: string;
 		email: string;
+		image?: {
+			url: string;
+		};
 	};
 	lat: number;
 	lng: number;

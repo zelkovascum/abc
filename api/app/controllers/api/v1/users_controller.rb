@@ -9,7 +9,8 @@ class Api::V1::UsersController < ApplicationController
     user_list = {
       id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      image: user.image
     }
     render json: user_list
   end

@@ -8,7 +8,7 @@ import { ToGeocode } from "utils/ToGeocode";
 import { createPost } from "utils/api/post";
 import { useNavigate } from "react-router-dom";
 
-export const PostsNew: FC = memo(() => {
+export const NewPost: FC = memo(() => {
 	const [placeInputValue, setPlaceInputValue] = useState<string>("");
 	const [dateTimeInputValue, setDateTimeInputValue] = useState<Date | null>(
 		null
@@ -35,14 +35,13 @@ export const PostsNew: FC = memo(() => {
 		const geocode = await ToGeocode(placeInputValue);
 		const { lat, lng } = geocode;
 		try {
-			const res = await createPost({
+			await createPost({
 				lat: lat,
 				lng: lng,
 				place: placeInputValue,
 				dateTime: dateTimeInputValue!,
 				content: contentInputValue,
 			});
-			console.log(res.data);
 			navigate("/");
 		} catch (e) {
 			console.error(e);

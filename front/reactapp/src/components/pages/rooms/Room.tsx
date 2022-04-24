@@ -1,5 +1,6 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from "react";
 import {
+	Avatar,
 	Box,
 	Button,
 	Card,
@@ -61,6 +62,7 @@ export const Room: FC = memo(() => {
 					bg: "white",
 				}}
 			>
+				<Avatar src={otherUser?.image?.url} />
 				<Typography
 					height="100%"
 					color="teal"
@@ -115,6 +117,7 @@ export const Room: FC = memo(() => {
 					alignItems: "center",
 					mx: "auto",
 					bg: "teal",
+					m: 1,
 				}}
 			>
 				{/* <form> */}
