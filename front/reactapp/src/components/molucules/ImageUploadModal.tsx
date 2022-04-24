@@ -37,6 +37,7 @@ export const ImageUploadModal: FC<Props> = memo((props) => {
 		await updateUserImage(data, userId)
 			.then((res) => {
 				setImage(undefined);
+				window.location.reload();
 			})
 			.catch((e) => console.error(e));
 	};
@@ -45,16 +46,21 @@ export const ImageUploadModal: FC<Props> = memo((props) => {
 		<>
 			<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
 				<Box sx={style}>
-					<Typography>画像をアップロード</Typography>
+					<Typography fontSize={1}>画像をアップロード</Typography>
 					<Input
 						type="file"
 						// accept="image/*"
 						onChange={(e: ChangeEvent<HTMLInputElement>) => {
 							uploadImage(e);
 						}}
-						sx={{ textDecoration: "none" }}
+						sx={{ fontSize: 10 }}
 					/>
-					<Button type="submit" onClick={handleUpdateImage} disabled={!image}>
+					<Button
+						type="submit"
+						onClick={handleUpdateImage}
+						disabled={!image}
+						sx={{ fontSize: 1 }}
+					>
 						適用
 					</Button>
 				</Box>
@@ -71,5 +77,6 @@ const style = {
 	bgcolor: "background.paper",
 	borderRadius: 1,
 	boxShadow: 24,
-	p: 4,
+	width: "60%",
+	p: 2,
 };

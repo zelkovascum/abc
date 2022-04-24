@@ -1,6 +1,14 @@
 import { FC, memo, useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
+import {
+	Avatar,
+	Box,
+	Typography,
+	List,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+} from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { Room } from "types";
 import { getAllRooms } from "utils/api/room";
@@ -31,47 +39,37 @@ export const Rooms: FC = memo(() => {
 	}, []);
 
 	return (
-		<Box width="100%" height="100%" p="40px">
-			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
-				DM一覧
+		<Box>
+			<Typography sx={{ as: "h1", textAlign: "center" }} my={2}>
+				メッセージ
 			</Typography>
-			<Grid>
+			<List>
 				{rooms
 					?.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id)
 					.map((room) => (
-						<Grid item key={room.id}>
-							<Box
-								sx={{
-									width: "240px",
-									height: "240px",
-									bg: "white",
-									borderRadius: "md",
-									shadow: "md",
-									cursor: "pointer",
-									p: "16px",
-								}}
-								onClick={() => onClickDetailRoom(room.id)}
-							>
-								<Box textAlign="center">
-									<Typography
-										sx={{ fontWeight: "bold", fontSize: "24px", color: "teal" }}
-									>
-										{room.otherUser.name}
-									</Typography>
-									<Typography>
-										{room.lastMessage === null
-											? "まだメッセージがありません"
-											: `${
-													room.lastMessage.userId === currentUser!.id
-														? `自分：${room.lastMessage.content}`
-														: `${room.otherUser.name}:${room.lastMessage.content}`
-											  }`}
-									</Typography>
-								</Box>
-							</Box>
-						</Grid>
+						<ListItem
+							key={room.id}
+							onClick={() => onClickDetailRoom(room.id)}
+							sx={{ cursor: "pointer", mb: 1 }}
+						>
+							<ListItemAvatar>
+								<Avatar src={room.otherUser.image?.url} />
+							</ListItemAvatar>
+							<ListItemText
+								primary={room.otherUser.name}
+								secondary={
+									room.lastMessage === null
+										? "まだメッセージがありません"
+										: `${
+												room.lastMessage.userId === currentUser!.id
+													? `あなた:${room.lastMessage.content}`
+													: `${room.otherUser.name}:${room.lastMessage.content}`
+										  }`
+								}
+							/>
+						</ListItem>
 					))}
-			</Grid>
+			</List>
 		</Box>
 	);
 });

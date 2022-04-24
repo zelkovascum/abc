@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
 import { OutputPost } from "types";
 import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
@@ -84,9 +84,11 @@ export const Home: FC = memo(() => {
 								borderRadius: "md",
 								shadow: "md",
 								cursor: "pointer",
+								p: 2,
 							}}
 						>
 							<Box onClick={() => onClickProfile(post.user.id)}>
+								<Avatar src={post.user.image?.url} />
 								<Typography>{post.user.name}</Typography>
 							</Box>
 							<Box

@@ -44,7 +44,7 @@ export const Map: FC = memo(() => {
 							text: post.content,
 						}}
 						onClick={() => {
-							navigate("/");
+							navigate(`/users/${post.user.id}`);
 						}}
 					/>
 				))}
