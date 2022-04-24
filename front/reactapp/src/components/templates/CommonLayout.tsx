@@ -7,7 +7,7 @@ export const CommonLayout: FC = memo(() => {
 	return (
 		<Container>
 			<Header />
-			<Container maxWidth="lg">
+			<Container>
 				<Grid container justifyContent="center">
 					<Grid item xs={9}>
 						<Outlet />

@@ -7,17 +7,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ChatIcon from "@mui/icons-material/Chat";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { AuthContext } from "providers/AuthProvider";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
-
-const theme = createTheme({
-	palette: {
-		secondary: {
-			main: "#32a9b8",
-			contrastText: "#ffffff",
-		},
-	},
-});
 
 export const Header: FC = memo(() => {
 	const { loading, isSignIn } = useContext(AuthContext);
@@ -57,21 +46,19 @@ export const Header: FC = memo(() => {
 	};
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Container sx={{ height: "10%" }}>
-				<AppBar color="secondary">
-					<Toolbar>
-						<IconButton component={Link} to="/" color="inherit">
-							<HomeIcon name="home" />
-						</IconButton>
-						<IconButton component={Link} to="/map" color="inherit">
-							<LocationOnIcon name="map" />
-						</IconButton>
-						<BarButtons />
-					</Toolbar>
-				</AppBar>
-				<Toolbar />
-			</Container>
-		</ThemeProvider>
+		<Container sx={{ height: "10%" }}>
+			<AppBar color="secondary">
+				<Toolbar>
+					<IconButton component={Link} to="/" color="inherit">
+						<HomeIcon name="home" />
+					</IconButton>
+					<IconButton component={Link} to="/map" color="inherit">
+						<LocationOnIcon name="map" />
+					</IconButton>
+					<BarButtons />
+				</Toolbar>
+			</AppBar>
+			<Toolbar />
+		</Container>
 	);
 });

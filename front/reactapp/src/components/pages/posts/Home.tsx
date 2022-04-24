@@ -58,7 +58,6 @@ export const Home: FC = memo(() => {
 	const handleGetAllPosts = async () => {
 		try {
 			const res = await getAllPosts();
-			console.log(res.data);
 			setPosts(res.data);
 		} catch (e) {
 			console.error(e);
