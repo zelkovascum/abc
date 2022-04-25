@@ -46,7 +46,7 @@ export const Header: FC = memo(() => {
 	};
 
 	return (
-		<Container sx={{ height: "10%" }}>
+		<Container>
 			<AppBar color="secondary">
 				<Toolbar>
 					<IconButton component={Link} to="/" color="inherit">

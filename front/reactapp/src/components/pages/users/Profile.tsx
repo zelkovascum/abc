@@ -1,6 +1,6 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { createRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
@@ -49,10 +49,10 @@ export const Profile: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box width="100%" height="100%" p="40px">
-			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
+		<Box>
+			{/* <Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
 				プロフィール
-			</Typography>
+			</Typography> */}
 			<Box
 				sx={{
 					width: "240px",
@@ -64,16 +64,18 @@ export const Profile: FC = memo(() => {
 					p: "16px",
 				}}
 			>
-				<Stack width="100%">
-					<Avatar src={user.image} />
-					<Typography
-						textAlign="center"
-						color="teal"
-						fontWeight="bold"
-						fontSize="24px"
-					>
-						{user?.name}
-					</Typography>
+				<Box>
+					<Box style={{ display: "flex" }}>
+						<Avatar src={user.image} sx={{ verticalAlign: "middle", mr: 1 }} />
+						<Typography
+							sx={{ justifyContent: "center" }}
+							color="teal"
+							fontWeight="bold"
+							fontSize="24px"
+						>
+							{user?.name}
+						</Typography>
+					</Box>
 					{user?.id === currentUser?.id ? (
 						<Typography textAlign="center">現在のユーザーです</Typography>
 					) : (
@@ -88,9 +90,8 @@ export const Profile: FC = memo(() => {
 							</Button>
 						</>
 					)}
-				</Stack>
+				</Box>
 			</Box>
-			<Divider sx={{ my: "16px" }} />
 		</Box>
 	);
 });
