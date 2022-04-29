@@ -7,7 +7,7 @@ class Api::V1::MessagesController < ApplicationController
     if message.save
       render json: message
     else
-      render json: message.errors, status: 422
+      render json: message.errors, status: :unprocessable_entity
     end
   end
 end

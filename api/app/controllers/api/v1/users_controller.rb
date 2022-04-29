@@ -21,16 +21,16 @@ class Api::V1::UsersController < ApplicationController
       if user.update(user_params)
         render json: user
       else
-        render json: user.errors, status: 422
+        render json: user.errors, status: :unprocessable_entity
       end
     else
-      render json: {message: 'can not update data'}, status: 422
+      render json: { message: 'can not update data' }, status: :unprocessable_entity
     end
   end
 
   private
 
-  def user_params
-    params.permit(:name, :image)
-  end
+    def user_params
+      params.permit(:name, :image)
+    end
 end
