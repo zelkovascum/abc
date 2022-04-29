@@ -79,8 +79,7 @@ export const Profile: FC = memo(() => {
 					{user?.id === currentUser?.id ? (
 						<Typography textAlign="center">現在のユーザーです</Typography>
 					) : (
-						<>
-							<Button
+						<Button
 								// _hover={{ opacity: 0.8 }}
 								// bg="teal"
 								// color="white"
@@ -88,7 +87,6 @@ export const Profile: FC = memo(() => {
 							>
 								DM
 							</Button>
-						</>
 					)}
 				</Box>
 			</Box>

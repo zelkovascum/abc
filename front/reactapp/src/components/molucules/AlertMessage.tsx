@@ -1,12 +1,9 @@
 import React, { FC, memo, SyntheticEvent } from "react";
 import { Alert as MuiAlert, Snackbar, AlertProps } from "@mui/material";
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-	props,
-	ref
-) {
-	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
+	<MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+));
 
 type AlertMessageProps = {
 	open: boolean;

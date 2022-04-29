@@ -32,7 +32,7 @@ export const Setting: FC = memo(() => {
 		}
 	};
 
-	const AuthButtons = () => {
+	function AuthButtons() {
 		if (!loading) {
 			if (isSignIn) {
 				return (
@@ -40,7 +40,7 @@ export const Setting: FC = memo(() => {
 						ログアウト
 					</Button>
 				);
-			} else {
+			} 
 				return (
 					<>
 						{/* <Button component={Link} to="/signin" color="inherit">
@@ -51,11 +51,11 @@ export const Setting: FC = memo(() => {
 						</Button> */}
 					</>
 				);
-			}
-		} else {
+			
+		} 
 			return <></>;
-		}
-	};
+		
+	}
 
 	return (
 		<>

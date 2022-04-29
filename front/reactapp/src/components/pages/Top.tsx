@@ -1,9 +1,3 @@
 import { FC, memo } from "react";
 
-export const Top: FC = memo(() => {
-	return (
-		<>
-			<p>photudio...</p>
-		</>
-	);
-});
+export const Top: FC = memo(() => <p>photudio...</p>);

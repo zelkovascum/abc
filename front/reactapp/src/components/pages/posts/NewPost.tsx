@@ -36,8 +36,8 @@ export const NewPost: FC = memo(() => {
 		const { lat, lng } = geocode;
 		try {
 			await createPost({
-				lat: lat,
-				lng: lng,
+				lat,
+				lng,
 				place: placeInputValue,
 				dateTime: dateTimeInputValue!,
 				content: contentInputValue,
