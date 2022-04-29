@@ -20,9 +20,7 @@ class Api::V1::RoomsController < ApplicationController
     other_entries = Entry.where(user_id: params[:id])
     my_entries.each do |me|
       other_entries.each do |oe|
-        if me.room_id == oe.room_id
-          is_room_exist = true
-        end
+        is_room_exist = true if me.room_id == oe.room_id
       end
     end
     if is_room_exist
@@ -49,6 +47,6 @@ class Api::V1::RoomsController < ApplicationController
     room = Room.find_by(id: params[:id])
     other_user = room.users.where.not(id: current_api_v1_user.id)[0]
     messages = room.messages.order(created_at: :asc)
-    render json: { other_user: other_user, messages: messages }
+    render json: { other_user:, messages: }
   end
 end
