@@ -11,7 +11,7 @@ import { AuthContext } from "providers/AuthProvider";
 export const Header: FC = memo(() => {
 	const { loading, isSignIn } = useContext(AuthContext);
 
-	const BarButtons = () => {
+	function BarButtons() {
 		if (!loading) {
 			if (isSignIn) {
 				return (
@@ -37,13 +37,11 @@ export const Header: FC = memo(() => {
 						</IconButton>
 					</>
 				);
-			} else {
-				return <></>;
 			}
-		} else {
 			return <></>;
 		}
-	};
+		return <></>;
+	}
 
 	return (
 		<Container>

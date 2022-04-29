@@ -43,34 +43,32 @@ export const ImageUploadModal: FC<Props> = memo((props) => {
 	};
 
 	return (
-		<>
-			<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
-				<Box sx={style}>
-					<Typography fontSize={1}>画像をアップロード</Typography>
-					<Input
-						type="file"
-						// accept="image/*"
-						onChange={(e: ChangeEvent<HTMLInputElement>) => {
-							uploadImage(e);
-						}}
-						sx={{ fontSize: 10 }}
-					/>
-					<Button
-						type="submit"
-						onClick={handleUpdateImage}
-						disabled={!image}
-						sx={{ fontSize: 1 }}
-					>
-						適用
-					</Button>
-				</Box>
-			</Modal>
-		</>
+		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
+			<Box sx={style}>
+				<Typography fontSize={1}>画像をアップロード</Typography>
+				<Input
+					type="file"
+					// accept="image/*"
+					onChange={(e: ChangeEvent<HTMLInputElement>) => {
+						uploadImage(e);
+					}}
+					sx={{ fontSize: 10 }}
+				/>
+				<Button
+					type="submit"
+					onClick={handleUpdateImage}
+					disabled={!image}
+					sx={{ fontSize: 1 }}
+				>
+					適用
+				</Button>
+			</Box>
+		</Modal>
 	);
 });
 
 const style = {
-	position: "absolute" as "absolute",
+	position: "absolute" as const,
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",

@@ -29,10 +29,10 @@ export const SignUp: FC = memo(() => {
 		e.preventDefault();
 
 		const params: SignUpParams = {
-			name: name,
-			email: email,
-			password: password,
-			passwordConfirmation: passwordConfirmation,
+			name,
+			email,
+			password,
+			passwordConfirmation,
 		};
 
 		try {
@@ -42,8 +42,8 @@ export const SignUp: FC = memo(() => {
 			if (res.status === 200) {
 				// アカウント作成と同時にログイン
 				Cookies.set("_access_token", res.headers["access-token"]);
-				Cookies.set("_client", res.headers["client"]);
-				Cookies.set("_uid", res.headers["uid"]);
+				Cookies.set("_client", res.headers.client);
+				Cookies.set("_uid", res.headers.uid);
 
 				setIsSignIn(true);
 				setCurrentUser(res.data.data);

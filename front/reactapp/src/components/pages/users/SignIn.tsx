@@ -9,11 +9,11 @@ import {
 	TextField,
 	Card,
 } from "@mui/material";
-import { AlertMessage } from "../../molucules/AlertMessage";
 import { SignInParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { signIn } from "utils/api/auth";
+import { AlertMessage } from "../../molucules/AlertMessage";
 
 export const SignIn: FC = () => {
 	const navigate = useNavigate();
@@ -28,8 +28,8 @@ export const SignIn: FC = () => {
 		e.preventDefault();
 
 		const params: SignInParams = {
-			email: email,
-			password: password,
+			email,
+			password,
 		};
 
 		try {
@@ -39,8 +39,8 @@ export const SignIn: FC = () => {
 			if (res.status === 200) {
 				// ログインに成功した場合はCookieに各値を格納
 				Cookies.set("_access_token", res.headers["access-token"]);
-				Cookies.set("_client", res.headers["client"]);
-				Cookies.set("_uid", res.headers["uid"]);
+				Cookies.set("_client", res.headers.client);
+				Cookies.set("_uid", res.headers.uid);
 
 				setIsSignIn(true);
 				setCurrentUser(res.data.data);

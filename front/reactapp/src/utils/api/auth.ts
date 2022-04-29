@@ -3,25 +3,21 @@ import { SignInParams, SignUpParams } from "types";
 import { client } from "./client";
 
 // サインアップ
-export const signUp = (params: SignUpParams) => {
-	return client.post("/auth", params);
-};
+export const signUp = (params: SignUpParams) => client.post("/auth", params);
 
 // サインイン
-export const signIn = (params: SignInParams) => {
-	return client.post("/auth/sign_in", params);
-};
+export const signIn = (params: SignInParams) =>
+	client.post("/auth/sign_in", params);
 
 // サインアウト
-export const signOut = () => {
-	return client.delete("/auth/sign_out", {
+export const signOut = () =>
+	client.delete("/auth/sign_out", {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
-			"client": Cookies.get("_client") || "",
-			"uid": Cookies.get("_uid") || "",
+			client: Cookies.get("_client") || "",
+			uid: Cookies.get("_uid") || "",
 		},
 	});
-};
 
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
@@ -34,8 +30,8 @@ export const getCurrentUser = () => {
 	return client.get("/auth/sessions", {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
-			"client": Cookies.get("_client") || "",
-			"uid": Cookies.get("_uid") || "",
+			client: Cookies.get("_client") || "",
+			uid: Cookies.get("_uid") || "",
 		},
 	});
 };

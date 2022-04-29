@@ -2,7 +2,7 @@ import { Router } from "router/Router";
 import { AuthProvider } from "providers/AuthProvider";
 import { MuiThemeProvider } from "providers/MuiThemeProvider";
 
-export const App = () => {
+export function App() {
 	return (
 		<MuiThemeProvider>
 			<AuthProvider>
@@ -10,4 +10,4 @@ export const App = () => {
 			</AuthProvider>
 		</MuiThemeProvider>
 	);
-};
+}

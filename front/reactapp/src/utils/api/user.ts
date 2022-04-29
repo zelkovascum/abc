@@ -1,18 +1,17 @@
 import Cookies from "js-cookie";
-import { client } from "./client";
 // import { User } from "types";
 import axios, { AxiosPromise } from "axios";
 import applyCaseMiddleware from "axios-case-converter";
+import { client } from "./client";
 
-export const getDetailUser = (id: string) => {
-	return client.get(`/users/${id}`, {
+export const getDetailUser = (id: string) =>
+	client.get(`/users/${id}`, {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
 			client: Cookies.get("_client") || "",
 			uid: Cookies.get("_uid") || "",
 		},
 	});
-};
 
 // export const updateUser = (id: number, params: Pick<User, "name">) => {
 // 	return client.patch(`/users/${id}`, params, {
@@ -37,15 +36,11 @@ const imageClient = applyCaseMiddleware(
 	}
 );
 
-export const updateUserImage = (
-	data: FormData,
-	userId: number
-): AxiosPromise => {
-	return imageClient.patch(`/users/${userId}`, data, {
+export const updateUserImage = (data: FormData, userId: number): AxiosPromise =>
+	imageClient.patch(`/users/${userId}`, data, {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
 			client: Cookies.get("_client") || "",
 			uid: Cookies.get("_uid") || "",
 		},
 	});
-};

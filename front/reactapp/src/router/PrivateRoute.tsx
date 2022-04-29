@@ -10,7 +10,6 @@ export const PrivateRoute: FC = memo(() => {
 			return <Navigate to="/signin" replace />;
 		}
 		return <Outlet />;
-	} else {
-		return <></>;
 	}
+	return <></>;
 });
