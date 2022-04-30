@@ -40,21 +40,19 @@ export const Setting: FC = memo(() => {
 						ログアウト
 					</Button>
 				);
-			} 
-				return (
-					<>
-						{/* <Button component={Link} to="/signin" color="inherit">
+			}
+			return (
+				<>
+					{/* <Button component={Link} to="/signin" color="inherit">
 							ログイン
 						</Button>
 						<Button component={Link} to="/signup" color="inherit">
 							新規登録
 						</Button> */}
-					</>
-				);
-			
-		} 
-			return <></>;
-		
+				</>
+			);
+		}
+		return <></>;
 	}
 
 	return (

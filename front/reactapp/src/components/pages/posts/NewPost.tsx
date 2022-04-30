@@ -32,8 +32,9 @@ export const NewPost: FC = memo(() => {
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		console.log(placeInputValue);
 		const geocode = await ToGeocode(placeInputValue);
-		const { lat, lng } = geocode;
+		const { lat, lng } = geocode!;
 		try {
 			await createPost({
 				lat,
