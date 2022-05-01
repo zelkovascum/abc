@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { PlaceInput } from "components/molucules/PlaceInput";
 import { DateTimeInput } from "components/molucules/DateTimeInput";
 import SendIcon from "@mui/icons-material/Send";
-import { ToGeocode } from "utils/ToGeocode";
+import { toGeocode } from "utils/toGeocode";
 import { createPost } from "utils/api/post";
 import { useNavigate } from "react-router-dom";
 
@@ -33,7 +33,7 @@ export const NewPost: FC = memo(() => {
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		console.log(placeInputValue);
-		const geocode = await ToGeocode(placeInputValue);
+		const geocode = await toGeocode(placeInputValue);
 		const { lat, lng } = geocode!;
 		try {
 			await createPost({
