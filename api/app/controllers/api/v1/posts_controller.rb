@@ -2,7 +2,7 @@ class Api::V1::PostsController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %i[create update destroy]
 
   def index
-    posts = Post.all.order(created_at: :desc)
+    posts = Post.where("date_time >= ?" , Time.now).order(date_time: :asc)
     posts_array = posts.map do |post|
       {
         id: post.id,
