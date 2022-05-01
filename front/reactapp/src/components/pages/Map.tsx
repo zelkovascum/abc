@@ -1,23 +1,20 @@
-import { FC, memo, useEffect, useState } from "react";
-import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
+import { FC, memo, useContext, useEffect, useState } from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { Post } from "types";
 import { Box } from "@mui/material";
+import { MapContext } from "providers/MapProvider";
 
 const containerStyle = {
 	width: "400px",
 	height: "400px",
 };
 
-const center = {
-	lat: 35.6803997,
-	lng: 139.7690174,
-};
-
 export const Map: FC = memo(() => {
 	const navigate = useNavigate();
 	const [posts, setPosts] = useState<Post[]>();
+	const { lat, lng } = useContext(MapContext);
 
 	useEffect(() => {
 		getAllPosts().then((res) => {
@@ -27,11 +24,11 @@ export const Map: FC = memo(() => {
 
 	return (
 		<Box m={4}>
-			{/* <LoadScriptNext
-				googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!}
-				libraries={["places"]}
-			> */}
-			<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
+			<GoogleMap
+				mapContainerStyle={containerStyle}
+				center={{ lat, lng }}
+				zoom={11}
+			>
 				{posts?.map((post) => (
 					<Marker
 						key={post.id}
@@ -52,7 +49,6 @@ export const Map: FC = memo(() => {
 					/>
 				))}
 			</GoogleMap>
-			{/* </LoadScriptNext> */}
 		</Box>
 	);
 });
