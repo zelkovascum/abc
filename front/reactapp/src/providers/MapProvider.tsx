@@ -28,7 +28,7 @@ export const MapProvider: FC<Props> = memo((props) => {
 	const { currentUser } = useContext(AuthContext);
 
 	useEffect(() => {
-		if (!currentUser) return;
+		if (!currentUser?.address) return;
 		const prefecturalCapital = toPrefecturalCapital(currentUser?.address!);
 		setLat(prefecturalCapital[0].lat);
 		setLng(prefecturalCapital[0].lng);
