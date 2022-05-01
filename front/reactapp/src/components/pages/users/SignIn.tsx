@@ -57,9 +57,9 @@ export const SignIn: FC = () => {
 	};
 
 	return (
-		<>
+		<Box width="350px" margin="auto">
 			<form noValidate autoComplete="off">
-				<Card sx={{ textAlign: "center" }}>
+				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 10px 5px" }}>
 					<CardContent>
 						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
 							Photudio
@@ -114,6 +114,6 @@ export const SignIn: FC = () => {
 				severity="error"
 				message="メールアドレスまたはパスワードが無効です"
 			/>
-		</>
+		</Box>
 	);
 };

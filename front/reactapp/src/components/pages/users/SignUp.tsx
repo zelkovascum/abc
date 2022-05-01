@@ -2,6 +2,7 @@ import { useState, useContext, MouseEvent, FC, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
+	Box,
 	Button,
 	Card,
 	CardContent,
@@ -61,9 +62,9 @@ export const SignUp: FC = memo(() => {
 	};
 
 	return (
-		<>
+		<Box width="350px" margin="auto">
 			<form noValidate autoComplete="off">
-				<Card sx={{ textAlign: "center", maxWidth: "500px" }}>
+				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 10px 5px" }}>
 					<CardContent>
 						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
 							Photudio
@@ -133,6 +134,6 @@ export const SignUp: FC = memo(() => {
 				severity="error"
 				message="メールアドレスまたはパスワードが無効です"
 			/>
-		</>
+		</Box>
 	);
 });
