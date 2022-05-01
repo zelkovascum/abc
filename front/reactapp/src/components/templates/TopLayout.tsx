@@ -22,10 +22,10 @@ export const TopLayout: FC = memo(() => {
 				opacity: "0.8",
 			}}
 		>
-			<Grid item xs={matches ? 5 : 5}>
+			<Grid item xs={5}>
 				<Top />
 			</Grid>
-			<Grid item xs={matches ? 5 : 5}>
+			<Grid item xs={5}>
 				<Outlet />
 			</Grid>
 		</Grid>
