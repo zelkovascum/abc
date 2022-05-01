@@ -10,7 +10,8 @@ class Api::V1::UsersController < ApplicationController
       id: user.id,
       name: user.name,
       email: user.email,
-      image: user.image
+      image: user.image,
+      address: user.address
     }
     render json: user_list
   end
@@ -31,6 +32,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
     def user_params
-      params.permit(:name, :image)
+      params.permit(:name, :image, :address)
     end
 end

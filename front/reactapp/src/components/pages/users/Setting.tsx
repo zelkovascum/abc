@@ -5,13 +5,16 @@ import Cookies from "js-cookie";
 import { AuthContext } from "providers/AuthProvider";
 import { signOut } from "utils/api/auth";
 import { ImageUploadModal } from "components/molucules/ImageUploadModal";
+import { UpdatePrefecturesModal } from "components/molucules/UpdatePrefecturesModal";
 
 export const Setting: FC = memo(() => {
 	const { loading, isSignIn, setIsSignIn, currentUser } =
 		useContext(AuthContext);
 	const navigate = useNavigate();
 
-	const [isOpenModal, setIsOpenModal] = useState(false);
+	const [isOpenImageUploadModal, setIsOpenImageUploadModal] = useState(false);
+	const [isOpenSelectPrefecturesModal, setIsOpenSelectPrefecturesModal] =
+		useState(false);
 
 	const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
 		try {
@@ -64,18 +67,27 @@ export const Setting: FC = memo(() => {
 						src={`${currentUser.image?.url}`}
 						sx={{ width: 50, height: 50 }}
 					/>
-					<Button onClick={() => setIsOpenModal(true)}>
+					<Button onClick={() => setIsOpenImageUploadModal(true)}>
 						プロフィール画像を変更
 					</Button>
-					<p>Name: {currentUser?.name}</p>
+					<Button onClick={() => setIsOpenSelectPrefecturesModal(true)}>
+						住所を変更
+					</Button>
+					<p>ユーザーネーム: {currentUser?.name}</p>
+					<p>住所: {currentUser?.address}</p>
 					<AuthButtons />
 				</Box>
 			) : (
 				<>{/* <p>Not signed in</p> */}</>
 			)}
 			<ImageUploadModal
-				isOpenModal={isOpenModal}
-				setIsOpenModal={setIsOpenModal}
+				isOpenModal={isOpenImageUploadModal}
+				setIsOpenModal={setIsOpenImageUploadModal}
+				userId={currentUser?.id!}
+			/>
+			<UpdatePrefecturesModal
+				isOpenModal={isOpenSelectPrefecturesModal}
+				setIsOpenModal={setIsOpenSelectPrefecturesModal}
 				userId={currentUser?.id!}
 			/>
 		</>
