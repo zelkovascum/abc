@@ -6,14 +6,18 @@ import {
 	IconButton,
 	Container,
 	Typography,
+	useMediaQuery,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ChatIcon from "@mui/icons-material/Chat";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { theme } from "providers/MuiThemeProvider";
 
 export const Header: FC = memo(() => {
+	const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
 	return (
 		<Container>
 			<AppBar color="default">
@@ -33,7 +37,7 @@ export const Header: FC = memo(() => {
 						<IconButton color="inherit">
 							<HomeIcon name="home" />
 						</IconButton>
-						<Typography fontSize={12}>HOME</Typography>
+						{matches ? <></> : <Typography fontSize={12}>HOME</Typography>}
 					</NavLink>
 					<NavLink
 						to="/map"
@@ -50,7 +54,7 @@ export const Header: FC = memo(() => {
 						<IconButton color="inherit">
 							<LocationOnIcon name="map" />
 						</IconButton>
-						<Typography fontSize={12}>MAP</Typography>
+						{matches ? <></> : <Typography fontSize={12}>MAP</Typography>}
 					</NavLink>
 					<NavLink
 						to="/posts/new"
@@ -67,7 +71,7 @@ export const Header: FC = memo(() => {
 						<IconButton color="inherit">
 							<AddBoxIcon name="post" />
 						</IconButton>
-						<Typography fontSize={12}>POST</Typography>
+						{matches ? <></> : <Typography fontSize={12}>POST</Typography>}
 					</NavLink>
 					<NavLink
 						to="/rooms"
@@ -84,7 +88,7 @@ export const Header: FC = memo(() => {
 						<IconButton color="inherit">
 							<ChatIcon name="dm" />
 						</IconButton>
-						<Typography fontSize={12}>DM</Typography>
+						{matches ? <></> : <Typography fontSize={12}>DM</Typography>}
 					</NavLink>
 					<NavLink
 						to="/users/setting"
@@ -101,7 +105,7 @@ export const Header: FC = memo(() => {
 						<IconButton color="inherit">
 							<AccountCircleIcon name="setting" />
 						</IconButton>
-						<Typography fontSize={12}>MYPAGE</Typography>
+						{matches ? <></> : <Typography fontSize={12}>MYPAGE</Typography>}
 					</NavLink>
 				</Toolbar>
 			</AppBar>
