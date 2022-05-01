@@ -1,4 +1,4 @@
-# photudio
+# Photudio
 
 # Backend
 
@@ -10,5 +10,4 @@ React(TypeScript)
 
 # Infra
 
-Docker
-Docker Compose
+Docker/Docker Compose
