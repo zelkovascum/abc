@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-// import { User } from "types";
+import { User } from "types";
 import axios, { AxiosPromise } from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 import { client } from "./client";
@@ -22,6 +22,16 @@ export const getDetailUser = (id: string) =>
 // 		},
 // 	});
 // };
+
+// 都道府県アップデート
+export const updateUserPrefectures = (id: number, params:{address:string}) =>
+  client.patch(`/users/${id}`, params, {
+    headers: {
+      "access-token": Cookies.get("_access_token") || "",
+      client: Cookies.get("_client") || "",
+      uid: Cookies.get("_uid") || "",
+    },
+  });
 
 // アバターアップデート用
 const imageClient = applyCaseMiddleware(

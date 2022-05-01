@@ -23,6 +23,7 @@ export type User = {
 	image?: {
 		url: string;
 	};
+	address: string;
 	allowPasswordChange: boolean;
 	created_at: Date;
 	updated_at: Date;
