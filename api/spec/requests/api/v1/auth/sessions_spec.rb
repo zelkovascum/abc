@@ -22,23 +22,22 @@ RSpec.describe 'api v1 auth session', type: :request do
         post(api_v1_user_session_path, params: { email: user.email, password: })
         expect(response.header['client']).not_to eq nil
       end
+
+      it 'uid exists in header' do
+        post(api_v1_user_session_path, params: { email: user.email, password: })
+        expect(response.header['uid']).not_to eq nil
+      end
     end
 
     context 'abnormal' do
-      it 'Response 401 if email do not match' do
+      it 'email do not match' do
         post(api_v1_user_session_path, params: { email: 'error@mail.com', password: 'wordpass' })
         expect(response.status).to eq 401
       end
 
-      it 'Response 401 if password do not match' do
+      it ' password do not match' do
         post(api_v1_user_session_path, params: { email: user.email, password: 'wordpass' })
         expect(response.status).to eq 401
-      end
-
-      it 'uid exists in header' do
-        post(api_v1_user_session_path, params: { email: user.email, password: })
-        headers = response.header.slice('access-token', 'client', 'uid')
-        expect(response.header['uid']).not_to eq nil
       end
     end
   end
@@ -54,21 +53,21 @@ RSpec.describe 'api v1 auth session', type: :request do
     end
 
     context 'abnormal' do
-      it 'response 404 if access-token does not match' do
+      it 'access-token does not match' do
         post(api_v1_user_session_path, params: { email: user.email, password: })
         headers = response.header.slice('access-token', 'client', 'uid')
         delete(destroy_api_v1_user_session_path, params: { 'access-token' => 'access-token', 'client' => headers['client'], 'uid' => headers['uid'] })
         expect(response.status).to eq 404
       end
 
-      it 'response 404 if client does not match' do
+      it ' client does not match' do
         post(api_v1_user_session_path, params: { email: user.email, password: })
         headers = response.header.slice('access-token', 'client', 'uid')
         delete(destroy_api_v1_user_session_path, params: { 'access-token' => headers['access-token'], 'client' => 'client', 'uid' => headers['uid'] })
         expect(response.status).to eq 404
       end
 
-      it 'response 404 if uid does not match' do
+      it ' uid does not match' do
         post(api_v1_user_session_path, params: { email: user.email, password: })
         headers = response.header.slice('access-token', 'client', 'uid')
         delete(destroy_api_v1_user_session_path, params: { 'access-token' => headers['access-token'], 'client' => headers['client'], 'uid' => 'uid' })
