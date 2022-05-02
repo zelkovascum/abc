@@ -10,9 +10,17 @@ RSpec.describe 'api v1 auth registration', type: :request do
       expect(response.status).to eq 200
     end
 
-    it 'Response 422 if password is less than 6 characters' do
-      post(api_v1_user_registration_path, params: { email:, password: 'passw', name: })
-      expect(response.status).to eq 422
+    context 'password is less than 6 characters' do
+      it 'Response 422 if password is less than 6 characters' do
+        post(api_v1_user_registration_path, params: { email:, password: 'passw', name: })
+        expect(response.status).to eq 422
+      end
+
+      it 'レコード増えない' do
+      end
+
+      it 'レスポンス' do
+      end
     end
 
     it 'singup uid is the same as email' do
