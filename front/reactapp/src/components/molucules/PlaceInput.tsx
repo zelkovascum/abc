@@ -179,32 +179,35 @@
 // 	);
 // });
 
-import * as React from "react";
+import { ChangeEvent, FC, memo, useRef } from "react";
 import { Autocomplete } from "@react-google-maps/api";
+import { Input, TextField } from "@mui/material";
 
 type Props = {
 	placeInputValue: any;
 	setPlaceInputValue: any;
 };
 
-export const PlaceInput: React.FC<Props> = React.memo((props) => {
+export const PlaceInput: FC<Props> = memo((props) => {
 	const { placeInputValue, setPlaceInputValue } = props;
+	const autocompleteRef = useRef<any>(null);
 
 	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		setPlaceInputValue(e.target.value);
 		console.log(placeInputValue);
 	};
-	const [autocomplete, setAutocomplete] = React.useState(null);
 
-	const onLoad = () => {
+	const onLoad = (autocomplete: any) => {
 		console.log("autocomplete: ", autocomplete);
+		autocompleteRef.current = autocomplete;
 	};
 
 	const onPlaceChanged = () => {
-		if (autocomplete !== null) {
-			// console.log(autocomplete.getPlace());
+		if (autocompleteRef !== null) {
+			setPlaceInputValue(autocompleteRef.current.getPlace().formatted_address);
+			console.log(autocompleteRef.current.getPlace().formatted_address);
 		} else {
 			console.log("Autocomplete is not loaded yet!");
 		}
@@ -212,26 +215,26 @@ export const PlaceInput: React.FC<Props> = React.memo((props) => {
 
 	return (
 		<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-			<input
-				value={placeInputValue}
-				onChange={(e) => handleChange(e)}
+			<TextField
+				// value={placeInputValue}
+				// onChange={(e) => handleChange(e)}
 				placeholder="Customized your placeholder"
-				style={{
-					boxSizing: `border-box`,
-					border: `1px solid transparent`,
-					width: `240px`,
-					height: `32px`,
-					padding: `0 12px`,
-					borderRadius: `3px`,
-					boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-					fontSize: `14px`,
-					outline: `none`,
-					textOverflow: `ellipses`,
-					position: "absolute",
-					left: "50%",
-					marginLeft: "-120px",
-					marginBottom: "20px",
-				}}
+				// style={{
+				// 	boxSizing: `border-box`,
+				// 	border: `1px solid transparent`,
+				// 	width: `240px`,
+				// 	height: `32px`,
+				// 	padding: `0 12px`,
+				// 	borderRadius: `3px`,
+				// 	boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+				// 	fontSize: `14px`,
+				// 	outline: `none`,
+				// 	textOverflow: `ellipses`,
+				// 	position: "absolute",
+				// 	left: "50%",
+				// 	marginLeft: "-120px",
+				// 	marginBottom: "20px",
+				// }}
 			/>
 		</Autocomplete>
 	);
