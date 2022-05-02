@@ -16,7 +16,7 @@ RSpec.describe 'api v1 auth registration', type: :request do
         expect(JSON.parse(response.body)['data']['uid']).to eq email
       end
 
-      it 'one more user with singup' do
+      it 'user records increases' do
         expect do
           post(api_v1_user_registration_path, params: { email:, password:, name: })
         end.to change(User, :count).by 1
@@ -24,7 +24,7 @@ RSpec.describe 'api v1 auth registration', type: :request do
     end
 
     context 'abnormal' do
-      it 'email  is incorrect' do
+      it 'email is incorrect' do
         post(api_v1_user_registration_path, params: { email: 'mail', password:, name: })
         expect(response.status).to eq 422
       end
@@ -34,8 +34,17 @@ RSpec.describe 'api v1 auth registration', type: :request do
         expect(response.status).to eq 422
       end
 
-      # it 'レコード増えない' do
-      # end
+      it 'records will not increase if email is invalid' do
+        expect do
+          post(api_v1_user_registration_path, params: { email: 'mail', password:, name: })
+        end.to change(User, :count).by 0
+      end
+
+      it 'records will not increase if password is invalid' do
+        expect do
+          post(api_v1_user_registration_path, params: { email:, password: 'passw', name: })
+        end.to change(User, :count).by 0
+      end
     end
   end
 end
