@@ -13,9 +13,6 @@ export const NewPost: FC = memo(() => {
 	const [dateTimeInputValue, setDateTimeInputValue] = useState<Date | null>(
 		null
 	);
-	// const [contentInputValue, setContentInputValue] = useState({
-	// 	content: "",
-	// });
 	const [contentInputValue, setContentInputValue] = useState<string>("");
 
 	const navigate = useNavigate();
@@ -23,10 +20,6 @@ export const NewPost: FC = memo(() => {
 	const handleChange = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		// setContentInputValue({
-		// 	...contentInputValue,
-		// 	[e.target.name]: e.target.value,
-		// });
 		setContentInputValue(e.target.value);
 	};
 
@@ -78,11 +71,9 @@ export const NewPost: FC = memo(() => {
 					/>
 					<TextField
 						label="コメント"
-						// value={contentInputValue.content}
 						value={contentInputValue}
 						onChange={(e) => handleChange(e)}
 						type="text"
-						// name="content"
 					/>
 					<Button
 						// bg="teal"
