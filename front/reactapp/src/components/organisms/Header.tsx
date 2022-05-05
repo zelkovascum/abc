@@ -20,7 +20,7 @@ export const Header: FC = memo(() => {
 
 	return (
 		<Container>
-			<AppBar color="default">
+			<AppBar position="fixed" sx={{ top: "auto", bottom: 0 }} color="default">
 				<Toolbar>
 					<NavLink
 						to="/"

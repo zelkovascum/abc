@@ -5,7 +5,6 @@ import { Header } from "../organisms/Header";
 
 export const CommonLayout: FC = memo(() => (
 	<Container>
-		<Header />
 		<Container>
 			<Grid container justifyContent="center">
 				<Grid item>
@@ -13,5 +12,6 @@ export const CommonLayout: FC = memo(() => (
 				</Grid>
 			</Grid>
 		</Container>
+		<Header />
 	</Container>
 ));
