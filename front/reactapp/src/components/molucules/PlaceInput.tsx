@@ -179,9 +179,9 @@
 // 	);
 // });
 
-import { ChangeEvent, FC, memo, useRef } from "react";
+import { FC, memo, useRef, ChangeEvent } from "react";
 import { Autocomplete } from "@react-google-maps/api";
-import { Input, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 
 type Props = {
 	placeInputValue: any;
@@ -216,25 +216,13 @@ export const PlaceInput: FC<Props> = memo((props) => {
 	return (
 		<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
 			<TextField
-				// value={placeInputValue}
-				// onChange={(e) => handleChange(e)}
-				placeholder="Customized your placeholder"
-				// style={{
-				// 	boxSizing: `border-box`,
-				// 	border: `1px solid transparent`,
-				// 	width: `240px`,
-				// 	height: `32px`,
-				// 	padding: `0 12px`,
-				// 	borderRadius: `3px`,
-				// 	boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-				// 	fontSize: `14px`,
-				// 	outline: `none`,
-				// 	textOverflow: `ellipses`,
-				// 	position: "absolute",
-				// 	left: "50%",
-				// 	marginLeft: "-120px",
-				// 	marginBottom: "20px",
-				// }}
+				value={placeInputValue}
+				onChange={(e) => handleChange(e)}
+				// type="text"
+				label="場所"
+				// placeholder="テストplaceholder"
+				sx={{ width: "240px" }}
+				// multiline
 			/>
 		</Autocomplete>
 	);
