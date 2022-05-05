@@ -1,17 +1,17 @@
 import { FC, memo } from "react";
 import { Outlet } from "react-router-dom";
-import { Container, Grid } from "@mui/material";
-import { Header } from "../organisms/Header";
+import { Box, Grid } from "@mui/material";
+import { Header } from "components/organisms/Header";
+import { Footer } from "components/organisms/Footer";
 
 export const CommonLayout: FC = memo(() => (
-	<Container>
-		<Container>
-			<Grid container justifyContent="center">
-				<Grid item>
-					<Outlet />
-				</Grid>
-			</Grid>
-		</Container>
+	<Box>
 		<Header />
-	</Container>
+		<Grid container justifyContent="center" py={"64px"}>
+			<Grid item>
+				<Outlet />
+			</Grid>
+		</Grid>
+		<Footer />
+	</Box>
 ));
