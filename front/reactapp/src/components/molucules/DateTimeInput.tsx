@@ -21,7 +21,7 @@ export const DateTimeInput: React.FC<Props> = React.memo((props) => {
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Stack spacing={3}>
 				<DateTimePicker
-					label="時間を選択"
+					// label="時間を選択"
 					inputFormat="yyyy/MM/dd hh:mm"
 					value={dateTimeInputValue}
 					onChange={handleChange}
