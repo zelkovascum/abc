@@ -14,4 +14,6 @@ class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
+
+  has_many :reactions, dependent: :destroy
 end
