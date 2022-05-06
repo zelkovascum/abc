@@ -70,7 +70,7 @@ export const NewPost: FC = memo(() => {
 						setDateTimeInputValue={setDateTimeInputValue}
 					/>
 					<TextField
-						label="コメント"
+						// label="コメント"
 						value={contentInputValue}
 						onChange={(e) => handleChange(e)}
 						type="text"

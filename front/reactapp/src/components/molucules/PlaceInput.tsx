@@ -219,8 +219,8 @@ export const PlaceInput: FC<Props> = memo((props) => {
 				value={placeInputValue}
 				onChange={(e) => handleChange(e)}
 				// type="text"
-				label="場所"
-				// placeholder="テストplaceholder"
+				// label="場所"
+				placeholder=""
 				sx={{ width: "240px" }}
 				// multiline
 			/>
