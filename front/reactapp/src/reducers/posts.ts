@@ -9,7 +9,7 @@ type Action = {
 	payload?: [] | Post[];
 };
 
-export const postsInitState: State = {
+export const postsInit: State = {
 	fetchState: "INITIAL",
 	posts: [],
 };
