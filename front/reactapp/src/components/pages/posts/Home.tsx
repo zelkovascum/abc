@@ -1,23 +1,14 @@
 import { FC, memo, useEffect, useReducer } from "react";
-import {
-	Avatar,
-	Box,
-	Card,
-	Grid,
-	Skeleton,
-	Typography,
-	useMediaQuery,
-} from "@mui/material";
+import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { theme } from "providers/MuiThemeProvider";
+import { HomeSkeleton } from "components/molucules/posts/HomeSkeleton";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
 	const navigate = useNavigate();
-	// const matches = useMediaQuery(theme.breakpoints.up("md"));
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
@@ -46,13 +37,9 @@ export const Home: FC = memo(() => {
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState === "LOADING" ? (
 					<>
-						<Skeleton
-							variant="rectangular"
-							sx={{
-								height: "220px",
-								p: 2,
-							}}
-						/>
+						<HomeSkeleton />
+						<HomeSkeleton />
+						<HomeSkeleton />
 					</>
 				) : (
 					<>
@@ -60,10 +47,15 @@ export const Home: FC = memo(() => {
 							<Grid item key={post.id}>
 								<Card
 									sx={{
+										width: {
+											xs: "250px",
+											sm: "350px",
+											md: "450px",
+											lg: "550px",
+											xl: "600px",
+										},
 										height: "220px",
-										bg: "white",
-										borderRadius: "md",
-										shadow: "md",
+										borderRadius: 1,
 										cursor: "pointer",
 										p: 2,
 									}}
