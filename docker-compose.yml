@@ -40,16 +40,15 @@ services:
       - ./front:/usr/src/app
     depends_on:
       - api
-  # web:
-  #   build:
-  #     context: ./nginx/
-  #   volumes:
-  #     - public-data:/myapp/public
-  #     - tmp-data:/myapp/tmp
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - api
+  web:
+    build:
+      context: ./nginx/
+    # volumes:
+    #   - ./nginx/conf.d/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - api
 volumes:
   mysql-data:
     driver: local
