@@ -4,8 +4,8 @@ import { Avatar, Button, Box } from "@mui/material";
 import Cookies from "js-cookie";
 import { AuthContext } from "providers/AuthProvider";
 import { signOut } from "utils/api/auth";
-import { ImageUploadModal } from "components/molucules/ImageUploadModal";
-import { UpdatePrefecturesModal } from "components/molucules/UpdatePrefecturesModal";
+import { ImageUploadModal } from "components/molucules/users/ImageUploadModal";
+import { UpdatePrefecturesModal } from "components/molucules/users/UpdatePrefecturesModal";
 
 export const Setting: FC = memo(() => {
 	const { loading, isSignIn, setIsSignIn, currentUser } =
