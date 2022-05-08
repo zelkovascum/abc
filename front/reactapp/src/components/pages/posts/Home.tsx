@@ -1,14 +1,16 @@
 import { FC, memo, useEffect, useReducer } from "react";
 import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { HomeSkeleton } from "components/molucules/posts/HomeSkeleton";
+import { HomeSkeleton } from "components/atoms/posts/HomeSkeleton";
+import { HomeTabs } from "components/molucules/posts/HomeTabs";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
@@ -34,6 +36,7 @@ export const Home: FC = memo(() => {
 
 	return (
 		<Box p="40px">
+			<HomeTabs />
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState === "LOADING" ? (
 					<>

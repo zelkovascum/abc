@@ -25,6 +25,7 @@ export const Router: FC = memo(() => (
 			<Route element={<PrivateRoute />}>
 				<Route element={<CommonLayout />}>
 					<Route path="/" element={<Home />} />
+					<Route path="/near" element={<Home />} />
 					<Route path="/map" element={<Map />} />
 					<Route path="/posts/new" element={<NewPost />} />
 					<Route path="/users/:id" element={<Profile />} />
