@@ -11,7 +11,7 @@ import { updateUserPrefectures } from "utils/api/user";
 import {
 	prefecturesList,
 	SelectPrefectures,
-} from "components/molucules/SelectPrefectures";
+} from "components/atoms/users/SelectPrefectures";
 
 type Props = {
 	isOpenModal: boolean;

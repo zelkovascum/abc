@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, memo, MouseEvent, useState } from "react";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { PlaceInput } from "components/molucules/PlaceInput";
-import { DateTimeInput } from "components/molucules/DateTimeInput";
+import { PlaceInput } from "components/molucules/posts/PlaceInput";
+import { DateTimeInput } from "components/molucules/posts/DateTimeInput";
 import SendIcon from "@mui/icons-material/Send";
 import { toGeocode } from "utils/toGeocode";
 import { createPost } from "utils/api/post";
