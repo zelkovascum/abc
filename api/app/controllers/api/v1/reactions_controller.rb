@@ -1,10 +1,10 @@
 class Api::V1::ReactionsController < ApplicationController
   # from_user_id リアクションをした人
   # to_user_id   リアクションをされた人
-  def index
-    reactions = Reaction.where(to_user_id: current_api_v1_user.id)
-    render json: reactions, status: 200,
-  end
+  # def index
+  #   reactions = Reaction.where(to_user_id: current_api_v1_user.id)
+  #   render json: reactions, status: 200,
+  # end
 
   # def create
   #   is_matched = false # マッチングが成立したかどうかのフラグ
@@ -22,9 +22,9 @@ class Api::V1::ReactionsController < ApplicationController
   #   end
   # end
   
-  private
+  # private
 
-    def like_params
-      params.permit(:from_user, :to_user)
-    end
+  #   def like_params
+  #     params.permit(:from_user, :to_user)
+  #   end
 end
