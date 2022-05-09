@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  host: my-db.cjgylvxapljs.ap-northeast-1.rds.amazonaws.com
+  host: <%= ENV['DATABASE_HOST'] %>
   database: myapp_production
-  username: admin
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  username: <%= ENV['DATABASE_NAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
