@@ -182,7 +182,7 @@
 import { FC, memo, useRef, ChangeEvent } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
-import "../../../App.css";
+import "../../App.css";
 
 type Props = {
 	placeInputValue: any;

@@ -12,6 +12,7 @@ import { Setting } from "components/pages/users/Setting";
 import { NotFound } from "components/pages/NotFound";
 import { CommonLayout } from "components/templates/CommonLayout";
 import { TopLayout } from "components/templates/TopLayout";
+import { HomeNear } from "components/pages/posts/HomeNear";
 import { PrivateRoute } from "./PrivateRoute";
 
 export const Router: FC = memo(() => (
@@ -25,7 +26,7 @@ export const Router: FC = memo(() => (
 			<Route element={<PrivateRoute />}>
 				<Route element={<CommonLayout />}>
 					<Route path="/" element={<Home />} />
-					<Route path="/near" element={<Home />} />
+					<Route path="/near" element={<HomeNear />} />
 					<Route path="/map" element={<Map />} />
 					<Route path="/posts/new" element={<NewPost />} />
 					<Route path="/users/:id" element={<Profile />} />

@@ -7,8 +7,8 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { toPrefecturalCapital } from "utils/toPrefecturalCapital";
 import { AuthContext } from "providers/AuthProvider";
+import { toGeocode } from "utils/toGeocode";
 
 export const MapContext = createContext(
 	{} as {
@@ -29,9 +29,14 @@ export const MapProvider: FC<Props> = memo((props) => {
 
 	useEffect(() => {
 		if (!currentUser?.address) return;
-		const prefecturalCapital = toPrefecturalCapital(currentUser?.address!);
-		setLat(prefecturalCapital[0].lat);
-		setLng(prefecturalCapital[0].lng);
+		toGeocode(currentUser?.address!)
+			.then((res) => {
+				setLat(res!.lat);
+				setLng(res!.lng);
+			})
+			.catch((e) => {
+				console.error(e);
+			});
 	}, [currentUser]);
 
 	return (
