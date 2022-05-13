@@ -47,7 +47,6 @@ export const Home: FC = memo(() => {
 							? sortPostsByDistance([...res.data])
 							: res.data,
 				});
-				console.log(state.fetchState);
 			});
 		} catch (e) {
 			console.error(e);
@@ -55,10 +54,9 @@ export const Home: FC = memo(() => {
 	};
 
 	useEffect(() => {
-		console.log("start useEffect");
 		dispatch({ type: "FETCHING" });
 		handleGetAllPosts();
-		console.log("end useEffect");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location.pathname]);
 
 	return (
