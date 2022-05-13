@@ -47,7 +47,6 @@ export const Home: FC = memo(() => {
 							? sortPostsByDistance([...res.data])
 							: res.data,
 				});
-				console.log(state.fetchState);
 			});
 		} catch (e) {
 			console.error(e);
@@ -55,17 +54,29 @@ export const Home: FC = memo(() => {
 	};
 
 	useEffect(() => {
-		console.log("start useEffect");
+		console.log(state.fetchState);
 		dispatch({ type: "FETCHING" });
+		console.log(state.fetchState);
 		handleGetAllPosts();
-		console.log("end useEffect");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location.pathname]);
 
 	return (
-		<Box p="40px">
+		<Box
+			sx={{
+				width: {
+					xs: "300px",
+					sm: "400px",
+					md: "500px",
+					lg: "600px",
+					xl: "650px",
+				},
+				p: "40px",
+			}}
+		>
 			<HomeTabs />
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
-				{state.fetchState === "INITIAL" ? (
+				{state.fetchState !== "OK" ? (
 					<>
 						<HomeSkeleton />
 						<HomeSkeleton />
@@ -85,6 +96,7 @@ export const Home: FC = memo(() => {
 											xl: "600px",
 										},
 										height: "220px",
+										m: "auto",
 										borderRadius: 1,
 										cursor: "pointer",
 										p: 2,
