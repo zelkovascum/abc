@@ -7,8 +7,8 @@ import {
 	useState,
 } from "react";
 import { Box, Button, Modal } from "@mui/material";
-import { updateUserPrefectures } from "utils/api/user";
-import { PlaceInput } from "components/atoms/posts/PlaceInput";
+import { updateUserCurrentLocation } from "utils/api/user";
+import { PlaceInput } from "components/atoms/PlaceInput";
 
 type Props = {
 	isOpenModal: boolean;
@@ -22,7 +22,7 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 
 	const handleUpdatePrefectures = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		await updateUserPrefectures(userId, { address: currentLocation })
+		await updateUserCurrentLocation(userId, { address: currentLocation })
 			.then((res) => {
 				setCurrentLocation("");
 				window.location.reload();

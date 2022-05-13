@@ -1,15 +1,22 @@
-import { FC, memo, useEffect, useReducer } from "react";
+import { FC, memo, useContext, useEffect, useReducer } from "react";
 import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
 import { HomeSkeleton } from "components/atoms/posts/HomeSkeleton";
 import { HomeTabs } from "components/molucules/posts/HomeTabs";
+import { calculateDistance } from "utils/calculateDistance";
+import { MapContext } from "providers/MapProvider";
+import { AuthContext } from "providers/AuthProvider";
+import { Post } from "types";
 
-export const Home: FC = memo(() => {
+export const HomeNear: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
+	const { lat, lng } = useContext(MapContext);
+	// const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
+	// const location = useLocation();
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
@@ -26,6 +33,15 @@ export const Home: FC = memo(() => {
 		} catch (e) {
 			console.error(e);
 		}
+	};
+
+	const sort = (posts: Post[]) => {
+		return posts.sort((a, b) => {
+			const distanceA = calculateDistance(lat, lng, a.lat, a.lng);
+			const distanceB = calculateDistance(lat, lng, b.lat, b.lng);
+			console.log(distanceA - distanceB);
+			return distanceA - distanceB;
+		});
 	};
 
 	useEffect(() => {
@@ -45,7 +61,7 @@ export const Home: FC = memo(() => {
 					</>
 				) : (
 					<>
-						{state.posts.map((post) => (
+						{sort([...state.posts]).map((post) => (
 							<Grid item key={post.id}>
 								<Card
 									sx={{
@@ -86,63 +102,3 @@ export const Home: FC = memo(() => {
 		</Box>
 	);
 });
-
-// export const Home: FC = memo(() => {
-// 	const [posts, setPosts] = useState<OutputPost[]>([]);
-// 	const navigate = useNavigate();
-
-// 	const onClickProfile = (id: number) => {
-// 		navigate(`/users/${id}`);
-// 	};
-
-// 	const handleGetAllPosts = async () => {
-// 		try {
-// 			const res = await getAllPosts();
-// 			setPosts(res.data);
-// 		} catch (e) {
-// 			console.error(e);
-// 		}
-// 	};
-
-// 	useEffect(() => {
-// 		handleGetAllPosts();
-// 	}, []);
-
-// 	return (
-// 		<Box p="40px">
-// 			<Grid container direction="column" wrap="nowrap" spacing={3}>
-// 				{posts.map((post) => (
-// 					<Grid item key={post.id}>
-// 						<Card
-// 							sx={{
-// 								height: "220px",
-// 								bg: "white",
-// 								borderRadius: "md",
-// 								shadow: "md",
-// 								cursor: "pointer",
-// 								p: 2,
-// 							}}
-// 						>
-// 							<Box onClick={() => onClickProfile(post.user.id)}>
-// 								<Avatar src={post.user.image?.url} />
-// 								<Typography>{post.user.name}</Typography>
-// 							</Box>
-// 							<Box
-// 							>
-// 								<Typography sx={{ color: "teal", fontSize: "16px" }}>
-// 									{transformPlace(post.place)}
-// 								</Typography>
-// 								<Typography sx={{ color: "teal", fontSize: "16px" }}>
-// 									{transformDateTime(post.dateTime)}
-// 								</Typography>
-// 								<Typography sx={{ color: "teal", fontSize: "16px" }}>
-// 									{post.content}
-// 								</Typography>
-// 							</Box>
-// 						</Card>
-// 					</Grid>
-// 				))}
-// 			</Grid>
-// 		</Box>
-// 	);
-// });
