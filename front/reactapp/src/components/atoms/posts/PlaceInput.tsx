@@ -182,6 +182,7 @@
 import { FC, memo, useRef, ChangeEvent } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
+import "../../../App.css";
 
 type Props = {
 	placeInputValue: any;
@@ -214,16 +215,16 @@ export const PlaceInput: FC<Props> = memo((props) => {
 	};
 
 	return (
-		<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-			<TextField
-				value={placeInputValue}
-				onChange={(e) => handleChange(e)}
-				// type="text"
-				// label="場所"
-				placeholder=""
-				sx={{ width: "240px" }}
-				// multiline
-			/>
-		</Autocomplete>
+		<div>
+			<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+				<TextField
+					value={placeInputValue}
+					onChange={(e) => handleChange(e)}
+					type="text"
+					placeholder=""
+					sx={{ width: "240px" }}
+				/>
+			</Autocomplete>
+		</div>
 	);
 });
