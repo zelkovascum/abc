@@ -16,6 +16,7 @@ export const HomeSkeleton: FC = memo(() => {
 					},
 					height: "220px",
 					borderRadius: 1,
+					m: "auto",
 					p: 2,
 				}}
 			/>

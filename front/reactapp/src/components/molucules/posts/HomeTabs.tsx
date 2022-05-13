@@ -17,7 +17,7 @@ export const HomeTabs: FC = memo(() => {
 	};
 
 	return (
-		<Box sx={{ width: "100%" }}>
+		<Box sx={{ width: "100%", mb: 1 }}>
 			<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 				<Tabs
 					value={value}
@@ -30,6 +30,7 @@ export const HomeTabs: FC = memo(() => {
 						onClick={() => {
 							navigate("/");
 						}}
+						sx={{ width: "50%" }}
 					/>
 					<Tab
 						label="近くの人"
@@ -37,6 +38,7 @@ export const HomeTabs: FC = memo(() => {
 						onClick={() => {
 							navigate("/near");
 						}}
+						sx={{ width: "50%" }}
 					/>
 				</Tabs>
 			</Box>
