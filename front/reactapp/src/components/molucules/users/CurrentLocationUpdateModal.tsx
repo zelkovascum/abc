@@ -8,10 +8,7 @@ import {
 } from "react";
 import { Box, Button, Modal } from "@mui/material";
 import { updateUserPrefectures } from "utils/api/user";
-import {
-	prefecturesList,
-	SelectPrefectures,
-} from "components/atoms/users/SelectPrefectures";
+import { PlaceInput } from "components/atoms/posts/PlaceInput";
 
 type Props = {
 	isOpenModal: boolean;
@@ -19,32 +16,32 @@ type Props = {
 	userId: number;
 };
 
-export const UpdatePrefecturesModal: FC<Props> = memo((props) => {
+export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 	const { isOpenModal, setIsOpenModal, userId } = props;
-	const [prefectures, setPrefectures] = useState<string>("");
+	const [currentLocation, setCurrentLocation] = useState<string>("");
 
 	const handleUpdatePrefectures = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		await updateUserPrefectures(userId, { address: prefectures })
+		await updateUserPrefectures(userId, { address: currentLocation })
 			.then((res) => {
-				setPrefectures("");
+				setCurrentLocation("");
 				window.location.reload();
 			})
 			.catch((e) => console.error(e));
 	};
-	console.log(prefectures);
+	console.log(currentLocation);
 
 	return (
 		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
 			<Box sx={style} display="flex">
-				<SelectPrefectures
-					prefectures={prefectures}
-					setPrefectures={setPrefectures}
+				<PlaceInput
+					placeInputValue={currentLocation}
+					setPlaceInputValue={setCurrentLocation}
 				/>
 				<Button
 					type="submit"
 					onClick={handleUpdatePrefectures}
-					disabled={!prefecturesList.includes(prefectures)}
+					// disabled={!prefecturesList.includes(prefectures)}
 					sx={{ fontSize: 1 }}
 				>
 					適用
