@@ -19,9 +19,10 @@ export const Room: FC = memo(() => {
 	const [messages, setMessages] = useState<Message[]>();
 	const [content, setContent] = useState<string>("");
 	const { id } = useParams();
-
+	const inputEl = useRef<HTMLInputElement>(null);
 	// スクロール位置指定
 	const messageBox = useRef<HTMLDivElement>(null);
+	const [isComposed, setIsComposed] = useState(false);
 
 	const handleGetDetailRoom = async (id: any) => {
 		try {
@@ -46,6 +47,7 @@ export const Room: FC = memo(() => {
 			console.error(e);
 		}
 		setContent("");
+		inputEl.current!.focus();
 	};
 
 	useEffect(() => {
@@ -53,7 +55,7 @@ export const Room: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box height="85vh">
+		<Box height="70vh">
 			<Toolbar
 				sx={{
 					textAlign: "center",
@@ -125,11 +127,24 @@ export const Room: FC = memo(() => {
 				<TextField
 					placeholder="メッセージを入力..."
 					type="text"
+					autoFocus
+					inputRef={inputEl}
 					// name="content"
 					// id="content"
 					color="primary"
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
+					// onKeyDown={(e) => {
+					//   if (isComposed) return;
+
+					//   const text = e.target.value;
+					//   if (text === '') return;
+
+					//   if (e.key === 'Enter') {
+					//     pushMessage({ name, text });
+					//     setText('');
+					//     e.preventDefault();
+					//   }
 					sx={{ width: "80%" }}
 				/>
 				<Button
