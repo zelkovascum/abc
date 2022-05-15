@@ -117,3 +117,67 @@ export const Footer: FC = memo(() => {
 		</AppBar>
 	);
 });
+
+// import { FC, memo, useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import {
+// 	AppBar,
+// 	Toolbar,
+// 	IconButton,
+// 	Typography,
+// 	useMediaQuery,
+// 	Grid,
+// 	Box,
+// 	BottomNavigation,
+// 	BottomNavigationAction,
+// } from "@mui/material";
+// import HomeIcon from "@mui/icons-material/Home";
+// import AddBoxIcon from "@mui/icons-material/AddBox";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import ChatIcon from "@mui/icons-material/Chat";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import { theme } from "providers/MuiThemeProvider";
+
+// export const Footer: FC = memo(() => {
+// 	const matches = useMediaQuery(theme.breakpoints.down("sm"));
+// 	const navigate = useNavigate();
+// 	const [value, setValue] = useState(0);
+
+// 	return (
+// 		<Box sx={{ position: "fixed", width: "100%", top: "auto", bottom: 0 }}>
+// 			<BottomNavigation
+// 				showLabels
+// 				value={value}
+// 				onChange={(event, newValue) => {
+// 					setValue(newValue);
+// 				}}
+// 			>
+// 				<BottomNavigationAction
+// 					onClick={() => navigate("/")}
+// 					label="HOME"
+// 					icon={<ChatIcon />}
+// 				/>
+// 				<BottomNavigationAction
+// 					onClick={() => navigate("/map")}
+// 					label="MAP"
+// 					icon={<LocationOnIcon />}
+// 				/>
+// 				<BottomNavigationAction
+// 					onClick={() => navigate("/posts/new")}
+// 					label="POST"
+// 					icon={<AddBoxIcon />}
+// 				/>
+// 				<BottomNavigationAction
+// 					onClick={() => navigate("/rooms")}
+// 					label="DM"
+// 					icon={<ChatIcon />}
+// 				/>
+// 				<BottomNavigationAction
+// 					onClick={() => navigate("/users/setting")}
+// 					label="MYPAGE"
+// 					icon={<AccountCircleIcon />}
+// 				/>
+// 			</BottomNavigation>
+// 		</Box>
+// 	);
+// });

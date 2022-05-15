@@ -201,7 +201,6 @@ export const PlaceInput: FC<Props> = memo((props) => {
 	};
 
 	const onLoad = (autocomplete: any) => {
-		console.log("autocomplete: ", autocomplete);
 		autocompleteRef.current = autocomplete;
 	};
 

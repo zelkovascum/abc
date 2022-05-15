@@ -58,37 +58,37 @@ export const NewPost: FC = memo(() => {
 					textAlign: "center",
 				}}
 			>
-				{/* <form> */}
-				<Stack spacing={4}>
-					<PlaceInput
-						placeInputValue={placeInputValue}
-						setPlaceInputValue={setPlaceInputValue}
-					/>
-					<DateTimeInput
-						dateTimeInputValue={dateTimeInputValue}
-						setDateTimeInputValue={setDateTimeInputValue}
-					/>
-					<TextField
-						// label="コメント"
-						value={contentInputValue}
-						onChange={(e) => handleChange(e)}
-						type="text"
-					/>
-					<Button
-						// bg="teal"
-						// color="white"
-						type="submit"
-						onClick={(e) => handleSubmit(e)}
-						disabled={
-							!(placeInputValue && dateTimeInputValue && contentInputValue)
-						}
-						endIcon={<SendIcon />}
-						variant="contained"
-					>
-						投稿
-					</Button>
-				</Stack>
-				{/* </form> */}
+				<form>
+					<Stack spacing={4}>
+						<PlaceInput
+							placeInputValue={placeInputValue}
+							setPlaceInputValue={setPlaceInputValue}
+						/>
+						<DateTimeInput
+							dateTimeInputValue={dateTimeInputValue}
+							setDateTimeInputValue={setDateTimeInputValue}
+						/>
+						<TextField
+							// label="コメント"
+							value={contentInputValue}
+							onChange={(e) => handleChange(e)}
+							type="text"
+						/>
+						<Button
+							// bg="teal"
+							// color="white"
+							type="submit"
+							onClick={(e) => handleSubmit(e)}
+							disabled={
+								!(placeInputValue && dateTimeInputValue && contentInputValue)
+							}
+							endIcon={<SendIcon />}
+							variant="contained"
+						>
+							投稿
+						</Button>
+					</Stack>
+				</form>
 			</Box>
 		</Box>
 	);
