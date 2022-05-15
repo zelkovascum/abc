@@ -39,7 +39,7 @@ export const updateUserCurrentLocation = (
 // アバターアップデート用
 const imageClient = applyCaseMiddleware(
 	axios.create({
-		baseURL: "http://localhost:3000/api/v1",
+		baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
