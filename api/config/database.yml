@@ -21,9 +21,9 @@ development:
   <<: *default
   database: myapp_development
   # 本番環境確認用
-  host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_NAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  # host: <%= ENV['DATABASE_HOST'] %>
+  # username: <%= ENV['DATABASE_NAME'] %>
+  # password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -32,9 +32,9 @@ test:
   <<: *default
   database: myapp_test
   # 本番環境確認用
-  host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_NAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  # host: <%= ENV['DATABASE_HOST'] %>
+  # username: <%= ENV['DATABASE_NAME'] %>
+  # password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

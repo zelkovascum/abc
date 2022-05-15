@@ -31,6 +31,19 @@ module Myapp
                        helper_specs: false,
                        routing_specs: false
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins 'localhost:8000', 'https://static.inzs46.com'
+        resource '*',
+          headers: :any,
+          # expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          expose: %w[access-token expiry token-type uid client],
+          # methods: [:get, :post, :options, :delete, :put]
+          methods: %i[get post put patch delete options head]
+      end
+    end
+    
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
