@@ -17,11 +17,11 @@ class Api::V1::ReactionsController < ApplicationController
   #       render json: { message: "作成に失敗しました" }, status: 500
   #     end
   #   else
-      
+
   #     render json: {}, status: 200
   #   end
   # end
-  
+
   # private
 
   #   def like_params
