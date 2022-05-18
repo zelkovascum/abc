@@ -1,29 +1,17 @@
-import {
-	FC,
-	memo,
-	useCallback,
-	useContext,
-	useEffect,
-	useReducer,
-	useState,
-} from "react";
-import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { FC, memo, useContext, useEffect, useReducer } from "react";
+import { Box } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailPost } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postInit, postReducer } from "reducers/post";
 import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
-import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { AuthContext } from "providers/AuthProvider";
-import { ReactionButton } from "components/atoms/reactions/ReactionButton";
-import { Post } from "types";
+import { PostCard } from "components/organisms/posts/PostCard";
 
 export const PostShow: FC = memo(() => {
 	const [state, dispatch] = useReducer(postReducer, postInit);
-	const [post, setPost] = useState<Post>();
 	const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const location = useLocation();
 	const { id } = useParams();
 
 	const onClickProfile = (id: number) => {
@@ -46,6 +34,7 @@ export const PostShow: FC = memo(() => {
 	useEffect(() => {
 		dispatch({ type: "FETCHING" });
 		handleGetDetailPost();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -64,42 +53,17 @@ export const PostShow: FC = memo(() => {
 			{state.fetchState !== "OK" ? (
 				<PostSkeleton />
 			) : (
-				<Card
-					sx={{
-						width: {
-							xs: "250px",
-							sm: "350px",
-							md: "450px",
-							lg: "550px",
-							xl: "600px",
-						},
-						height: "220px",
-						m: "auto",
-						borderRadius: 1,
-						cursor: "pointer",
-						p: 2,
-					}}
-				>
-					<Box onClick={() => onClickProfile(state.post!.user.id)}>
-						<Avatar src={state.post!.user.image?.url} />
-						<Typography>{state.post!.user.name}</Typography>
-					</Box>
-					<Box>
-						<Typography sx={{ color: "teal", fontSize: "16px" }}>
-							{transformPlace(state.post!.place)}
-						</Typography>
-						<Typography sx={{ color: "teal", fontSize: "16px" }}>
-							{transformDateTime(state.post!.dateTime.toString())}
-						</Typography>
-						<Typography sx={{ color: "teal", fontSize: "16px" }}>
-							{state.post!.content}
-						</Typography>
-						<ReactionButton
-							fromUserId={currentUser!.id}
-							toUserId={state.post!.user.id}
-						/>
-					</Box>
-				</Card>
+				<PostCard
+					userId={state.post!.user.id}
+					imageUrl={state.post!.user.image?.url}
+					name={state.post!.user.name}
+					place={transformPlace(state.post!.place)}
+					dateTime={transformDateTime(state.post!.dateTime.toString())}
+					content={state.post!.content}
+					currentUserId={currentUser!.id}
+					onClickProfile={() => onClickProfile(state.post!.user.id)}
+					onClickPost={() => {}}
+				/>
 			)}
 		</Box>
 	);
