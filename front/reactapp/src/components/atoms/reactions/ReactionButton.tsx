@@ -1,11 +1,18 @@
-import { FC, memo, MouseEvent } from "react";
+import { FC, memo, MouseEvent, useState } from "react";
 import { Button } from "@mui/material";
-import { Reaction } from "types";
 import { createReaction } from "utils/api/reaction";
 import { useNavigate } from "react-router-dom";
+import { AlertMessage } from "components/molucules/AlertMessage";
 
-export const ReactionButton: FC<Reaction> = memo((props) => {
+type Props = {
+	fromUserId: number;
+	toUserId: number;
+};
+
+export const ReactionButton: FC<Props> = memo((props) => {
 	const { fromUserId, toUserId } = props;
+	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
+	const [message, setMessage] = useState<string>("");
 	const navigate = useNavigate();
 
 	const onClickReaction = async (
@@ -19,16 +26,27 @@ export const ReactionButton: FC<Reaction> = memo((props) => {
 				fromUserId,
 				toUserId,
 			});
-			if (res.data === "") return;
-			navigate(`/rooms/${res.data.id}`);
+			console.log(res.data);
+			setMessage(res.data.message);
+			setIsAlertMessageOpen(true);
+			// if (res.data === "") return;
+			// navigate(`/rooms/${res.data.id}`);
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
 	return (
-		<Button onClick={(e) => onClickReaction(e, fromUserId, toUserId)}>
-			リアクション
-		</Button>
+		<>
+			<Button onClick={(e) => onClickReaction(e, fromUserId, toUserId)}>
+				リアクション
+			</Button>
+			<AlertMessage
+				open={isAlertMessageOpen}
+				setOpen={setIsAlertMessageOpen}
+				severity="info"
+				message={message}
+			/>
+		</>
 	);
 });
