@@ -41,7 +41,14 @@ import { client } from "./client";
 // };
 
 // 参考↓
-export const getAllPosts = () => client.get("/posts");
+export const getAllPosts = () =>
+	client.get("/posts", {
+		headers: {
+			"access-token": Cookies.get("_access_token") || "",
+			client: Cookies.get("_client") || "",
+			uid: Cookies.get("_uid") || "",
+		},
+	});
 
 // export const getDetailPost = (id: number) => {
 // 	return client.get(`/posts/${id}`);
