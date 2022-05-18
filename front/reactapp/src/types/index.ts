@@ -84,3 +84,8 @@ export type Message = {
 	content: string;
 	userId: number;
 };
+
+export type Reaction = {
+	fromUserId: number;
+	toUserId: number;
+};

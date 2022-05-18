@@ -6,6 +6,7 @@ import { AuthContext } from "providers/AuthProvider";
 import { signOut } from "utils/api/auth";
 import { ImageUploadModal } from "components/molucules/users/ImageUploadModal";
 import { CurrentLocationUpdateModal } from "components/molucules/users/CurrentLocationUpdateModal";
+import { Link } from "react-router-dom";
 
 export const Setting: FC = memo(() => {
 	const { loading, isSignIn, setIsSignIn, currentUser } =
@@ -77,6 +78,9 @@ export const Setting: FC = memo(() => {
 					</Button>
 					<p>ユーザーネーム: {currentUser?.name}</p>
 					<p>住所: {currentUser?.address}</p>
+					<Button>
+						<Link to="/users/reactions">reactions</Link>
+					</Button>
 					<AuthButtons />
 				</Box>
 			) : (
