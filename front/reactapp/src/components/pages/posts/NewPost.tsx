@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, MouseEvent, useState } from "react";
+import { ChangeEvent, FC, memo, MouseEvent, useRef, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { PlaceInput } from "components/atoms/PlaceInput";
 import { DateTimeInput } from "components/atoms/posts/DateTimeInput";
@@ -13,8 +13,8 @@ export const NewPost: FC = memo(() => {
 		null
 	);
 	const [contentInputValue, setContentInputValue] = useState<string>("");
-
 	const navigate = useNavigate();
+	const processing = useRef(false);
 
 	const handleChange = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,7 +24,8 @@ export const NewPost: FC = memo(() => {
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		console.log(placeInputValue);
+		if (processing.current) return;
+		processing.current = true;
 		const geocode = await toGeocode(placeInputValue);
 		const { lat, lng } = geocode!;
 		try {
@@ -35,8 +36,10 @@ export const NewPost: FC = memo(() => {
 				dateTime: dateTimeInputValue!,
 				content: contentInputValue,
 			});
+			processing.current = false;
 			navigate("/");
 		} catch (e) {
+			processing.current = false;
 			console.error(e);
 		}
 	};
