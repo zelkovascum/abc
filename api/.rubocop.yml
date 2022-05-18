@@ -80,6 +80,9 @@ Lint/StructNewOverride:
 Layout/LineLength:
   Max: 200
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 40
   Exclude:
@@ -99,7 +102,7 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   CountComments: false
-  Max: 30
+  Max: 40
   Exclude:
     - "lib/tasks/dev.rake"
 
@@ -198,3 +201,7 @@ Style/GlobalStdStream:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+  
