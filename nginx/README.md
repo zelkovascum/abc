@@ -1,2 +1,3 @@
-- production
-  docker build -t my-nginx --platform linux/amd64 .
+# production
+
+docker build -t my-nginx --platform linux/amd64 .
