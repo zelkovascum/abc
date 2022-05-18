@@ -1,7 +1,7 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { AuthContext } from "providers/AuthProvider";
 import { getAllReactions } from "utils/api/reaction";
-import { Box, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { Reaction } from "types";
 
 export const Reactions: FC = memo(() => {
@@ -25,9 +25,9 @@ export const Reactions: FC = memo(() => {
 		<>
 			<Box>
 				{reactions!.map((reaction) => (
-					<Typography key={reaction.fromUserId}>
-						{reaction.fromUserId}
-					</Typography>
+					<Card key={reaction.fromUserId}>
+						<Typography>{reaction.fromUserId}</Typography>
+					</Card>
 				))}
 			</Box>
 		</>
