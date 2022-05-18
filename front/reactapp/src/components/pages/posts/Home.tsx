@@ -1,12 +1,13 @@
 import {
 	FC,
 	memo,
+	MouseEvent,
 	useCallback,
 	useContext,
 	useEffect,
 	useReducer,
 } from "react";
-import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
@@ -16,15 +17,35 @@ import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";
 import { Post } from "types";
+import { createReaction } from "utils/api/reaction";
+import { AuthContext } from "providers/AuthProvider";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
 	const { lat, lng } = useContext(MapContext);
+	const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
+	};
+
+	const onClickReaction = async (
+		e: MouseEvent<HTMLButtonElement>,
+		fromUserId: number,
+		toUserId: number
+	) => {
+		e.preventDefault();
+		try {
+			await createReaction({
+				fromUserId,
+				toUserId,
+			});
+			console.log("create reaction!");
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const sortPostsByDistance = useCallback(
@@ -54,9 +75,7 @@ export const Home: FC = memo(() => {
 	};
 
 	useEffect(() => {
-		console.log(state.fetchState);
 		dispatch({ type: "FETCHING" });
-		console.log(state.fetchState);
 		handleGetAllPosts();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location.pathname]);
@@ -116,6 +135,13 @@ export const Home: FC = memo(() => {
 										<Typography sx={{ color: "teal", fontSize: "16px" }}>
 											{post.content}
 										</Typography>
+										<Button
+											onClick={(e) =>
+												onClickReaction(e, currentUser!.id, post.user.id)
+											}
+										>
+											リアクション
+										</Button>
 									</Box>
 								</Card>
 							</Grid>
