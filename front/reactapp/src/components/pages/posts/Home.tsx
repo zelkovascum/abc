@@ -6,7 +6,7 @@ import {
 	useEffect,
 	useReducer,
 } from "react";
-import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
@@ -17,7 +17,7 @@ import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";
 import { Post } from "types";
 import { AuthContext } from "providers/AuthProvider";
-import { ReactionButton } from "components/atoms/reactions/ReactionButton";
+import { PostCard } from "components/organisms/posts/PostCard";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
@@ -91,42 +91,17 @@ export const Home: FC = memo(() => {
 					<>
 						{state.posts.map((post) => (
 							<Grid item key={post.id}>
-								<Card
-									sx={{
-										width: {
-											xs: "250px",
-											sm: "350px",
-											md: "450px",
-											lg: "550px",
-											xl: "600px",
-										},
-										height: "220px",
-										m: "auto",
-										borderRadius: 1,
-										cursor: "pointer",
-										p: 2,
-									}}
-								>
-									<Box onClick={() => onClickProfile(post.user.id)}>
-										<Avatar src={post.user.image?.url} />
-										<Typography>{post.user.name}</Typography>
-									</Box>
-									<Box onClick={() => onClickPost(post.id)}>
-										<Typography sx={{ color: "teal", fontSize: "16px" }}>
-											{transformPlace(post.place)}
-										</Typography>
-										<Typography sx={{ color: "teal", fontSize: "16px" }}>
-											{transformDateTime(post.dateTime.toString())}
-										</Typography>
-										<Typography sx={{ color: "teal", fontSize: "16px" }}>
-											{post.content}
-										</Typography>
-										<ReactionButton
-											fromUserId={currentUser!.id}
-											toUserId={post.user.id}
-										/>
-									</Box>
-								</Card>
+								<PostCard
+									userId={post.user.id}
+									imageUrl={post.user.image?.url}
+									name={post.user.name}
+									place={transformPlace(post.place)}
+									dateTime={transformDateTime(post.dateTime.toString())}
+									content={post.content}
+									currentUserId={currentUser!.id}
+									onClickProfile={() => onClickProfile(post.user.id)}
+									onClickPost={() => onClickPost(post.id)}
+								/>
 							</Grid>
 						))}
 					</>
