@@ -53,13 +53,6 @@ export const Map: FC = memo(() => {
 							lat: Number(post.lat),
 							lng: Number(post.lng),
 						}}
-						label={{
-							color: "white",
-							fontFamily: "sans-serif",
-							fontSize: "15px",
-							fontWeight: "100",
-							text: post.content,
-						}}
 						onClick={() => {
 							navigate(`/users/${post.user.id}`);
 						}}

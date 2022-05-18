@@ -14,6 +14,7 @@ import { CommonLayout } from "components/templates/CommonLayout";
 import { TopLayout } from "components/templates/TopLayout";
 import { PrivateRoute } from "./PrivateRoute";
 import { Reactions } from "components/pages/reactions/Reactions";
+import { PostShow } from "components/pages/posts/PostShow";
 
 export const Router: FC = memo(() => (
 	<BrowserRouter>
@@ -29,6 +30,7 @@ export const Router: FC = memo(() => (
 					<Route path="/near" element={<Home />} />
 					<Route path="/map" element={<Map />} />
 					<Route path="/posts/new" element={<NewPost />} />
+					<Route path="/posts/:id" element={<PostShow />} />
 					<Route path="/users/:id" element={<Profile />} />
 					<Route path="/users/setting" element={<Setting />} />
 					<Route path="/users/reactions" element={<Reactions />} />

@@ -11,7 +11,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { HomeSkeleton } from "components/atoms/posts/HomeSkeleton";
+import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
 import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";
@@ -28,6 +28,10 @@ export const Home: FC = memo(() => {
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
+	};
+
+	const onClickPost = (id: number) => {
+		navigate(`/posts/${id}`);
 	};
 
 	const sortPostsByDistance = useCallback(
@@ -79,9 +83,9 @@ export const Home: FC = memo(() => {
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState !== "OK" ? (
 					<>
-						<HomeSkeleton />
-						<HomeSkeleton />
-						<HomeSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
 					</>
 				) : (
 					<>
@@ -107,7 +111,7 @@ export const Home: FC = memo(() => {
 										<Avatar src={post.user.image?.url} />
 										<Typography>{post.user.name}</Typography>
 									</Box>
-									<Box>
+									<Box onClick={() => onClickPost(post.id)}>
 										<Typography sx={{ color: "teal", fontSize: "16px" }}>
 											{transformPlace(post.place)}
 										</Typography>

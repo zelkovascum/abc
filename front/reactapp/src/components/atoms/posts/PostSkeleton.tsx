@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import { Grid, Skeleton } from "@mui/material";
 
-export const HomeSkeleton: FC = memo(() => {
+export const PostSkeleton: FC = memo(() => {
 	return (
 		<Grid item>
 			<Skeleton
