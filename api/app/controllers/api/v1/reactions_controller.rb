@@ -14,6 +14,9 @@ class Api::V1::ReactionsController < ApplicationController
       from_user_id: sent_reaction.to_user_id,
       to_user_id: sent_reaction.from_user_id
     )
+    unless received_reaction
+      render json: { message: 'リアクションしました' }, status: :ok
+    end
     return unless received_reaction
     sent_reaction.update(matched: true)
     received_reaction.update(matched: true)
@@ -29,7 +32,7 @@ class Api::V1::ReactionsController < ApplicationController
         other_entries.each do |oe|
           if me.room_id == oe.room_id
             room = Room.find_by(id: me.room_id)
-            render json: room, status: :ok
+            render json: { room:, message: '既にマッチしています' }, status: :ok
           end
         end
       end
@@ -38,7 +41,7 @@ class Api::V1::ReactionsController < ApplicationController
       Entry.create(room_id: room.id, user_id: sent_reaction.to_user_id)
       Entry.create(room_id: room.id, user_id: sent_reaction.from_user_id)
       room = Room.find_by(id: room.id)
-      render json: room, status: :ok
+      render json: { room:, message: 'マッチしました' }, status: :ok
     end
   end
 

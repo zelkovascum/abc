@@ -12,6 +12,7 @@ type Props = {
 	currentUserId: number;
 	onClickProfile: () => void;
 	onClickPost: () => void;
+	reactionButton: boolean;
 };
 
 export const PostCard: FC<Props> = memo((props) => {
@@ -25,6 +26,7 @@ export const PostCard: FC<Props> = memo((props) => {
 		currentUserId,
 		onClickProfile,
 		onClickPost,
+		reactionButton,
 	} = props;
 
 	return (
@@ -58,7 +60,11 @@ export const PostCard: FC<Props> = memo((props) => {
 				<Typography sx={{ color: "teal", fontSize: "16px" }}>
 					{content}
 				</Typography>
-				<ReactionButton fromUserId={currentUserId} toUserId={userId} />
+				{reactionButton ? (
+					<ReactionButton fromUserId={currentUserId} toUserId={userId} />
+				) : (
+					<></>
+				)}
 			</Box>
 		</Card>
 	);

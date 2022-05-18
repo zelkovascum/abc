@@ -115,6 +115,9 @@ Metrics/PerceivedComplexity:
 Metrics/CyclomaticComplexity:
   Max: 10
 
+Metrics/PerceivedComplexity:
+  Max: 11
+
 Naming/FileName:
   Exclude:
     - "Gemfile"

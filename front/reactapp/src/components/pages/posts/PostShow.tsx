@@ -9,8 +9,8 @@ import { AuthContext } from "providers/AuthProvider";
 import { PostCard } from "components/organisms/posts/PostCard";
 
 export const PostShow: FC = memo(() => {
-	const [state, dispatch] = useReducer(postReducer, postInit);
 	const { currentUser } = useContext(AuthContext);
+	const [state, dispatch] = useReducer(postReducer, postInit);
 	const navigate = useNavigate();
 	const { id } = useParams();
 
@@ -38,33 +38,36 @@ export const PostShow: FC = memo(() => {
 	}, []);
 
 	return (
-		<Box
-			sx={{
-				width: {
-					xs: "300px",
-					sm: "400px",
-					md: "500px",
-					lg: "600px",
-					xl: "650px",
-				},
-				p: "40px",
-			}}
-		>
-			{state.fetchState !== "OK" ? (
-				<PostSkeleton />
-			) : (
-				<PostCard
-					userId={state.post!.user.id}
-					imageUrl={state.post!.user.image?.url}
-					name={state.post!.user.name}
-					place={transformPlace(state.post!.place)}
-					dateTime={transformDateTime(state.post!.dateTime.toString())}
-					content={state.post!.content}
-					currentUserId={currentUser!.id}
-					onClickProfile={() => onClickProfile(state.post!.user.id)}
-					onClickPost={() => {}}
-				/>
-			)}
-		</Box>
+		<>
+			<Box
+				sx={{
+					width: {
+						xs: "300px",
+						sm: "400px",
+						md: "500px",
+						lg: "600px",
+						xl: "650px",
+					},
+					p: "40px",
+				}}
+			>
+				{state.fetchState !== "OK" ? (
+					<PostSkeleton />
+				) : (
+					<PostCard
+						userId={state.post!.user.id}
+						imageUrl={state.post!.user.image?.url}
+						name={state.post!.user.name}
+						place={transformPlace(state.post!.place)}
+						dateTime={transformDateTime(state.post!.dateTime.toString())}
+						content={state.post!.content}
+						currentUserId={currentUser!.id}
+						onClickProfile={() => onClickProfile(state.post!.user.id)}
+						onClickPost={() => {}}
+						reactionButton={true}
+					/>
+				)}
+			</Box>
+		</>
 	);
 });
