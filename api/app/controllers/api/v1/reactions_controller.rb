@@ -25,8 +25,6 @@ class Api::V1::ReactionsController < ApplicationController
       end
     end
     if is_room_exist
-      # my_entries = Entry.where(user_id: sent_reaction.to_user_id)
-      # other_entries = Entry.where(user_id: sent_reaction.from_user_id)
       my_entries.each do |me|
         other_entries.each do |oe|
           if me.room_id == oe.room_id

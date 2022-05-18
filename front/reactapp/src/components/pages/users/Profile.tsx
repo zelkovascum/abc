@@ -37,7 +37,6 @@ export const Profile: FC = memo(() => {
 		e.preventDefault();
 		try {
 			const res = await createRoom(id);
-			// navigate(`/room/${res.data.id}`);
 			navigate(`/rooms/${res.data.id}`);
 		} catch (e) {
 			console.error(e);
