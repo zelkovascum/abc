@@ -3,13 +3,8 @@ class Api::V1::ReactionsController < ApplicationController
   # to_user_id   リアクションをされた人
   def index
     reactions = Reaction.where(to_user_id: current_api_v1_user.id)
-    reactions_array = reactions.map do |reaction|
-      {
-        from_user_id: reaction.from_user_id,
-        to_user_id: reaction.to_user_id
-      }
-    end
-    render json: reactions_array, status: 200
+    reaction_users = reactions.map {|reaction| reaction.from_user}
+    render json: reaction_users, status: 200
   end
 
   def create

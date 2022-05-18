@@ -15,11 +15,15 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { useNavigate } from "react-router-dom";
+import { Reaction, User } from "types";
 
 export const Header: FC = memo(() => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
 		useState<null | HTMLElement>(null);
+	const [reactions, setReactions] = useState<User[]>([]);
+	const navigate = useNavigate();
 
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -119,7 +123,7 @@ export const Header: FC = memo(() => {
 		<Box position="fixed" right={0} left={0} zIndex={1}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton
+					{/* <IconButton
 						size="large"
 						edge="start"
 						color="inherit"
@@ -127,7 +131,7 @@ export const Header: FC = memo(() => {
 						sx={{ mr: 2 }}
 					>
 						<MenuIcon />
-					</IconButton>
+					</IconButton> */}
 					<Typography
 						variant="h6"
 						noWrap
@@ -146,8 +150,8 @@ export const Header: FC = memo(() => {
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
-					<Box sx={{ display: { xs: "none", md: "flex" } }}>
-						<IconButton
+					<Box sx={{ display: { xs: "none", sm: "flex" } }}>
+						{/* <IconButton
 							size="large"
 							aria-label="show 4 new mails"
 							color="inherit"
@@ -155,17 +159,19 @@ export const Header: FC = memo(() => {
 							<Badge badgeContent={4} color="error">
 								<MailIcon />
 							</Badge>
-						</IconButton>
+						</IconButton> */}
 						<IconButton
+							onClick={() => {
+								navigate("/users/reactions");
+							}}
 							size="large"
-							aria-label="show 17 new notifications"
 							color="inherit"
 						>
 							<Badge badgeContent={17} color="error">
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
-						<IconButton
+						{/* <IconButton
 							size="large"
 							edge="end"
 							aria-label="account of current user"
@@ -175,9 +181,9 @@ export const Header: FC = memo(() => {
 							color="inherit"
 						>
 							<AccountCircle />
-						</IconButton>
+						</IconButton> */}
 					</Box>
-					<Box sx={{ display: { xs: "flex", md: "none" } }}>
+					<Box sx={{ display: { xs: "flex", sm: "none" } }}>
 						<IconButton
 							size="large"
 							aria-label="show more"

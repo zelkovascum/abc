@@ -1,13 +1,12 @@
 import {
 	FC,
 	memo,
-	MouseEvent,
 	useCallback,
 	useContext,
 	useEffect,
 	useReducer,
 } from "react";
-import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
@@ -17,8 +16,8 @@ import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";
 import { Post } from "types";
-import { createReaction } from "utils/api/reaction";
 import { AuthContext } from "providers/AuthProvider";
+import { ReactionButton } from "components/atoms/reactions/ReactionButton";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
@@ -29,23 +28,6 @@ export const Home: FC = memo(() => {
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
-	};
-
-	const onClickReaction = async (
-		e: MouseEvent<HTMLButtonElement>,
-		fromUserId: number,
-		toUserId: number
-	) => {
-		e.preventDefault();
-		try {
-			await createReaction({
-				fromUserId,
-				toUserId,
-			});
-			console.log("create reaction!");
-		} catch (e) {
-			console.error(e);
-		}
 	};
 
 	const sortPostsByDistance = useCallback(
@@ -135,13 +117,10 @@ export const Home: FC = memo(() => {
 										<Typography sx={{ color: "teal", fontSize: "16px" }}>
 											{post.content}
 										</Typography>
-										<Button
-											onClick={(e) =>
-												onClickReaction(e, currentUser!.id, post.user.id)
-											}
-										>
-											リアクション
-										</Button>
+										<ReactionButton
+											fromUserId={currentUser!.id}
+											toUserId={post.user.id}
+										/>
 									</Box>
 								</Card>
 							</Grid>
