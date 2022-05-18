@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { client } from "./client";
 
-// ルーム作成
+// 消す
 export const createRoom = (id: number) =>
 	client.post(
 		`/users/${id}/rooms`,
@@ -15,7 +15,6 @@ export const createRoom = (id: number) =>
 		}
 	);
 
-// ルーム一覧
 export const getAllRooms = () =>
 	client.get("/rooms", {
 		headers: {
@@ -25,7 +24,6 @@ export const getAllRooms = () =>
 		},
 	});
 
-// ルーム詳細
 export const getDetailRoom = (id: number) =>
 	client.get(`/rooms/${id}`, {
 		headers: {
