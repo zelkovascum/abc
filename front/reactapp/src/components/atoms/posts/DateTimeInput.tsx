@@ -10,6 +10,8 @@ type Props = {
 	setDateTimeInputValue: React.Dispatch<React.SetStateAction<Date | null>>;
 };
 
+const now = new Date();
+
 export const DateTimeInput: React.FC<Props> = React.memo((props) => {
 	const { dateTimeInputValue, setDateTimeInputValue } = props;
 
@@ -21,6 +23,7 @@ export const DateTimeInput: React.FC<Props> = React.memo((props) => {
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Stack spacing={3}>
 				<DateTimePicker
+					minDateTime={now}
 					// label="時間を選択"
 					inputFormat="yyyy/MM/dd hh:mm"
 					value={dateTimeInputValue}
