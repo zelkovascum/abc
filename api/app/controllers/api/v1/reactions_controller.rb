@@ -2,8 +2,16 @@ class Api::V1::ReactionsController < ApplicationController
   # from_user_id リアクションをした人
   # to_user_id   リアクションをされた人
   def index
-    reactions = Reaction.where(to_user_id: current_api_v1_user.id)
-    reaction_users = reactions.map {|reaction| reaction.from_user}
+    received_reactions = Reaction.where(to_user_id: current_api_v1_user.id)
+    # sent_reactions = Reaction.where(from_user_id: current_api_v1_user.id)
+    # received_reactions.each do |rr|
+    #   sent_reactions.each do |sr|
+    #     if rr.from_user_id == sr.to_user_id
+
+    #     end
+    #   end
+    # end
+    reaction_users = received_reactions.map {|reaction| reaction.from_user}
     render json: reaction_users, status: 200
   end
 
@@ -15,6 +23,8 @@ class Api::V1::ReactionsController < ApplicationController
       to_user_id: sent_reaction.from_user_id
     )
     if received_reaction
+      sent_reaction.update(matched: true)
+      received_reaction.update(matched: true)
       my_entries = Entry.where(user_id: sent_reaction.to_user_id)
       other_entries = Entry.where(user_id: sent_reaction.from_user_id)
       my_entries.each do |me|

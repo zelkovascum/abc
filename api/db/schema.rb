@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_063531) do
+ActiveRecord::Schema.define(version: 2022_05_18_155144) do
 
   create_table "entries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_063531) do
     t.bigint "from_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "matched", default: false, null: false
     t.index ["from_user_id"], name: "index_reactions_on_from_user_id"
     t.index ["to_user_id"], name: "index_reactions_on_to_user_id"
   end
