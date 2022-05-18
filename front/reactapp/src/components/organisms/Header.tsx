@@ -1,4 +1,4 @@
-import { FC, memo, useState, MouseEvent } from "react";
+import { FC, memo, useState, MouseEvent, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -17,6 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { Reaction, User } from "types";
+import { getAllReactions } from "utils/api/reaction";
 
 export const Header: FC = memo(() => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -119,19 +120,23 @@ export const Header: FC = memo(() => {
 		</Menu>
 	);
 
+	const handleGetAllReactions = async () => {
+		try {
+			const res = await getAllReactions();
+			setReactions(res.data);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	useEffect(() => {
+		handleGetAllReactions();
+	}, []);
+
 	return (
 		<Box position="fixed" right={0} left={0} zIndex={1}>
 			<AppBar position="static">
 				<Toolbar>
-					{/* <IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="open drawer"
-						sx={{ mr: 2 }}
-					>
-						<MenuIcon />
-					</IconButton> */}
 					<Typography
 						variant="h6"
 						noWrap
@@ -151,15 +156,6 @@ export const Header: FC = memo(() => {
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { xs: "none", sm: "flex" } }}>
-						{/* <IconButton
-							size="large"
-							aria-label="show 4 new mails"
-							color="inherit"
-						>
-							<Badge badgeContent={4} color="error">
-								<MailIcon />
-							</Badge>
-						</IconButton> */}
 						<IconButton
 							onClick={() => {
 								navigate("/users/reactions");
@@ -167,21 +163,10 @@ export const Header: FC = memo(() => {
 							size="large"
 							color="inherit"
 						>
-							<Badge badgeContent={17} color="error">
+							<Badge badgeContent={reactions.length} color="error">
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
-						{/* <IconButton
-							size="large"
-							edge="end"
-							aria-label="account of current user"
-							aria-controls={menuId}
-							aria-haspopup="true"
-							onClick={handleProfileMenuOpen}
-							color="inherit"
-						>
-							<AccountCircle />
-						</IconButton> */}
 					</Box>
 					<Box sx={{ display: { xs: "flex", sm: "none" } }}>
 						<IconButton

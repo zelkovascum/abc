@@ -2,7 +2,7 @@ class Api::V1::ReactionsController < ApplicationController
   # from_user_id リアクションをした人
   # to_user_id   リアクションをされた人
   def index
-    received_reactions = Reaction.where(to_user_id: current_api_v1_user.id, matched: false)
+    received_reactions = Reaction.where(to_user_id: current_api_v1_user.id, matched: false).order(created_at: :desc)
     reaction_users = received_reactions.map { |reaction| reaction.from_user }
     render json: reaction_users, status: :ok
   end
