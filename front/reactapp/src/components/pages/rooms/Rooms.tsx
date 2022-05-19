@@ -92,10 +92,9 @@ export const Rooms: FC = memo(() => {
 						{state.rooms
 							.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id)
 							.map((room) => (
-								<>
+								<div key={room.id}>
 									<Divider />
 									<ListItem
-										key={room.id}
 										onClick={() => onClickDetailRoom(room.id)}
 										sx={{
 											cursor: "pointer",
@@ -130,7 +129,7 @@ export const Rooms: FC = memo(() => {
 											/>
 										</>
 									</ListItem>
-								</>
+								</div>
 							))}
 					</>
 				)}
