@@ -49,7 +49,6 @@ export const Footer: FC = memo(() => {
 										: "inherit",
 							}}
 						>
-							<>{console.log(location.pathname)}</>
 							<IconButton color="inherit">
 								<HomeIcon name="home" />
 							</IconButton>

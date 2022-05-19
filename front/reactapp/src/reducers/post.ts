@@ -14,6 +14,7 @@ export const postInit: State = {
 	post: null,
 };
 
+// 投稿詳細用
 export const postReducer = (state: State, action: Action): State | never => {
 	switch (action.type) {
 		case "FETCHING":
