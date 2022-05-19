@@ -1,8 +1,6 @@
 import Cookies from "js-cookie";
-import { User } from "types";
-import axios, { AxiosPromise } from "axios";
-import applyCaseMiddleware from "axios-case-converter";
-import { client } from "./client";
+import { AxiosPromise } from "axios";
+import { client, imageClient } from "./client";
 
 export const getDetailUser = (id: string) =>
 	client.get(`/users/${id}`, {
@@ -37,18 +35,6 @@ export const updateUserCurrentLocation = (
 	});
 
 // アバターアップデート用
-const imageClient = applyCaseMiddleware(
-	axios.create({
-		baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
-	}),
-	{
-		ignoreHeaders: true,
-	}
-);
-
 export const updateUserImage = (data: FormData, userId: number): AxiosPromise =>
 	imageClient.patch(`/users/${userId}`, data, {
 		headers: {

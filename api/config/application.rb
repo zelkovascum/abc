@@ -34,7 +34,7 @@ module Myapp
 
     config.middleware.use Rack::Cors do
       allow do
-        origins 'localhost:8000', 'https://static.inzs46.com'
+        origins 'localhost:8000', 'https://inzs46.com'
         resource '*',
                  headers: :any,
                  # expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],

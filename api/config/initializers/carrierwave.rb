@@ -5,7 +5,8 @@ require 'carrierwave/storage/fog'
 CarrierWave.configure do |config|
   if Rails.env.production?
     # config.asset_host = "https://s3-ap-northeast-1.amazonaws.com/#{ENV['AWS_S3_BUCKET_NAME']}"
-    config.asset_host = 'https://static.inzs46.com'
+    # config.asset_host = 'https://inzs46.com'
+    config.asset_host = 'https://d359zlcqb84ayi.cloudfront.net'
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory = ENV['AWS_S3_BUCKET_NAME']
