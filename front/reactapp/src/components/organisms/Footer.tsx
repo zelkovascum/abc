@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import {
 	AppBar,
 	Toolbar,
@@ -17,13 +17,14 @@ import { theme } from "providers/MuiThemeProvider";
 
 export const Footer: FC = memo(() => {
 	const matches = useMediaQuery(theme.breakpoints.down("sm"));
+	const location = useLocation();
 
 	return (
 		<AppBar position="fixed" sx={{ top: "auto", bottom: 0 }} color="default">
 			<Toolbar>
 				<Grid container direction="row" justifyContent="center" ml={5}>
 					<Grid item xs={2.4} m="auto">
-						<NavLink
+						{/* <NavLink
 							to="/"
 							style={({ isActive }) => {
 								return {
@@ -33,12 +34,27 @@ export const Footer: FC = memo(() => {
 									color: isActive ? "teal" : "inherit",
 								};
 							}}
+						> */}
+						<Link
+							to="/"
+							style={{
+								display: "flex",
+								alignItems: "center",
+								textDecoration: "none",
+								color:
+									location.pathname === "/"
+										? "teal"
+										: location.pathname === "/near"
+										? "teal"
+										: "inherit",
+							}}
 						>
+							<>{console.log(location.pathname)}</>
 							<IconButton color="inherit">
 								<HomeIcon name="home" />
 							</IconButton>
 							{matches ? <></> : <Typography fontSize={12}>HOME</Typography>}
-						</NavLink>
+						</Link>
 					</Grid>
 					<Grid item xs={2.4}>
 						<NavLink
