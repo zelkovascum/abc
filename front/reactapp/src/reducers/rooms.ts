@@ -1,21 +1,21 @@
-import { Post } from "types";
+import { Room } from "types";
 
 type State = {
 	fetchState: "INITIAL" | "LOADING" | "OK";
-	posts: [] | Post[];
+	rooms: [] | Room[];
 };
 type Action = {
 	type: "FETCHING" | "FETCH_SUCCESS";
-	payload?: [] | Post[];
+	payload?: [] | Room[];
 };
 
-export const postsInit: State = {
+export const roomsInit: State = {
 	fetchState: "INITIAL",
-	posts: [],
+	rooms: [],
 };
 
-// 投稿一覧用
-export const postsReducer = (state: State, action: Action): State | never => {
+// DM一覧用
+export const roomsReducer = (state: State, action: Action): State | never => {
 	switch (action.type) {
 		case "FETCHING":
 			return {
@@ -25,7 +25,7 @@ export const postsReducer = (state: State, action: Action): State | never => {
 		case "FETCH_SUCCESS":
 			return {
 				fetchState: "OK",
-				posts: action.payload!,
+				rooms: action.payload!,
 			};
 		default:
 			throw new Error();
