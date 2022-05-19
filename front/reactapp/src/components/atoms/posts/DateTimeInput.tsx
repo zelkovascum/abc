@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { Box } from "@mui/material";
 
 type Props = {
 	dateTimeInputValue: Date | null;
@@ -20,17 +21,22 @@ export const DateTimeInput: React.FC<Props> = React.memo((props) => {
 	};
 
 	return (
-		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<Stack spacing={3}>
-				<DateTimePicker
-					minDateTime={now}
-					// label="時間を選択"
-					inputFormat="yyyy/MM/dd hh:mm"
-					value={dateTimeInputValue}
-					onChange={handleChange}
-					renderInput={(params) => <TextField {...params} />}
-				/>
-			</Stack>
-		</LocalizationProvider>
+		<Box
+			sx={{
+				width: "100%",
+			}}
+		>
+			<LocalizationProvider dateAdapter={AdapterDateFns}>
+				<Stack spacing={3}>
+					<DateTimePicker
+						minDateTime={now}
+						inputFormat="yyyy/MM/dd hh:mm"
+						value={dateTimeInputValue}
+						onChange={handleChange}
+						renderInput={(params) => <TextField {...params} />}
+					/>
+				</Stack>
+			</LocalizationProvider>
+		</Box>
 	);
 });

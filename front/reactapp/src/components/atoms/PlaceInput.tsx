@@ -1,3 +1,50 @@
+import { FC, memo, useRef, ChangeEvent } from "react";
+import { Autocomplete } from "@react-google-maps/api";
+import { TextField } from "@mui/material";
+import "../../App.css";
+
+type Props = {
+	placeInputValue: any;
+	setPlaceInputValue: any;
+};
+
+export const PlaceInput: FC<Props> = memo((props) => {
+	const { placeInputValue, setPlaceInputValue } = props;
+	const autocompleteRef = useRef<any>(null);
+
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		setPlaceInputValue(e.target.value);
+		console.log(placeInputValue);
+	};
+
+	const onLoad = (autocomplete: any) => {
+		autocompleteRef.current = autocomplete;
+	};
+
+	const onPlaceChanged = () => {
+		if (autocompleteRef !== null) {
+			setPlaceInputValue(autocompleteRef.current.getPlace().formatted_address);
+			console.log(autocompleteRef.current.getPlace().formatted_address);
+		} else {
+			console.log("Autocomplete is not loaded yet!");
+		}
+	};
+
+	return (
+		<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+			<TextField
+				value={placeInputValue}
+				onChange={(e) => handleChange(e)}
+				type="text"
+				placeholder=""
+				sx={{ width: "100%" }}
+			/>
+		</Autocomplete>
+	);
+});
+
 // import * as React from "react";
 // import Box from "@mui/material/Box";
 // import TextField from "@mui/material/TextField";
@@ -178,52 +225,3 @@
 // 		/>
 // 	);
 // });
-
-import { FC, memo, useRef, ChangeEvent } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import { TextField } from "@mui/material";
-import "../../App.css";
-
-type Props = {
-	placeInputValue: any;
-	setPlaceInputValue: any;
-};
-
-export const PlaceInput: FC<Props> = memo((props) => {
-	const { placeInputValue, setPlaceInputValue } = props;
-	const autocompleteRef = useRef<any>(null);
-
-	const handleChange = (
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-	) => {
-		setPlaceInputValue(e.target.value);
-		console.log(placeInputValue);
-	};
-
-	const onLoad = (autocomplete: any) => {
-		autocompleteRef.current = autocomplete;
-	};
-
-	const onPlaceChanged = () => {
-		if (autocompleteRef !== null) {
-			setPlaceInputValue(autocompleteRef.current.getPlace().formatted_address);
-			console.log(autocompleteRef.current.getPlace().formatted_address);
-		} else {
-			console.log("Autocomplete is not loaded yet!");
-		}
-	};
-
-	return (
-		<div>
-			<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-				<TextField
-					value={placeInputValue}
-					onChange={(e) => handleChange(e)}
-					type="text"
-					placeholder=""
-					sx={{ width: "240px" }}
-				/>
-			</Autocomplete>
-		</div>
-	);
-});

@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, memo, MouseEvent, useRef, useState } from "react";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Stack, TextField, Typography } from "@mui/material";
 import { PlaceInput } from "components/atoms/PlaceInput";
 import { DateTimeInput } from "components/atoms/posts/DateTimeInput";
 import SendIcon from "@mui/icons-material/Send";
@@ -45,54 +45,75 @@ export const NewPost: FC = memo(() => {
 	};
 
 	return (
-		<Box width="100%" height="100%" p="40px">
-			<Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
-				新規投稿
-			</Typography>
-			<Box
-				sx={{
-					width: "240px",
-					height: "240px",
-					p: "16px",
-					bg: "white",
-					mx: "auto",
-					borderRadius: "md",
-					shadow: "md",
-					textAlign: "center",
-				}}
-			>
-				<form>
-					<Stack spacing={4}>
-						<PlaceInput
-							placeInputValue={placeInputValue}
-							setPlaceInputValue={setPlaceInputValue}
-						/>
-						<DateTimeInput
-							dateTimeInputValue={dateTimeInputValue}
-							setDateTimeInputValue={setDateTimeInputValue}
-						/>
-						<TextField
-							// label="コメント"
-							value={contentInputValue}
-							onChange={(e) => handleChange(e)}
-							type="text"
-						/>
-						<Button
-							// bg="teal"
-							// color="white"
-							type="submit"
-							onClick={(e) => handleSubmit(e)}
-							disabled={
-								!(placeInputValue && dateTimeInputValue && contentInputValue)
-							}
-							endIcon={<SendIcon />}
-							variant="contained"
-						>
-							投稿
-						</Button>
-					</Stack>
-				</form>
-			</Box>
-		</Box>
+		// <Box
+		// 	sx={{
+		// 		width: {
+		// 			xs: "300px",
+		// 			sm: "400px",
+		// 			md: "500px",
+		// 			lg: "600px",
+		// 			xl: "650px",
+		// 		},
+		// 		p: "40px",
+		// 	}}
+		// >
+		<Card
+			sx={{
+				width: {
+					xs: "280px",
+					sm: "400px",
+					md: "500px",
+					lg: "600px",
+					xl: "700px",
+				},
+				my: 2,
+				p: 3,
+				borderRadius: "md",
+				shadow: "md",
+			}}
+		>
+			<Stack spacing={1.5}>
+				<Typography sx={{ textAlign: "center" }}>新規</Typography>
+				<Box>
+					<Typography ml={2}>場所</Typography>
+					<PlaceInput
+						placeInputValue={placeInputValue}
+						setPlaceInputValue={setPlaceInputValue}
+					/>
+				</Box>
+				<Box>
+					<Typography ml={2}>日時</Typography>
+					<DateTimeInput
+						dateTimeInputValue={dateTimeInputValue}
+						setDateTimeInputValue={setDateTimeInputValue}
+					/>
+				</Box>
+				{/* <Box>
+					<Typography ml={2}>*****</Typography>
+					<TextField type="text" sx={{ width: "100%" }} />
+				</Box> */}
+				<Box>
+					<Typography ml={2}>コメント</Typography>
+					<TextField
+						value={contentInputValue}
+						onChange={(e) => handleChange(e)}
+						type="text"
+						sx={{ width: "100%" }}
+					/>
+				</Box>
+				<Button
+					type="submit"
+					onClick={(e) => handleSubmit(e)}
+					disabled={
+						!(placeInputValue && dateTimeInputValue && contentInputValue)
+					}
+					endIcon={<SendIcon />}
+					variant="contained"
+				>
+					投稿
+				</Button>
+			</Stack>
+		</Card>
+		// </Box>
 	);
 });
