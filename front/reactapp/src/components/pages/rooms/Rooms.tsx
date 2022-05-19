@@ -15,6 +15,7 @@ import {
 	ListItem,
 	ListItemAvatar,
 	ListItemText,
+	Divider,
 } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { getAllRooms } from "utils/api/room";
@@ -52,13 +53,29 @@ export const Rooms: FC = memo(() => {
 	}, []);
 
 	return (
-		<Box>
-			<Typography sx={{ as: "h1", textAlign: "center" }} my={2}>
+		<Box
+			sx={{
+				width: "100%",
+				maxWidth: {
+					xs: "300px",
+					sm: "400px",
+					md: "500px",
+					lg: "600px",
+					xl: "700px",
+				},
+			}}
+		>
+			<Typography sx={{ as: "h1", m: "auto", my: 2, textAlign: "center" }}>
 				メッセージ
 			</Typography>
-			<List>
+			<List sx={{ textAlign: "center" }}>
 				{state.fetchState !== "OK" ? (
 					<>
+						<RoomSkeleton />
+						<RoomSkeleton />
+						<RoomSkeleton />
+						<RoomSkeleton />
+						<RoomSkeleton />
 						<RoomSkeleton />
 						<RoomSkeleton />
 						<RoomSkeleton />
@@ -73,29 +90,47 @@ export const Rooms: FC = memo(() => {
 				) : (
 					<>
 						{state.rooms
-							?.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id)
+							.sort((a, b) => b.lastMessage?.id - a.lastMessage?.id)
 							.map((room) => (
-								<ListItem
-									key={room.id}
-									onClick={() => onClickDetailRoom(room.id)}
-									sx={{ cursor: "pointer", mb: 1 }}
-								>
-									<ListItemAvatar>
-										<Avatar src={room.otherUser.image?.url} />
-									</ListItemAvatar>
-									<ListItemText
-										primary={room.otherUser.name}
-										secondary={
-											room.lastMessage === null
-												? "まだメッセージがありません"
-												: `${
-														room.lastMessage.userId === currentUser!.id
-															? `あなた:${room.lastMessage.content}`
-															: `${room.otherUser.name}:${room.lastMessage.content}`
-												  }`
-										}
-									/>
-								</ListItem>
+								<>
+									<Divider />
+									<ListItem
+										key={room.id}
+										onClick={() => onClickDetailRoom(room.id)}
+										sx={{
+											cursor: "pointer",
+											mx: "auto",
+										}}
+										button
+									>
+										<>
+											<ListItemAvatar>
+												<Avatar src={room.otherUser.image?.url} />
+											</ListItemAvatar>
+											<ListItemText
+												primary={room.otherUser.name}
+												secondary={
+													room.lastMessage === null
+														? "まだメッセージがありません"
+														: `${
+																room.lastMessage.userId === currentUser!.id
+																	? `あなた:${room.lastMessage.content}`
+																	: `${room.otherUser.name}:${room.lastMessage.content}`
+														  }`
+												}
+												sx={{
+													width: {
+														xs: "200px",
+														sm: "300px",
+														md: "400px",
+														lg: "500px",
+														xl: "600px",
+													},
+												}}
+											/>
+										</>
+									</ListItem>
+								</>
 							))}
 					</>
 				)}

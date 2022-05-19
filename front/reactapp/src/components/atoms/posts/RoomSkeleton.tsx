@@ -8,13 +8,31 @@ import {
 
 export const RoomSkeleton: FC = memo(() => {
 	return (
-		<ListItem sx={{ mb: 1 }}>
+		<ListItem sx={{ mb: 1, mx: "auto" }}>
 			<ListItemAvatar>
 				<Skeleton variant="circular" width={40} height={40} />
 			</ListItemAvatar>
 			<ListItemText
-				primary={<Skeleton width={90} />}
-				secondary={<Skeleton width={185} />}
+				primary={
+					<Skeleton
+						sx={{
+							width: "100px",
+						}}
+					/>
+				}
+				secondary={
+					<Skeleton
+						sx={{
+							width: {
+								xs: "200px",
+								sm: "300px",
+								md: "400px",
+								lg: "500px",
+								xl: "600px",
+							},
+						}}
+					/>
+				}
 			/>
 		</ListItem>
 	);
