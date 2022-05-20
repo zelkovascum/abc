@@ -14,6 +14,7 @@ services:
     build:
       context: ./api/
       dockerfile: Dockerfile
+      # dockerfile: Dockerfile.prod
     command: /bin/sh -c "rm -f /myapp/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: /bin/sh -c "rm -f /myapp/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
     image: rails:dev
@@ -25,6 +26,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: development
+      # RAILS_ENV: production
     depends_on:
       - db
     tty: true
