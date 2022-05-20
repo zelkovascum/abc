@@ -1,24 +1,40 @@
-import { Dispatch, FC, memo, MouseEvent, Ref, SetStateAction } from "react";
+import { FC, memo, useState, useRef, KeyboardEvent } from "react";
 import { Box, TextField, Button } from "@mui/material";
+import { createMessage } from "utils/api/message";
 
 type Props = {
+	handleGetDetailRoom: (id: any) => void;
 	responsiveWidth: any;
-	inputEl: Ref<HTMLInputElement>;
-	content: string;
-	setContent: Dispatch<SetStateAction<string>>;
-	handleSubmit: (id: string, e: MouseEvent<HTMLButtonElement>) => void;
 	paramsId: string;
 };
 
 export const RoomInputField: FC<Props> = memo((props) => {
-	const {
-		responsiveWidth,
-		inputEl,
-		content,
-		setContent,
-		handleSubmit,
-		paramsId,
-	} = props;
+	const { handleGetDetailRoom, responsiveWidth, paramsId } = props;
+	const inputRef = useRef<HTMLInputElement>(null);
+	// 日本語入力監視
+	const [isCompose, setIsCompose] = useState<boolean>(false);
+	const [content, setContent] = useState<string>("");
+
+	const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+		if (isCompose) return;
+		if (content === "") return;
+		if (e.key === "Enter") {
+			handleSubmit(paramsId);
+			setContent("");
+			e.preventDefault();
+		}
+	};
+
+	const handleSubmit = async (id: string) => {
+		try {
+			await createMessage(id, { content });
+			handleGetDetailRoom(id);
+		} catch (e) {
+			console.error(e);
+		}
+		setContent("");
+		inputRef.current!.focus();
+	};
 
 	return (
 		<Box
@@ -34,27 +50,23 @@ export const RoomInputField: FC<Props> = memo((props) => {
 			}}
 		>
 			<TextField
-				placeholder="メッセージを入力..."
+				sx={{ width: "80%", color: "primary" }}
 				type="text"
+				placeholder="メッセージを入力..."
 				autoFocus
-				inputRef={inputEl}
-				color="primary"
+				inputRef={inputRef}
 				value={content}
+				onCompositionStart={() => setIsCompose(true)}
+				onCompositionEnd={() => setIsCompose(false)}
 				onChange={(e) => setContent(e.target.value)}
-				// onKeyDown={(e) => {
-				//   if (isComposed) return;
-				//   const text = e.target.value;
-				//   if (text === '') return;
-				//   if (e.key === 'Enter') {
-				//     pushMessage({ name, text });
-				//     setText('');
-				//     e.preventDefault();
-				//   }
-				sx={{ width: "80%" }}
+				onKeyDown={(e) => handleKeyDown(e)}
 			/>
 			<Button
 				type="submit"
-				onClick={(e) => handleSubmit(paramsId, e)}
+				onClick={(e) => {
+					e.preventDefault();
+					handleSubmit(paramsId);
+				}}
 				disabled={!content}
 				variant="contained"
 				sx={{
