@@ -1,18 +1,12 @@
 import { FC, memo, MouseEvent, useEffect, useRef, useState } from "react";
-import {
-	Avatar,
-	Box,
-	Button,
-	Card,
-	Grid,
-	TextField,
-	Toolbar,
-	Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Message, User } from "types";
 import { getDetailRoom } from "utils/api/room";
 import { createMessage } from "utils/api/message";
+import { RoomHeader } from "components/molucules/rooms/RoomHeader";
+import { RoomMessages } from "components/molucules/rooms/RoomMessages";
+import { RoomInputField } from "components/molucules/rooms/RoomInputField";
 
 export const Room: FC = memo(() => {
 	const [otherUser, setOtherUser] = useState<User>();
@@ -55,110 +49,37 @@ export const Room: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box height="70vh">
-			<Toolbar
-				sx={{
-					textAlign: "center",
-					mx: "auto",
-					p: 0.5,
-					bg: "white",
-				}}
-			>
-				<Avatar src={otherUser?.image?.url} />
-				<Typography
-					height="100%"
-					color="teal"
-					fontSize="24px"
-					fontWeight="bold"
-				>
-					{otherUser?.name}
-				</Typography>
-			</Toolbar>
-			<Box
-				ref={messageBox}
-				sx={{
-					height: "80%",
-					bg: "white",
-					mx: "auto",
-					p: 1,
-					border: "none",
-					overflowY: "scroll",
-				}}
-			>
-				{messages?.map((message) => (
-					<Grid
-						key={message.id}
-						container
-						wrap="wrap"
-						justifyContent={
-							message.userId === otherUser?.id ? "flex-start" : "flex-end"
-						}
-						p={1}
-					>
-						<Grid item>
-							<Card
-								sx={{
-									backgroundColor:
-										message.userId === otherUser?.id ? "#eeeeee" : "#7986cb",
-								}}
-							>
-								<Typography
-									color={message.userId === otherUser?.id ? "black" : "white"}
-									p={1}
-								>
-									{message.content}
-								</Typography>
-							</Card>
-						</Grid>
-					</Grid>
-				))}
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					mx: "auto",
-					bg: "teal",
-					m: 1,
-				}}
-			>
-				{/* <form> */}
-				{/* <Grid> */}
-				<TextField
-					placeholder="メッセージを入力..."
-					type="text"
-					autoFocus
-					inputRef={inputEl}
-					// name="content"
-					// id="content"
-					color="primary"
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-					// onKeyDown={(e) => {
-					//   if (isComposed) return;
-
-					//   const text = e.target.value;
-					//   if (text === '') return;
-
-					//   if (e.key === 'Enter') {
-					//     pushMessage({ name, text });
-					//     setText('');
-					//     e.preventDefault();
-					//   }
-					sx={{ width: "80%" }}
-				/>
-				<Button
-					type="submit"
-					onClick={(e) => handleSubmit(id!, e)}
-					disabled={!content}
-					variant="contained"
-					sx={{ width: "20%", height: "100%", margin: 1 }}
-				>
-					送信
-				</Button>
-				{/* </Grid> */}
-				{/* </form> */}
-			</Box>
+		<Box
+			sx={{
+				width: responsiveWidth,
+			}}
+		>
+			<RoomHeader
+				responsiveWidth={responsiveWidth}
+				imageUrl={otherUser?.image?.url}
+				name={otherUser?.name!}
+			/>
+			<RoomMessages
+				messageBox={messageBox}
+				messages={messages}
+				otherUserId={otherUser?.id!}
+			/>
+			<RoomInputField
+				responsiveWidth={responsiveWidth}
+				inputEl={inputEl}
+				content={content}
+				setContent={setContent}
+				handleSubmit={handleSubmit}
+				paramsId={id!}
+			/>
 		</Box>
 	);
 });
+
+const responsiveWidth = {
+	xs: "350px",
+	sm: "550px",
+	md: "750px",
+	lg: "900px",
+	xl: "1300px",
+};
