@@ -53,16 +53,16 @@ export const PostCard: FC<Props> = memo((props) => {
 				)}
 			</ListItem>
 			<Grid container onClick={() => onClickPost()}>
-				<Grid item xs={1.5}>
+				<Grid item xs={2} sm={1.5}>
 					場所:
 				</Grid>
-				<Grid item xs={10.5}>
+				<Grid item xs={10} sm={10.5}>
 					<Typography sx={{ fontSize: "16px" }}>{place}</Typography>
 				</Grid>
-				<Grid item xs={1.5}>
+				<Grid item xs={2} sm={1.5}>
 					日時:
 				</Grid>
-				<Grid item xs={10.5}>
+				<Grid item xs={10} sm={10.5}>
 					<Typography sx={{ fontSize: "16px" }}>{dateTime}</Typography>
 				</Grid>
 				<Grid item sx={{ mt: 1 }}>
