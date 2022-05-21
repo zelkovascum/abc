@@ -5,6 +5,7 @@ import {
 	useContext,
 	useEffect,
 	useReducer,
+	useState,
 } from "react";
 import { Box, Grid } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,6 +19,7 @@ import { calculateDistance } from "utils/calculateDistance";
 import { Post } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import { PostCard } from "components/organisms/posts/PostCard";
+import { SearchByDateTime } from "components/molucules/posts/SearchByDateTime";
 
 export const Home: FC = memo(() => {
 	const [state, dispatch] = useReducer(postsReducer, postsInit);
@@ -25,6 +27,9 @@ export const Home: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [dateTimeInputValue, setDateTimeInputValue] = useState<Date | null>(
+		null
+	);
 
 	const onClickProfile = (id: number) => {
 		navigate(`/users/${id}`);
@@ -60,6 +65,16 @@ export const Home: FC = memo(() => {
 		}
 	};
 
+	const handleSearchPosts = () => {
+		const PostsSortedByDateTime = [...state.posts].filter((post) => {
+			return dateTimeInputValue! < new Date(post.dateTime);
+		});
+		dispatch({
+			type: "FETCH_SUCCESS",
+			payload: PostsSortedByDateTime,
+		});
+	};
+
 	useEffect(() => {
 		dispatch({ type: "FETCHING" });
 		handleGetAllPosts();
@@ -79,6 +94,11 @@ export const Home: FC = memo(() => {
 				p: 1,
 			}}
 		>
+			<SearchByDateTime
+				dateTimeInputValue={dateTimeInputValue}
+				setDateTimeInputValue={setDateTimeInputValue}
+				handleSearch={handleSearchPosts}
+			/>
 			<HomeTabs />
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState !== "OK" ? (
