@@ -79,13 +79,13 @@ export const Profile: FC = memo(() => {
 						<Typography textAlign="center">現在のユーザーです</Typography>
 					) : (
 						<Button
-								// _hover={{ opacity: 0.8 }}
-								// bg="teal"
-								// color="white"
-								onClick={(e) => handleCreateRoom(e, user.id)}
-							>
-								DM
-							</Button>
+							// _hover={{ opacity: 0.8 }}
+							// bg="teal"
+							// color="white"
+							onClick={(e) => handleCreateRoom(e, user.id)}
+						>
+							DM
+						</Button>
 					)}
 				</Box>
 			</Box>

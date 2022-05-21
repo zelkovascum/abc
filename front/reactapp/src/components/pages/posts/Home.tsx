@@ -76,13 +76,20 @@ export const Home: FC = memo(() => {
 					lg: "600px",
 					xl: "650px",
 				},
-				p: "40px",
+				p: 1,
 			}}
 		>
 			<HomeTabs />
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState !== "OK" ? (
 					<>
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
+						<PostSkeleton />
 						<PostSkeleton />
 						<PostSkeleton />
 						<PostSkeleton />
