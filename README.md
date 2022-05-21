@@ -13,4 +13,5 @@ Google Maps Platform(Geocoding API/Places API/Maps JavaScript API)
 # Infra
 
 Docker/Docker-Compose  
-AWS(ECS Fargate/ECR/ALB/RDS/S3/CloudFront/Route53)
+AWS(ECS Fargate/ECR/ALB/RDS/S3/CloudFront/Route53)  
+CircleCI
