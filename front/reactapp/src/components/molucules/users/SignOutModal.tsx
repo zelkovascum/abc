@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, Modal } from "@mui/material";
 import { signOut } from "utils/api/auth";
 import { AuthContext } from "providers/AuthProvider";
+import { Modalstyle } from "components/pages/users/Setting";
 
 type Props = {
 	isOpenModal: boolean;
@@ -43,27 +44,14 @@ export const SignOutModal: FC<Props> = memo((props) => {
 
 	return (
 		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
-			<Box sx={style}>
+			<Box sx={Modalstyle}>
 				<Typography fontSize={1}>ログアウトしますか？</Typography>
-				<Button type="submit" onClick={handleSignOut} sx={{ fontSize: 1 }}>
+				<Button type="submit" onClick={handleSignOut}>
 					ログアウト
 				</Button>
-				<Button onClick={() => setIsOpenModal(false)} sx={{ fontSize: 1 }}>
-					キャンセル
-				</Button>
+				<Button onClick={() => setIsOpenModal(false)}>キャンセル</Button>
 			</Box>
 		</Modal>
 	);
 });
 
-const style = {
-	position: "absolute" as const,
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	bgcolor: "background.paper",
-	borderRadius: 1,
-	boxShadow: 24,
-	width: "60%",
-	p: 2,
-};

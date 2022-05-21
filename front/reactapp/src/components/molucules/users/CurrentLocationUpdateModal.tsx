@@ -9,6 +9,7 @@ import {
 import { Box, Button, Modal } from "@mui/material";
 import { updateUserCurrentLocation } from "utils/api/user";
 import { PlaceInput } from "components/atoms/PlaceInput";
+import { Modalstyle } from "components/pages/users/Setting";
 
 type Props = {
 	isOpenModal: boolean;
@@ -33,7 +34,7 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 
 	return (
 		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
-			<Box sx={style} display="flex">
+			<Box sx={Modalstyle} display="flex">
 				<PlaceInput
 					placeInputValue={currentLocation}
 					setPlaceInputValue={setCurrentLocation}
@@ -41,8 +42,7 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 				<Button
 					type="submit"
 					onClick={handleUpdatePrefectures}
-					// disabled={!prefecturesList.includes(prefectures)}
-					sx={{ fontSize: 1 }}
+					disabled={!currentLocation}
 				>
 					適用
 				</Button>
@@ -50,15 +50,3 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 		</Modal>
 	);
 });
-
-const style = {
-	position: "absolute" as const,
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	bgcolor: "background.paper",
-	borderRadius: 1,
-	boxShadow: 24,
-	width: "60%",
-	p: 2,
-};

@@ -53,3 +53,19 @@ export const Setting: FC = memo(() => {
 		</>
 	);
 });
+
+export const Modalstyle = {
+	position: "absolute" as const,
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	bgcolor: "background.paper",
+	borderRadius: 1,
+	boxShadow: 24,
+	textAlign: "center",
+	width: {
+		xs: "250px",
+		sm: "300px",
+	},
+	p: 2,
+};
