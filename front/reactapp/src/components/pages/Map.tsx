@@ -6,26 +6,24 @@ import { Post } from "types";
 import { Box, useMediaQuery } from "@mui/material";
 import { MapContext } from "providers/MapProvider";
 import { theme } from "providers/MuiThemeProvider";
-
-const sMcontainerStyle = {
-	width: "300px",
-	height: "300px",
-};
-const mDcontainerStyle = {
-	width: "400px",
-	height: "400px",
-};
-const lGcontainerStyle = {
-	width: "500px",
-	height: "500px",
-};
+import { SearchByDateTime } from "components/molucules/posts/SearchByDateTime";
 
 export const Map: FC = memo(() => {
 	const navigate = useNavigate();
-	const [posts, setPosts] = useState<Post[]>();
+	const [posts, setPosts] = useState<Post[]>([]);
+	const [dateTimeInputValue, setDateTimeInputValue] = useState<Date | null>(
+		null
+	);
 	const { lat, lng } = useContext(MapContext);
 	const downSm = useMediaQuery(() => theme.breakpoints.down("sm"));
 	const downmd = useMediaQuery(() => theme.breakpoints.down("md"));
+
+	const handleSearchPosts = () => {
+		const PostsSortedByDateTime = [...posts].filter((post) => {
+			return dateTimeInputValue! < new Date(post.dateTime);
+		});
+		setPosts(PostsSortedByDateTime);
+	};
 
 	useEffect(() => {
 		getAllPosts().then((res) => {
@@ -34,7 +32,14 @@ export const Map: FC = memo(() => {
 	}, []);
 
 	return (
-		<Box m={4}>
+		<Box m={1}>
+			<Box sx={{ mb: 1 }}>
+				<SearchByDateTime
+					dateTimeInputValue={dateTimeInputValue}
+					setDateTimeInputValue={setDateTimeInputValue}
+					handleSearch={handleSearchPosts}
+				/>
+			</Box>
 			<GoogleMap
 				mapContainerStyle={
 					downmd
@@ -62,3 +67,16 @@ export const Map: FC = memo(() => {
 		</Box>
 	);
 });
+
+const sMcontainerStyle = {
+	width: "300px",
+	height: "300px",
+};
+const mDcontainerStyle = {
+	width: "400px",
+	height: "400px",
+};
+const lGcontainerStyle = {
+	width: "500px",
+	height: "500px",
+};
