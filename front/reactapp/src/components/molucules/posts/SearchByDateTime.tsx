@@ -19,11 +19,11 @@ export const SearchByDateTime: FC<Props> = memo((props) => {
 					setDateTimeInputValue={setDateTimeInputValue}
 				/>
 			</Grid>
-			<Grid item xs={3}>
+			<Grid item xs={3} textAlign="center">
 				<Button
 					onClick={() => handleSearch()}
 					disabled={!dateTimeInputValue}
-					sx={{ fontSize: "5px" }}
+					sx={{ fontSize: "5px", p: 0 }}
 				>
 					この日時
 					<br />
