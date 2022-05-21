@@ -60,9 +60,9 @@ export const SignUp: FC = memo(() => {
 	};
 
 	return (
-		<Box width="350px" margin="auto">
+		<Box width="330px" margin="auto">
 			<form noValidate autoComplete="off">
-				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 10px 5px" }}>
+				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 5px 1px" }}>
 					<CardContent>
 						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
 							Photudio
