@@ -36,11 +36,11 @@ export const NewPost: FC = memo(() => {
 				dateTime: dateTimeInputValue!,
 				content: contentInputValue,
 			});
-			processing.current = false;
 			navigate("/");
-		} catch (e) {
 			processing.current = false;
+		} catch (e) {
 			console.error(e);
+			processing.current = false;
 		}
 	};
 
