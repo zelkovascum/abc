@@ -1,19 +1,19 @@
 import { FC, memo, Ref } from "react";
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Message } from "types";
+import { RoomMessage } from "components/atoms/rooms/RoomMessage";
 
 type Props = {
-	messageBox: Ref<HTMLDivElement>;
-	messages: Message[] | undefined;
+	messages: Message[] | [];
 	otherUserId: number;
+	messageRef: Ref<HTMLDivElement>;
 };
 
 export const RoomMessages: FC<Props> = memo((props) => {
-	const { messageBox, messages, otherUserId } = props;
+	const { messages, otherUserId, messageRef } = props;
 
 	return (
 		<Box
-			ref={messageBox}
 			sx={{
 				width: "100%",
 				position: "relative",
@@ -23,31 +23,13 @@ export const RoomMessages: FC<Props> = memo((props) => {
 			}}
 		>
 			{messages?.map((message) => (
-				<Grid
+				<RoomMessage
 					key={message.id}
-					container
-					justifyContent={
-						message.userId === otherUserId ? "flex-start" : "flex-end"
-					}
-					p={1}
-				>
-					<Grid item>
-						<Card
-							sx={{
-								backgroundColor:
-									message.userId === otherUserId ? "#eeeeee" : "#7986cb",
-								wordBreak: "break-all",
-							}}
-						>
-							<Typography
-								color={message.userId === otherUserId ? "black" : "white"}
-								sx={{ wordWrap: "breakWord", p: 1 }}
-							>
-								{message.content}
-							</Typography>
-						</Card>
-					</Grid>
-				</Grid>
+					messageUserId={message.userId}
+					otherUserId={otherUserId}
+					messageContent={message.content}
+					messageRef={messageRef}
+				/>
 			))}
 		</Box>
 	);

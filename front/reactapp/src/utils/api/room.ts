@@ -24,7 +24,7 @@ export const getAllRooms = () =>
 		},
 	});
 
-export const getDetailRoom = (id: number) =>
+export const getDetailRoom = (id: string) =>
 	client.get(`/rooms/${id}`, {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
