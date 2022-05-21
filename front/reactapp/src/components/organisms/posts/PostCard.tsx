@@ -1,7 +1,6 @@
 import { FC, memo } from "react";
 import {
 	Avatar,
-	Box,
 	Card,
 	Typography,
 	ListItem,
@@ -61,7 +60,7 @@ export const PostCard: FC<Props> = memo((props) => {
 					<Typography sx={{ fontSize: "16px" }}>{place}</Typography>
 				</Grid>
 				<Grid item xs={1.5}>
-					時間:
+					日時:
 				</Grid>
 				<Grid item xs={10.5}>
 					<Typography sx={{ fontSize: "16px" }}>{dateTime}</Typography>
