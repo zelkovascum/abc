@@ -1,13 +1,24 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { AuthContext } from "providers/AuthProvider";
 import { getAllReactions } from "utils/api/reaction";
-import { Box, Card, Typography } from "@mui/material";
+import {
+	Avatar,
+	Box,
+	Divider,
+	List,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+	Typography,
+} from "@mui/material";
 import { User } from "types";
 import { ReactionButton } from "components/atoms/reactions/ReactionButton";
+import { useNavigate } from "react-router-dom";
 
 export const Reactions: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
 	const [reactions, setReactions] = useState<User[]>([]);
+	const navigate = useNavigate();
 
 	const handleGetAllReactions = async () => {
 		try {
@@ -18,24 +29,50 @@ export const Reactions: FC = memo(() => {
 		}
 	};
 
+	const onClickProfile = (id: number) => {
+		navigate(`/users/${id}`);
+	};
+
 	useEffect(() => {
 		handleGetAllReactions();
 	}, []);
 
 	return (
-		<>
-			<Box>
-				<Typography>リアクション一覧</Typography>
+		<Box
+			sx={{
+				width: {
+					xs: "330px",
+					sm: "450px",
+				},
+				p: 2,
+				textAlign: "center",
+			}}
+		>
+			<Typography>リアクション一覧</Typography>
+			<List>
 				{reactions!.map((reaction) => (
-					<Card key={reaction.id}>
-						<Typography>{reaction.name}</Typography>
-						<ReactionButton
-							fromUserId={currentUser!.id}
-							toUserId={reaction.id}
-						/>
-					</Card>
+					<div key={reaction.id}>
+						<Divider />
+						<ListItem
+							sx={{
+								cursor: "pointer",
+							}}
+						>
+							<ListItemAvatar onClick={() => onClickProfile(reaction.id)}>
+								<Avatar src={reaction.image?.url} />
+							</ListItemAvatar>
+							<ListItemText
+								onClick={() => onClickProfile(reaction.id)}
+								primary={reaction.name}
+							/>
+							<ReactionButton
+								fromUserId={currentUser!.id}
+								toUserId={reaction.id}
+							/>
+						</ListItem>
+					</div>
 				))}
-			</Box>
-		</>
+			</List>
+		</Box>
 	);
 });
