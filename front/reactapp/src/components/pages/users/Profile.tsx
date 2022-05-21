@@ -64,7 +64,7 @@ export const Profile: FC = memo(() => {
 				}}
 			>
 				<Box>
-					<Box style={{ display: "flex" }}>
+					<Box sx={{ display: "flex" }}>
 						<Avatar src={user.image} sx={{ verticalAlign: "middle", mr: 1 }} />
 						<Typography
 							sx={{ justifyContent: "center" }}
