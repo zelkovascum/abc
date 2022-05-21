@@ -30,7 +30,6 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 			})
 			.catch((e) => console.error(e));
 	};
-	console.log(currentLocation);
 
 	return (
 		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
