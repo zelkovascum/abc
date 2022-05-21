@@ -1,5 +1,14 @@
 import { FC, memo } from "react";
-import { Avatar, Box, Card, Typography } from "@mui/material";
+import {
+	Avatar,
+	Box,
+	Card,
+	Typography,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+	Grid,
+} from "@mui/material";
 import { ReactionButton } from "components/atoms/reactions/ReactionButton";
 
 type Props = {
@@ -30,42 +39,53 @@ export const PostCard: FC<Props> = memo((props) => {
 	} = props;
 
 	return (
-		<Card
-			sx={{
-				width: {
-					xs: "250px",
-					sm: "350px",
-					md: "450px",
-					lg: "550px",
-					xl: "600px",
-				},
-				height: "220px",
-				m: "auto",
-				borderRadius: 1,
-				cursor: "pointer",
-				p: 2,
-			}}
-		>
-			<Box onClick={() => onClickProfile()}>
-				<Avatar src={imageUrl} />
-				<Typography>{name}</Typography>
-			</Box>
-			<Box onClick={() => onClickPost()}>
-				<Typography sx={{ color: "teal", fontSize: "16px" }}>
-					{place}
-				</Typography>
-				<Typography sx={{ color: "teal", fontSize: "16px" }}>
-					{dateTime}
-				</Typography>
-				<Typography sx={{ color: "teal", fontSize: "16px" }}>
-					{content}
-				</Typography>
+		<Card sx={PostCardStyle}>
+			<ListItem onClick={() => onClickProfile()} sx={{ pl: 0.5 }}>
+				<ListItemAvatar>
+					<Avatar src={imageUrl} />
+				</ListItemAvatar>
+				<ListItemText
+					primary={<Typography sx={{ color: "teal" }}>{name}</Typography>}
+				/>
 				{reactionButton ? (
 					<ReactionButton fromUserId={currentUserId} toUserId={userId} />
 				) : (
 					<></>
 				)}
-			</Box>
+			</ListItem>
+			<Grid container onClick={() => onClickPost()}>
+				<Grid item xs={1.5}>
+					場所:
+				</Grid>
+				<Grid item xs={10.5}>
+					<Typography sx={{ fontSize: "16px" }}>{place}</Typography>
+				</Grid>
+				<Grid item xs={1.5}>
+					時間:
+				</Grid>
+				<Grid item xs={10.5}>
+					<Typography sx={{ fontSize: "16px" }}>{dateTime}</Typography>
+				</Grid>
+				<Grid item sx={{ mt: 1 }}>
+					<Typography sx={{ fontSize: "16px" }}>{content}</Typography>
+				</Grid>
+			</Grid>
 		</Card>
 	);
 });
+
+export const PostCardStyle = {
+	width: {
+		xs: "250px",
+		sm: "350px",
+		md: "450px",
+		lg: "550px",
+		xl: "600px",
+	},
+	minHeight: "180px",
+	m: "auto",
+	borderRadius: 1,
+	cursor: "pointer",
+	px: 2,
+	py: 0.5,
+};

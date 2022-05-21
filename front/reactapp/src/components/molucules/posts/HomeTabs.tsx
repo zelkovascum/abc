@@ -25,7 +25,7 @@ export const HomeTabs: FC = memo(() => {
 					aria-label="basic tabs example"
 				>
 					<Tab
-						label="今"
+						label="最新の募集"
 						{...a11yProps(0)}
 						onClick={() => {
 							navigate("/");
@@ -33,7 +33,7 @@ export const HomeTabs: FC = memo(() => {
 						sx={{ width: "50%" }}
 					/>
 					<Tab
-						label="近くの人"
+						label="付近の募集"
 						{...a11yProps(1)}
 						onClick={() => {
 							navigate("/near");
