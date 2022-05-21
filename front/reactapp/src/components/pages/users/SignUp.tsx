@@ -1,4 +1,4 @@
-import { useState, useContext, MouseEvent, FC, memo } from "react";
+import { useState, useContext, MouseEvent, FC, memo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
@@ -16,48 +16,46 @@ import { AlertMessage } from "components/molucules/AlertMessage";
 import { signUp } from "utils/api/auth";
 
 export const SignUp: FC = memo(() => {
-	const navigate = useNavigate();
-
 	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
-
+	const navigate = useNavigate();
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
+	const processing = useRef(false);
 
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-
+		if (processing.current) return;
+		processing.current = true;
 		const params: SignUpParams = {
 			name,
 			email,
 			password,
 			passwordConfirmation,
 		};
-
 		try {
 			const res = await signUp(params);
 			console.log(res);
-
 			if (res.status === 200) {
 				// アカウント作成と同時にログイン
 				Cookies.set("_access_token", res.headers["access-token"]);
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
-
 				setIsSignIn(true);
 				setCurrentUser(res.data.data);
-
 				navigate("/");
-
 				console.log("Signed in successfully!");
+				processing.current = false;
 			} else {
 				setIsAlertMessageOpen(true);
+				processing.current = false;
 			}
 		} catch (e) {
 			console.error(e);
 			setIsAlertMessageOpen(true);
+			processing.current = false;
 		}
 	};
 
