@@ -9,28 +9,24 @@ import { RoomInputField } from "components/molucules/rooms/RoomInputField";
 
 export const Room: FC = memo(() => {
 	const [otherUser, setOtherUser] = useState<User>();
-	const [messages, setMessages] = useState<Message[]>();
-	const { id } = useParams();
-	// スクロール位置指定
-	const messageBox = useRef<HTMLDivElement>(null);
+	const [messages, setMessages] = useState<Message[]>([]);
+	const params = useParams();
+	const messageRef = useRef<HTMLDivElement>(null);
 
-	const handleGetDetailRoom = async (id: any) => {
+	const handleGetDetailRoom = async (id: string) => {
 		try {
 			const res = await getDetailRoom(id);
 			setOtherUser(res.data.otherUser);
 			setMessages(res.data.messages);
-			if (messageBox.current) {
-				messageBox.current.scrollTop = messageBox.current.scrollHeight + 16;
-				messageBox.current.scrollIntoView();
-			}
+			if (messageRef.current) messageRef.current.scrollIntoView();
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
 	useEffect(() => {
-		handleGetDetailRoom(id);
-	}, [id]);
+		handleGetDetailRoom(params.id!);
+	}, [params.id]);
 
 	return (
 		<Box
@@ -44,14 +40,14 @@ export const Room: FC = memo(() => {
 				name={otherUser?.name!}
 			/>
 			<RoomMessages
-				messageBox={messageBox}
+				messageRef={messageRef}
 				messages={messages}
 				otherUserId={otherUser?.id!}
 			/>
 			<RoomInputField
 				handleGetDetailRoom={handleGetDetailRoom}
 				responsiveWidth={responsiveWidth}
-				paramsId={id!}
+				paramsId={params.id!}
 			/>
 		</Box>
 	);
