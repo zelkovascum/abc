@@ -31,7 +31,12 @@ export const Setting: FC = memo(() => {
 				<Divider />
 				<Typography>ユーザーネーム: {currentUser?.name}</Typography>
 				<Divider />
-				<Typography>住所: {transformPlace(currentUser?.address!)}</Typography>
+				<Typography>
+					住所:{" "}
+					{currentUser?.address
+						? transformPlace(currentUser?.address)
+						: "未設定"}
+				</Typography>
 				<Button onClick={() => setIsOpenCurrentLocationUpdateModal(true)}>
 					住所を変更
 				</Button>
