@@ -10,6 +10,7 @@ import {
 } from "react";
 import { Box, Button, Typography, Modal, Input } from "@mui/material";
 import { updateUserImage } from "utils/api/user";
+import { Modalstyle } from "components/pages/users/Setting";
 
 type Props = {
 	isOpenModal: boolean;
@@ -44,7 +45,7 @@ export const ImageUploadModal: FC<Props> = memo((props) => {
 
 	return (
 		<Modal open={isOpenModal} onClose={() => setIsOpenModal(false)}>
-			<Box sx={style}>
+			<Box sx={Modalstyle}>
 				<Typography fontSize={1}>画像をアップロード</Typography>
 				<Input
 					type="file"
@@ -54,27 +55,10 @@ export const ImageUploadModal: FC<Props> = memo((props) => {
 					}}
 					sx={{ fontSize: 10 }}
 				/>
-				<Button
-					type="submit"
-					onClick={handleUpdateImage}
-					disabled={!image}
-					sx={{ fontSize: 1 }}
-				>
+				<Button type="submit" onClick={handleUpdateImage} disabled={!image}>
 					適用
 				</Button>
 			</Box>
 		</Modal>
 	);
 });
-
-const style = {
-	position: "absolute" as const,
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	bgcolor: "background.paper",
-	borderRadius: 1,
-	boxShadow: 24,
-	width: "60%",
-	p: 2,
-};
