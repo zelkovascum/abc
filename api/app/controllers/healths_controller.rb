@@ -1,5 +1,5 @@
 # ヘルスチェック用
-class HealthsController < ActionController::Base
+class HealthsController < ActionController
   def show
     head :ok
   end
