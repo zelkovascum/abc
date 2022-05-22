@@ -51,7 +51,7 @@ export const Home: FC = memo(() => {
 
 	const handleGetAllPosts = async () => {
 		try {
-			await getAllPosts().then((res) => {
+			await getAllPosts(false).then((res) => {
 				dispatch({
 					type: "FETCH_SUCCESS",
 					payload:
