@@ -12,7 +12,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ChatIcon from "@mui/icons-material/Chat";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { theme } from "providers/MuiThemeProvider";
 
 export const Footer: FC = memo(() => {
@@ -22,23 +21,13 @@ export const Footer: FC = memo(() => {
 	return (
 		<AppBar position="fixed" sx={{ top: "auto", bottom: 0 }} color="default">
 			<Toolbar>
-				<Grid container direction="row" justifyContent="center" ml={5}>
-					<Grid item xs={2.4} m="auto">
-						{/* <NavLink
-							to="/"
-							style={({ isActive }) => {
-								return {
-									display: "flex",
-									alignItems: "center",
-									textDecoration: "none",
-									color: isActive ? "teal" : "inherit",
-								};
-							}}
-						> */}
+				<Grid container direction="row" justifyContent="center">
+					<Grid item xs={3}>
 						<Link
 							to="/"
 							style={{
 								display: "flex",
+								justifyContent: "center",
 								alignItems: "center",
 								textDecoration: "none",
 								color:
@@ -55,12 +44,13 @@ export const Footer: FC = memo(() => {
 							{matches ? <></> : <Typography fontSize={12}>HOME</Typography>}
 						</Link>
 					</Grid>
-					<Grid item xs={2.4}>
+					<Grid item xs={3}>
 						<NavLink
 							to="/map"
 							style={({ isActive }) => {
 								return {
 									display: "flex",
+									justifyContent: "center",
 									alignItems: "center",
 									textDecoration: "none",
 									color: isActive ? "teal" : "inherit",
@@ -73,12 +63,13 @@ export const Footer: FC = memo(() => {
 							{matches ? <></> : <Typography fontSize={12}>MAP</Typography>}
 						</NavLink>
 					</Grid>
-					<Grid item xs={2.4}>
+					<Grid item xs={3}>
 						<NavLink
 							to="/posts/new"
 							style={({ isActive }) => {
 								return {
 									display: "flex",
+									justifyContent: "center",
 									alignItems: "center",
 									textDecoration: "none",
 									color: isActive ? "teal" : "inherit",
@@ -91,12 +82,13 @@ export const Footer: FC = memo(() => {
 							{matches ? <></> : <Typography fontSize={12}>POST</Typography>}
 						</NavLink>
 					</Grid>
-					<Grid item xs={2.4}>
+					<Grid item xs={3}>
 						<NavLink
 							to="/rooms"
 							style={({ isActive }) => {
 								return {
 									display: "flex",
+									justifyContent: "center",
 									alignItems: "center",
 									textDecoration: "none",
 									color: isActive ? "teal" : "inherit",
@@ -107,24 +99,6 @@ export const Footer: FC = memo(() => {
 								<ChatIcon name="dm" />
 							</IconButton>
 							{matches ? <></> : <Typography fontSize={12}>DM</Typography>}
-						</NavLink>
-					</Grid>
-					<Grid item xs={2.4}>
-						<NavLink
-							to="/users/setting"
-							style={({ isActive }) => {
-								return {
-									display: "flex",
-									alignItems: "center",
-									textDecoration: "none",
-									color: isActive ? "teal" : "inherit",
-								};
-							}}
-						>
-							<IconButton color="inherit">
-								<AccountCircleIcon name="setting" />
-							</IconButton>
-							{matches ? <></> : <Typography fontSize={12}>MYPAGE</Typography>}
 						</NavLink>
 					</Grid>
 				</Grid>
