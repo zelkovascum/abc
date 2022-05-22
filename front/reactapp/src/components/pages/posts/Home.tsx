@@ -128,7 +128,7 @@ export const Home: FC = memo(() => {
 									currentUserId={currentUser!.id}
 									onClickProfile={() => onClickProfile(post.user.id)}
 									onClickPost={() => onClickPost(post.id)}
-									reactionButton={false}
+									reactionOrDeleteButton="none"
 								/>
 							</Grid>
 						))}
