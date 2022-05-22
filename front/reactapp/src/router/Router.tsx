@@ -15,6 +15,7 @@ import { TopLayout } from "components/templates/TopLayout";
 import { PrivateRoute } from "./PrivateRoute";
 import { Reactions } from "components/pages/reactions/Reactions";
 import { PostShow } from "components/pages/posts/PostShow";
+import { MyPosts } from "components/pages/posts/MyPosts";
 
 export const Router: FC = memo(() => (
 	<BrowserRouter>
@@ -34,6 +35,7 @@ export const Router: FC = memo(() => (
 					<Route path="/users/:id" element={<Profile />} />
 					<Route path="/users/setting" element={<Setting />} />
 					<Route path="/users/reactions" element={<Reactions />} />
+					<Route path="/users/posts" element={<MyPosts />} />
 					<Route path="/rooms" element={<Rooms />} />
 					<Route path="/rooms/:id" element={<Room />} />
 				</Route>

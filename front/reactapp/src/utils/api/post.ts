@@ -2,8 +2,9 @@ import Cookies from "js-cookie";
 import { Post } from "types";
 import { client } from "./client";
 
-export const getAllPosts = () =>
+export const getAllPosts = (isMyPosts: boolean) =>
 	client.get("/posts", {
+		params: { isMyPosts },
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
 			client: Cookies.get("_client") || "",

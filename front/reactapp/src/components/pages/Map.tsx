@@ -26,7 +26,7 @@ export const Map: FC = memo(() => {
 	};
 
 	useEffect(() => {
-		getAllPosts().then((res) => {
+		getAllPosts(false).then((res) => {
 			setPosts(res.data);
 		});
 	}, []);

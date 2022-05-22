@@ -39,7 +39,7 @@ export const Header: FC = memo(() => {
 	};
 	const handleClickMyPostsMenu = () => {
 		setAnchorEl(null);
-		// navigate("/users/setting");
+		navigate("/users/posts");
 	};
 	const renderMenu = (
 		<Menu
