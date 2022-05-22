@@ -2,35 +2,23 @@ class Api::V1::PostsController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %i[create update destroy]
 
   def index
-    if params[:is_my_posts]
-      posts = Post.where(user_id: current_api_v1_user.id).where('date_time >= ?', Time.zone.now).order(date_time: :asc)
-      posts_array = posts.map do |post|
-        {
-          id: post.id,
-          user: User.find_by(id: post.user_id),
-          lat: post.lat,
-          lng: post.lng,
-          place: post.place,
-          date_time: post.date_time,
-          content: post.content
-        }
-      end
-      render json: posts_array
-    else
-      posts = Post.where.not(user_id: current_api_v1_user.id).where('date_time >= ?', Time.zone.now).order(date_time: :asc)
-      posts_array = posts.map do |post|
-        {
-          id: post.id,
-          user: User.find_by(id: post.user_id),
-          lat: post.lat,
-          lng: post.lng,
-          place: post.place,
-          date_time: post.date_time,
-          content: post.content
-        }
-      end
-      render json: posts_array
+    posts = if params[:is_my_posts] == 'true'
+              Post.where(user_id: current_api_v1_user.id).where('date_time >= ?', Time.zone.now).order(date_time: :asc)
+            else
+              Post.where.not(user_id: current_api_v1_user.id).where('date_time >= ?', Time.zone.now).order(date_time: :asc)
+            end
+    posts_array = posts.map do |post|
+      {
+        id: post.id,
+        user: User.find_by(id: post.user_id),
+        lat: post.lat,
+        lng: post.lng,
+        place: post.place,
+        date_time: post.date_time,
+        content: post.content
+      }
     end
+    render json: posts_array
   end
 
   def show
