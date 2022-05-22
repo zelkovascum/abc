@@ -132,8 +132,8 @@ workflows:
       - rspec:
           requires:
             - bundle_dependencies
-            
-# Nginxのデプロイ
+
+  # Nginxのデプロイ
   nginx-deploy:
     jobs:
       - aws-ecr/build-and-push-image:
@@ -158,11 +158,11 @@ workflows:
           requires:
             - aws-ecr/build-and-push-image
           # ECSのタスク定義名
-          family: 'my-task'
+          family: "my-task"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: 'my-cluster
+          cluster-name: "my-cluster"
           # サービス名
-          service-name: 'my-service'
+          service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
 
@@ -187,11 +187,10 @@ workflows:
           requires:
             - aws-ecr/build-and-push-image
           # ECSのタスク定義名
-          family: 'my-task'
+          family: "my-task"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: 'my-cluster'
+          cluster-name: "my-cluster"
           # サービス名
-          service-name: 'my-service'
+          service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
-
