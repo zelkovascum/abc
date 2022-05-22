@@ -25,10 +25,9 @@ Rails.application.routes.draw do
       namespace :auth do
         resources :sessions, only: %i[index]
       end
-
     end
   end
   # ヘルスチェック用
   # curl localhost:3000/health -I
-  resource :health, only: [:show] 
+  resource :health, only: [:show]
 end

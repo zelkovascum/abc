@@ -43,6 +43,10 @@ Rails/ApplicationRecord:
 Rails/FilePath:
   Enabled: false
 
+# 暫定
+Rails/ApplicationController:
+  Enabled: false
+
 ## `and return` の形式を利用できるようにします。基本的には、&& と || を使います。
 Style/AndOr:
   Enabled: false

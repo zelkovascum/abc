@@ -1,4 +1,8 @@
 version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecs: circleci/aws-ecs@2.2.1
+
 executors:
   default_container:
     docker:
@@ -65,7 +69,7 @@ jobs:
           command: |
             dockerize -wait \
             tcp://127.0.0.1:3306 -timeout 120s
-      - run: mv ./api/config/database.yml.ci ./api/config/database.yml
+      - run: mv ./api/config/database.yml ./api/config/database.yml
       - install_bundler
       - run:
           #     name: Uninstall mysql2 to reinstall mysql2 with native extensions
@@ -128,3 +132,66 @@ workflows:
       - rspec:
           requires:
             - bundle_dependencies
+            
+# Nginxのデプロイ
+  nginx-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+          account-url: AWS_ECR_ACCOUNT_URL
+          # リージョン
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # ECRにリポジトリがなかったら創るか？
+          create-repo: true
+          # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+          dockerfile: ./nginx/Dockerfile
+          # ECRのリポジトリ
+          repo: nginx-sample
+          # タグ バージョンの管理 一意のtag
+          tag: "${CIRCLE_SHA1}"
+          filters:
+            branches:
+              only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          # ECSのタスク定義名
+          family: 'my-task'
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: 'my-cluster
+          # サービス名
+          service-name: 'my-service'
+          # containerはタスク定義で設定したコンテナ名にする
+          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
+
+  # Railsのデプロイ
+  rails-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # ECRにリポジトリがなかったら創るか？
+          create-repo: true
+          dockerfile: ./Dockerfile.prod
+          # ECRのリポジトリ
+          repo: rails-sample
+          tag: "${CIRCLE_SHA1}"
+          filters:
+            branches:
+              only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          # ECSのタスク定義名
+          family: 'my-task'
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: 'my-cluster'
+          # サービス名
+          service-name: 'my-service'
+          # containerはタスク定義で設定したコンテナ名にする
+          container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
+
