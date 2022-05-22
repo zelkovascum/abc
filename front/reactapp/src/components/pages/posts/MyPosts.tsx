@@ -64,6 +64,7 @@ export const MyPosts: FC = memo(() => {
 						{state.posts.map((post) => (
 							<Grid item key={post.id}>
 								<PostCard
+									postId={post.id}
 									userId={post.user.id}
 									imageUrl={post.user.image?.url}
 									name={post.user.name}
@@ -73,7 +74,7 @@ export const MyPosts: FC = memo(() => {
 									currentUserId={currentUser!.id}
 									onClickProfile={() => {}}
 									onClickPost={() => {}}
-									reactionButton={false}
+									reactionOrDeleteButton="delete"
 								/>
 							</Grid>
 						))}

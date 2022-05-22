@@ -9,8 +9,10 @@ import {
 	Grid,
 } from "@mui/material";
 import { ReactionButton } from "components/atoms/reactions/ReactionButton";
+import { PostDeleteButton } from "components/atoms/posts/PostDeleteButton";
 
 type Props = {
+	postId?: number;
 	userId: number;
 	imageUrl?: string;
 	name: string;
@@ -20,11 +22,12 @@ type Props = {
 	currentUserId: number;
 	onClickProfile: () => void;
 	onClickPost: () => void;
-	reactionButton: boolean;
+	reactionOrDeleteButton: "reaction" | "delete" | "none";
 };
 
 export const PostCard: FC<Props> = memo((props) => {
 	const {
+		postId,
 		userId,
 		imageUrl,
 		name,
@@ -34,7 +37,7 @@ export const PostCard: FC<Props> = memo((props) => {
 		currentUserId,
 		onClickProfile,
 		onClickPost,
-		reactionButton,
+		reactionOrDeleteButton,
 	} = props;
 
 	return (
@@ -46,8 +49,10 @@ export const PostCard: FC<Props> = memo((props) => {
 				<ListItemText
 					primary={<Typography sx={{ color: "teal" }}>{name}</Typography>}
 				/>
-				{reactionButton ? (
+				{reactionOrDeleteButton === "reaction" ? (
 					<ReactionButton fromUserId={currentUserId} toUserId={userId} />
+				) : reactionOrDeleteButton === "delete" ? (
+					<PostDeleteButton postId={postId!} />
 				) : (
 					<></>
 				)}

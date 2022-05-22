@@ -64,7 +64,7 @@ export const PostShow: FC = memo(() => {
 						currentUserId={currentUser!.id}
 						onClickProfile={() => onClickProfile(state.post!.user.id)}
 						onClickPost={() => {}}
-						reactionButton={true}
+						reactionOrDeleteButton="delete"
 					/>
 				)}
 			</Box>
