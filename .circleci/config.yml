@@ -72,6 +72,12 @@ jobs:
       - run: mv ./api/config/database.yml.ci ./api/config/database.yml
       - install_bundler
       - run:
+          name: Uninstall mysql2 to reinstall mysql2 with native extensions
+          command: |
+            bundle exec gem uninstall mysql2
+          working_directory: api
+      - run:
+          # name: Bundle install to install mysql2 with native extensions
           working_directory: api
           command: |
             bundle install
