@@ -69,7 +69,7 @@ jobs:
           command: |
             dockerize -wait \
             tcp://127.0.0.1:3306 -timeout 120s
-      - run: mv ./api/config/database.yml ./api/config/database.yml
+      # - run: mv ./api/config/database.yml ./api/config/database.yml
       - install_bundler
       - run:
           #     name: Uninstall mysql2 to reinstall mysql2 with native extensions
