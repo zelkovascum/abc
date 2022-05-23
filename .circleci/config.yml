@@ -150,7 +150,7 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
-          account-url: AWS_ECR_ACCOUNT_URL
+          # account-url: AWS_ECR_ACCOUNT_URL
           # リージョン
           region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -182,7 +182,7 @@ workflows:
   rails-deploy:
     jobs:
       - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
+          # account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
