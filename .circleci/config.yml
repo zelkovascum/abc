@@ -23,12 +23,7 @@ commands:
   install_bundler:
     description: Bundler install
     steps:
-      # - run: gem install bundler -v 2.3.7
-      - run:
-          name: Bundler install
-          command: |
-            gem update --system
-            gem install bundler -v 2.3.7
+      - run: gem install bundler -v 2.3.7
 
 jobs:
   fetch_source_code:
@@ -77,15 +72,9 @@ jobs:
       - run: mv ./api/config/database.yml.ci ./api/config/database.yml
       - install_bundler
       - run:
-          #     name: Uninstall mysql2 to reinstall mysql2 with native extensions
-          #     command: |
-          #       bundle exec gem uninstall mysql2
-          #     working_directory: api
-          # - run:
-          #     name: Bundle install to install mysql2 with native extensions
+          working_directory: api
           command: |
             bundle install
-          working_directory: api
       - run:
           name: DB create and migrate
           working_directory: api
