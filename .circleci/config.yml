@@ -23,7 +23,12 @@ commands:
   install_bundler:
     description: Bundler install
     steps:
-      - run: gem install bundler -v 2.3.7
+      # - run: gem install bundler -v 2.3.7
+      - run:
+          name: Bundler install
+          command: |
+            gem update --system
+            gem install bundler -v 2.3.7
 
 jobs:
   fetch_source_code:
@@ -85,8 +90,7 @@ jobs:
           name: DB create and migrate
           working_directory: api
           command: |
-            gem update --system
-            gem install bundler -v 2.3.7
+            bundle exec rails db:create db:migrate
       - run:
           name: Run rspec
           command: |
