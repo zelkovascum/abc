@@ -14,8 +14,10 @@ executors:
           BUNDLE_PATH: vendor/bundle
           BUNDLER_VERSION: 2.3.7
       - image: cimg/mysql:8.0
+        command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          # MYSQL_ROOT_PASSWORD: password
           # MYSQL_USER: root
     working_directory: ~/photudio
 
