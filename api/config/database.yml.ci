@@ -1,0 +1,9 @@
+test:
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV.fetch("DATABASE_NAME", "root") %>
+  password: <%= ENV.fetch("DATABASE_NAME", "password") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("DATABASE_PORT", "3306") %>
+  database: <%= ENV.fetch("DATABASE", "photudio_test") %>

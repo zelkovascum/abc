@@ -119,6 +119,30 @@ jobs:
           command: |
             bundle exec rubocop
 
+  build_and_push_image_api:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ACCOUNT_URL
+          repo: "my-rails"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: ./api/
+
+  build_and_push_image_web:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ACCOUNT_URL
+          repo: "my-nginx"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: ./nginx/
+
 workflows:
   build:
     jobs:
@@ -144,31 +168,45 @@ workflows:
           filters:
             branches:
               only: main
-
-  # Nginxのデプロイ
-  nginx-deploy:
-    jobs:
-      - aws-ecr/build-and-push-image:
-          #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
-          # account-url: AWS_ECR_ACCOUNT_URL
-          # リージョン
-          region: AWS_REGION
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # ECRにリポジトリがなかったら創るか？
-          create-repo: true
-          # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
-          dockerfile: ./nginx/Dockerfile
-          # ECRのリポジトリ
-          repo: nginx-sample
-          # タグ バージョンの管理 一意のtag
-          tag: "${CIRCLE_SHA1}"
+      - build_and_push_image_api:
+          requires:
+            - rubocop
+            - rspec
           filters:
             branches:
               only: main
+      - build_and_push_image_web:
+          requires:
+            - rubocop
+            - rspec
+          filters:
+            branches:
+              only: main
+      # Nginxのデプロイ
+      # nginx-deploy:
+      #   jobs:
+      #     - aws-ecr/build-and-push-image:
+      #         #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+      #         # account-url: AWS_ECR_ACCOUNT_URL
+      #         # リージョン
+      #         region: AWS_REGION
+      #         aws-access-key-id: AWS_ACCESS_KEY_ID
+      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+
+      #         # ECRにリポジトリがなかったら創るか？
+      #         create-repo: true
+      #         # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+      #         dockerfile: ./nginx/Dockerfile
+      #         # ECRのリポジトリ
+      #         repo: nginx-sample
+      #         # タグ バージョンの管理 一意のtag
+      #         tag: "${CIRCLE_SHA1}"
+      #         filters:
+      #           branches:
+      #             only: main
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build-and-push-image
+            - build_and_push_image_api
           # ECSのタスク定義名
           family: "my-task"
           # ECSのクラスター名かARNのフルパス
@@ -178,26 +216,26 @@ workflows:
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
 
-  # Railsのデプロイ
-  rails-deploy:
-    jobs:
-      - aws-ecr/build-and-push-image:
-          # account-url: AWS_ECR_ACCOUNT_URL
-          region: AWS_REGION
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # ECRにリポジトリがなかったら創るか？
-          create-repo: true
-          dockerfile: ./Dockerfile.prod
-          # ECRのリポジトリ
-          repo: rails-sample
-          tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only: main
+      # Railsのデプロイ
+      # rails-deploy:
+      #   jobs:
+      #     - aws-ecr/build-and-push-image:
+      #         # account-url: AWS_ECR_ACCOUNT_URL
+      #         region: AWS_REGION
+      #         aws-access-key-id: AWS_ACCESS_KEY_ID
+      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      #         # ECRにリポジトリがなかったら創るか？
+      #         create-repo: true
+      #         dockerfile: ./Dockerfile.prod
+      #         # ECRのリポジトリ
+      #         repo: rails-sample
+      #         tag: "${CIRCLE_SHA1}"
+      #         filters:
+      #           branches:
+      #             only: main
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build-and-push-image
+            - build_and_push_image_web
           # ECSのタスク定義名
           family: "my-task"
           # ECSのクラスター名かARNのフルパス

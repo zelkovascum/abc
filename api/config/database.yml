@@ -31,7 +31,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: myapp_test
+  database: photudio_test
   # host: 127.0.0.1
   # host: <%= ENV.fetch("DATABASE_HOST") { db } %>
   # 本番環境確認用
