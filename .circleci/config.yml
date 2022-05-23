@@ -16,7 +16,7 @@ executors:
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_USER: root
+          # MYSQL_USER: root
     working_directory: ~/photudio
 
 commands:
