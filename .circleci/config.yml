@@ -125,7 +125,7 @@ jobs:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          account-url: AWS_ACCOUNT_URL
+          # account-url: AWS_ACCOUNT_URL
           repo: "my-rails"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
@@ -137,7 +137,7 @@ jobs:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          account-url: AWS_ACCOUNT_URL
+          # account-url: AWS_ACCOUNT_URL
           repo: "my-nginx"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
