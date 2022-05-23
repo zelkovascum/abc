@@ -121,7 +121,7 @@ jobs:
 
   build_and_push_image_api:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
@@ -133,7 +133,7 @@ jobs:
 
   build_and_push_image_web:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
