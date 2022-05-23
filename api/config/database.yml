@@ -20,7 +20,6 @@ default: &default
 development:
   <<: *default
   database: myapp_development
-
   # 本番環境確認用
   # host: <%= ENV['DATABASE_HOST'] %>
   # username: <%= ENV['DATABASE_NAME'] %>
@@ -31,9 +30,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: photudio_test
-  # host: 127.0.0.1
-  # host: <%= ENV.fetch("DATABASE_HOST") { db } %>
+  database: myapp_test
   # 本番環境確認用
   # host: <%= ENV['DATABASE_HOST'] %>
   # username: <%= ENV['DATABASE_NAME'] %>
