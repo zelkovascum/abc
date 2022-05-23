@@ -35,6 +35,9 @@ jobs:
           key: v1-photudio-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/photudio
+    filters:
+      branches:
+        only: main
 
   bundle_dependencies:
     executor:
@@ -54,6 +57,9 @@ jobs:
           key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
+    filters:
+      branches:
+        only: main
 
   rspec:
     executor:
@@ -99,6 +105,9 @@ jobs:
       - store_artifacts:
           path: api/tmp/test-results
           destination: test-results
+    filters:
+      branches:
+        only: main
 
   rubocop:
     executor:
@@ -118,6 +127,9 @@ jobs:
           working_directory: api
           command: |
             bundle exec rubocop
+    filters:
+      branches:
+        only: main
 
 workflows:
   build:
