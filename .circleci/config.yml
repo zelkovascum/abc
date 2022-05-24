@@ -133,7 +133,7 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-          dockerfile: ./api/Dockerfile.prod
+          # dockerfile: ./api/Dockerfile.prod
 
   build_and_push_image_web:
     machine:
@@ -147,7 +147,7 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-          dockerfile: ./nginx/Dockerfile
+          # dockerfile: ./nginx/Dockerfile
 
 workflows:
   build:
