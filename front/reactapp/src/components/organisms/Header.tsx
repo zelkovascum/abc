@@ -13,11 +13,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import { NotificationContext } from "providers/NotificationProvider";
+import { ReactionNotificationContext } from "providers/ReactionNotificationProvider";
 
 export const Header: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
-	const { notificationState } = useContext(NotificationContext);
+	const { notificationState } = useContext(ReactionNotificationContext);
 	const [reactions, setReactions] = useState<User[]>([]);
 	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
