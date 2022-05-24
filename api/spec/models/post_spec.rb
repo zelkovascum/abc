@@ -33,7 +33,7 @@ RSpec.describe Post, type: :model do
     end
 
     it 'Invalid when content is 31 characters or more' do
-      post.content = 'a' * 31
+      post.content = 'a' * 101
       expect(post).not_to be_valid
     end
   end
