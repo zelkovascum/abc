@@ -126,29 +126,27 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.14
       - aws-ecr/build-and-push-image:
           # account-url: AWS_ACCOUNT_URL
           repo: "my-rails"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./api/
+          dockerfile: Dockerfile
 
   build_and_push_image_web:
     machine:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.14
       - aws-ecr/build-and-push-image:
           # account-url: AWS_ACCOUNT_URL
           repo: "my-nginx"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-
+          dockerfile: Dockerfile
+          
 workflows:
   build:
     jobs:
