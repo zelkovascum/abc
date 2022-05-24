@@ -14,9 +14,11 @@ import {
 import { User } from "types";
 import { ReactionButton } from "components/atoms/reactions/ReactionButton";
 import { useNavigate } from "react-router-dom";
+import { NotificationContext } from "providers/NotificationProvider";
 
 export const Reactions: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
+	const { notificationState } = useContext(NotificationContext);
 	const [reactions, setReactions] = useState<User[]>([]);
 	const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ export const Reactions: FC = memo(() => {
 
 	useEffect(() => {
 		handleGetAllReactions();
-	}, []);
+	}, [notificationState]);
 
 	return (
 		<Box
