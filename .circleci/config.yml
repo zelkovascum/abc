@@ -79,9 +79,9 @@ jobs:
       #       bundle exec gem uninstall mysql2
       #     working_directory: api
       - run:
-          working_directory: api
           command: |
             bundle install
+          working_directory: api
       - run:
           name: DB create and migrate
           working_directory: api
