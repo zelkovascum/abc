@@ -1,54 +1,247 @@
 version: 2.1
-
 orbs:
-  ruby: circleci/ruby@1.8.0
-  node: circleci/node@5.0.2
+  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecs: circleci/aws-ecs@2.2.1
 
-jobs:
-  build:
-    docker:
-      - image: cimg/ruby:3.1.2-node
-    steps:
-      - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-  test:
+executors:
+  default_container:
     docker:
       - image: cimg/ruby:3.1.2-node
         environment:
           RAILS_ENV: test
-      # - image: circleci/mysql:latest
+          BUNDLE_JOBS: 4
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          BUNDLER_VERSION: 2.3.7
       - image: cimg/mysql:8.0
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
-    environment:
-      BUNDLE_JOBS: "4"
-      BUNDLE_RETRY: "3"
-      BUNDLE_PATH: vendor/bundle
+          # MYSQL_ROOT_PASSWORD: password
+          # MYSQL_USER: root
+    working_directory: ~/photudio
+
+commands:
+  install_bundler:
+    description: Bundler install
+    steps:
+      - run: gem install bundler -v 2.3.7
+
+jobs:
+  fetch_source_code:
+    executor:
+      name: default_container
     steps:
       - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
+      - save_cache:
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ~/photudio
+
+  bundle_dependencies:
+    executor:
+      name: default_container
+    steps:
+      - restore_cache:
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
+      - install_bundler
       - run:
-          name: Watting stand up database
+          name: Bundle Install Dependencies
+          working_directory: api
+          command: |
+            bundle install
+      - save_cache:
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
+          paths:
+            - api/vendor/bundle
+
+  rspec:
+    executor:
+      name: default_container
+    steps:
+      - restore_cache:
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
+      - run:
+          name: Waiting for database startup
+          working_directory: api
           command: |
             dockerize -wait \
-            tcp://127.0.0.1:3306 -timeout 1m
-      - run: mv ./config/database.yml.ci ./config/database.yml
+            tcp://127.0.0.1:3306 -timeout 120s
+      - run: mv ./api/config/database.yml.ci ./api/config/database.yml
+      - install_bundler
+      # - run:
+      #     name: Uninstall mysql2 to reinstall mysql2 with native extensions
+      #     command: |
+      #       bundle exec gem uninstall mysql2
+      #     working_directory: api
       - run:
-          name: Database setup
+          working_directory: api
+          command: |
+            bundle install
+      - run:
+          name: DB create and migrate
+          working_directory: api
           command: |
             bundle exec rails db:create db:migrate
-      - ruby/rspec-test
-      - ruby/rubocop-check
+      - run:
+          name: Run rspec
+          command: |
+            mkdir tmp/test-results
+            mkdir -p ~/rspec
+            TEST_FILES="$(circleci tests glob \"spec/**/*_spec.rb\" | circleci tests split --split-by=timings)"
+            bundle exec rspec
+          working_directory: api
+      - store_test_results:
+          path: api/rspec
+      - store_artifacts:
+          path: api/tmp/test-results
+          destination: test-results
+
+  rubocop:
+    executor:
+      name: default_container
+    steps:
+      - restore_cache:
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
+      - install_bundler
+      - run:
+          command: |
+            bundle install
+          working_directory: api
+      - run:
+          name: Execute rubocop
+          working_directory: api
+          command: |
+            bundle exec rubocop
+
+  build_and_push_image_api:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          # account-url: AWS_ACCOUNT_URL
+          repo: "my-rails"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: ./api/
+
+  build_and_push_image_web:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          # account-url: AWS_ACCOUNT_URL
+          repo: "my-nginx"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: ./nginx/
 
 workflows:
-  build_and_test:
+  build:
     jobs:
-      - build
-      - test:
+      - fetch_source_code:
+          filters:
+            branches:
+              only: main
+      - bundle_dependencies:
           requires:
-            - build
+            - fetch_source_code
+          filters:
+            branches:
+              only: main
+      - rubocop:
+          requires:
+            - bundle_dependencies
+          filters:
+            branches:
+              only: main
+      - rspec:
+          requires:
+            - bundle_dependencies
+          filters:
+            branches:
+              only: main
+      - build_and_push_image_api:
+          requires:
+            - rubocop
+            - rspec
+          filters:
+            branches:
+              only: main
+      - build_and_push_image_web:
+          requires:
+            - rubocop
+            - rspec
+          filters:
+            branches:
+              only: main
+      # Nginxのデプロイ
+      # nginx-deploy:
+      #   jobs:
+      #     - aws-ecr/build-and-push-image:
+      #         #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+      #         # account-url: AWS_ECR_ACCOUNT_URL
+      #         # リージョン
+      #         region: AWS_REGION
+      #         aws-access-key-id: AWS_ACCESS_KEY_ID
+      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+
+      #         # ECRにリポジトリがなかったら創るか？
+      #         create-repo: true
+      #         # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+      #         dockerfile: ./nginx/Dockerfile
+      #         # ECRのリポジトリ
+      #         repo: nginx-sample
+      #         # タグ バージョンの管理 一意のtag
+      #         tag: "${CIRCLE_SHA1}"
+      #         filters:
+      #           branches:
+      #             only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build_and_push_image_api
+          # ECSのタスク定義名
+          family: "my-task"
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: "my-cluster"
+          # サービス名
+          service-name: "my-service"
+          # containerはタスク定義で設定したコンテナ名にする
+          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
+
+      # Railsのデプロイ
+      # rails-deploy:
+      #   jobs:
+      #     - aws-ecr/build-and-push-image:
+      #         # account-url: AWS_ECR_ACCOUNT_URL
+      #         region: AWS_REGION
+      #         aws-access-key-id: AWS_ACCESS_KEY_ID
+      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      #         # ECRにリポジトリがなかったら創るか？
+      #         create-repo: true
+      #         dockerfile: ./Dockerfile.prod
+      #         # ECRのリポジトリ
+      #         repo: rails-sample
+      #         tag: "${CIRCLE_SHA1}"
+      #         filters:
+      #           branches:
+      #             only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build_and_push_image_web
+          # ECSのタスク定義名
+          family: "my-task"
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: "my-cluster"
+          # サービス名
+          service-name: "my-service"
+          # containerはタスク定義で設定したコンテナ名にする
+          container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
