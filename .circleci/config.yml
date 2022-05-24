@@ -13,6 +13,7 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
+    working_directory: ~/photudio
   test:
     docker:
       - image: cimg/ruby:3.1.2-node
@@ -44,6 +45,7 @@ jobs:
             bundle exec rails db:create db:migrate
       - ruby/rspec-test
       - ruby/rubocop-check
+    working_directory: ~/photudio
 
 workflows:
   build_and_test:
