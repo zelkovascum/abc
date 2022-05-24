@@ -13,9 +13,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import { NotificationContext } from "providers/NotificationProvider";
 
 export const Header: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
+	const { notificationState } = useContext(NotificationContext);
 	const [reactions, setReactions] = useState<User[]>([]);
 	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -70,7 +72,7 @@ export const Header: FC = memo(() => {
 
 	useEffect(() => {
 		handleGetAllReactions();
-	}, []);
+	}, [notificationState]);
 
 	return (
 		<Box position="fixed" right={0} left={0} zIndex={1}>
