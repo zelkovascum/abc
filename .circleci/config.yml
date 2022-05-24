@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v3-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/photudio
 
@@ -43,9 +43,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v3-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v3-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - install_bundler
       - run:
           name: Bundle Install Dependencies
@@ -53,7 +53,7 @@ jobs:
           command: |
             bundle install
       - save_cache:
-          key: v3-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
 
@@ -62,9 +62,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v3-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v3-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           name: Waiting for database startup
           working_directory: api
@@ -79,9 +79,9 @@ jobs:
       #       bundle exec gem uninstall mysql2
       #     working_directory: api
       - run:
+          working_directory: api
           command: |
             bundle install
-          working_directory: api
       - run:
           name: DB create and migrate
           working_directory: api
@@ -106,9 +106,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v3-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v3-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - install_bundler
       - run:
           command: |
