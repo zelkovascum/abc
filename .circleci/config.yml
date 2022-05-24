@@ -132,7 +132,7 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-          dockerfile: Dockerfile
+          dockerfile: ./Dockerfile.prod
 
   build_and_push_image_web:
     machine:
@@ -145,8 +145,8 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-          dockerfile: Dockerfile
-          
+          dockerfile: ./nginx/Dockerfile
+
 workflows:
   build:
     jobs:
@@ -196,7 +196,6 @@ workflows:
       #         region: AWS_REGION
       #         aws-access-key-id: AWS_ACCESS_KEY_ID
       #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-
       #         # ECRにリポジトリがなかったら創るか？
       #         create-repo: true
       #         # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
