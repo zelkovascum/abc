@@ -133,9 +133,6 @@ jobs:
           tag: "${CIRCLE_SHA1}"
           path: ./api/
           dockerfile: ./api/Dockerfile.prod
-          filters:
-            branches:
-              only: main
 
   build_and_push_image_web:
     machine:
@@ -150,9 +147,6 @@ jobs:
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
           dockerfile: ./nginx/Dockerfile
-          filters:
-            branches:
-              only: main
 
 workflows:
   build:
