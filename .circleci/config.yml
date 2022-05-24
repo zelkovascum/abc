@@ -126,12 +126,16 @@ jobs:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          # account-url: AWS_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           repo: "my-rails"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-          dockerfile: ./Dockerfile.prod
+          dockerfile: ./api/Dockerfile.prod
+          filters:
+            branches:
+              only: main
 
   build_and_push_image_web:
     machine:
@@ -139,12 +143,16 @@ jobs:
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          # account-url: AWS_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           repo: "my-nginx"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
           dockerfile: ./nginx/Dockerfile
+          filters:
+            branches:
+              only: main
 
 workflows:
   build:
