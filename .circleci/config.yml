@@ -6,7 +6,7 @@ orbs:
 executors:
   default_container:
     docker:
-      - image: cimg/ruby:3.1.2-node
+      - image: cimg/ruby:3.1.2
         environment:
           RAILS_ENV: test
           BUNDLE_JOBS: 4
