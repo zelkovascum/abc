@@ -132,8 +132,6 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-      - setup_remote_docker:
-          version: 20.10.14
 
   build_and_push_image_web:
     machine:
@@ -146,8 +144,6 @@ jobs:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-      - setup_remote_docker:
-          version: 20.10.14
 
 workflows:
   build:
