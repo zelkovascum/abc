@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { createReaction } from "utils/api/reaction";
 // import { useNavigate } from "react-router-dom";
 import { AlertMessage } from "components/molucules/AlertMessage";
-import { NotificationContext } from "providers/NotificationProvider";
+import { ReactionNotificationContext } from "providers/ReactionNotificationProvider";
 
 type Props = {
 	fromUserId: number;
@@ -15,7 +15,7 @@ export const ReactionButton: FC<Props> = memo((props) => {
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const [message, setMessage] = useState<string>("");
 	// const navigate = useNavigate();
-	const { notificationDispatch } = useContext(NotificationContext);
+	const { notificationDispatch } = useContext(ReactionNotificationContext);
 
 	const onClickReaction = async (
 		e: MouseEvent<HTMLButtonElement>,
@@ -30,10 +30,10 @@ export const ReactionButton: FC<Props> = memo((props) => {
 			});
 			console.log(res.data);
 			setMessage(res.data.message);
-			setIsAlertMessageOpen(true);
 			notificationDispatch({
 				type: "PUSHBUTTON",
 			});
+			setIsAlertMessageOpen(true);
 			// if (res.data === "") return;
 			// navigate(`/rooms/${res.data.id}`);
 		} catch (e) {

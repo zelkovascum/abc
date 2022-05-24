@@ -19,7 +19,7 @@ type Action = {
 	type: "PUSHBUTTON";
 };
 
-export const NotificationContext = createContext(
+export const ReactionNotificationContext = createContext(
 	{} as {
 		notificationState: State;
 		notificationDispatch: Dispatch<Action>;
@@ -30,7 +30,7 @@ type Props = {
 	children: ReactNode;
 };
 
-export const NotificationProvider: FC<Props> = memo((props) => {
+export const ReactionNotificationProvider: FC<Props> = memo((props) => {
 	const { children } = props;
 	const [notificationState, notificationDispatch] = useReducer(
 		reactionNotificationReducer,
@@ -40,13 +40,13 @@ export const NotificationProvider: FC<Props> = memo((props) => {
 	useEffect(() => {}, [notificationState]);
 
 	return (
-		<NotificationContext.Provider
+		<ReactionNotificationContext.Provider
 			value={{
 				notificationState,
 				notificationDispatch,
 			}}
 		>
 			{children}
-		</NotificationContext.Provider>
+		</ReactionNotificationContext.Provider>
 	);
 });
