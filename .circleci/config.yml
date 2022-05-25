@@ -122,10 +122,8 @@ jobs:
             bundle exec rubocop
 
   build_and_push_image_web:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    macos: # executor type
-      xcode: 12.5.1
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
@@ -140,10 +138,8 @@ jobs:
       #       version: 20.10.14
 
   build_and_push_image_api:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    macos:
-      xcode: 12.5.1
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
