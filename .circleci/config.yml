@@ -6,7 +6,7 @@ orbs:
 executors:
   default_container:
     docker:
-      - image: cimg/ruby:3.1.2-node
+      - image: cimg/ruby:3.1.2
         environment:
           RAILS_ENV: test
           BUNDLE_JOBS: 4
@@ -120,33 +120,37 @@ jobs:
           command: |
             bundle exec rubocop
 
-  build_and_push_image_api:
-    machine:
-      image: ubuntu-2004:202010-01
-    steps:
-      - checkout
-      - aws-ecr/build-and-push-image:
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
-          repo: "my-rails"
-          tag: "${CIRCLE_SHA1}"
-          path: ./api/
-          # dockerfile: ./api/Dockerfile.prod
-
   build_and_push_image_web:
-    machine:
-      image: ubuntu-2004:202010-01
+    # machine:
+    #   image: ubuntu-2004:202010-01
+    docker:
+      - image: cimg/node:lts
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
           # dockerfile: ./nginx/Dockerfile
+          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # region: AWS_REGION
+
+  build_and_push_image_api:
+    # machine:
+    #   image: ubuntu-2004:202010-01
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - aws-ecr/build-and-push-image:
+          repo: "my-rails"
+          tag: "${CIRCLE_SHA1}"
+          path: ./api/
+          # dockerfile: ./api/Dockerfile.prod
+          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # region: AWS_REGION
 
 workflows:
   build:
@@ -173,13 +177,6 @@ workflows:
           filters:
             branches:
               only: main
-      - build_and_push_image_api:
-          requires:
-            - rubocop
-            - rspec
-          filters:
-            branches:
-              only: main
       - build_and_push_image_web:
           requires:
             - rubocop
@@ -187,27 +184,13 @@ workflows:
           filters:
             branches:
               only: main
-      # Nginxのデプロイ
-      # nginx-deploy:
-      #   jobs:
-      #     - aws-ecr/build-and-push-image:
-      #         #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
-      #         # account-url: AWS_ECR_ACCOUNT_URL
-      #         # リージョン
-      #         region: AWS_REGION
-      #         aws-access-key-id: AWS_ACCESS_KEY_ID
-      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      #         # ECRにリポジトリがなかったら創るか？
-      #         create-repo: true
-      #         # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
-      #         dockerfile: ./nginx/Dockerfile
-      #         # ECRのリポジトリ
-      #         repo: nginx-sample
-      #         # タグ バージョンの管理 一意のtag
-      #         tag: "${CIRCLE_SHA1}"
-      #         filters:
-      #           branches:
-      #             only: main
+      - build_and_push_image_api:
+          requires:
+            - rubocop
+            - rspec
+          filters:
+            branches:
+              only: main
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_api
@@ -219,24 +202,6 @@ workflows:
           service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
-
-      # Railsのデプロイ
-      # rails-deploy:
-      #   jobs:
-      #     - aws-ecr/build-and-push-image:
-      #         # account-url: AWS_ECR_ACCOUNT_URL
-      #         region: AWS_REGION
-      #         aws-access-key-id: AWS_ACCESS_KEY_ID
-      #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      #         # ECRにリポジトリがなかったら創るか？
-      #         create-repo: true
-      #         dockerfile: ./Dockerfile.prod
-      #         # ECRのリポジトリ
-      #         repo: rails-sample
-      #         tag: "${CIRCLE_SHA1}"
-      #         filters:
-      #           branches:
-      #             only: main
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_web
