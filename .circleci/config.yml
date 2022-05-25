@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/photudio
 
@@ -43,9 +43,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - install_bundler
       - run:
           name: Bundle Install Dependencies
@@ -53,7 +53,7 @@ jobs:
           command: |
             bundle install
       - save_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
 
@@ -62,9 +62,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           name: Waiting for database startup
           working_directory: api
@@ -107,9 +107,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - install_bundler
       - run:
           command: |
