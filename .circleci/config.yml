@@ -125,7 +125,7 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - checkout
+      # - checkout
       - aws-ecr/build-and-push-image:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -139,7 +139,7 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
-      - checkout
+      # - checkout
       - aws-ecr/build-and-push-image:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
