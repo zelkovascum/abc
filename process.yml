@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/photudio
   bundle_dependencies:
@@ -36,9 +36,9 @@ jobs:
     working_directory: ~/photudio
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           command: gem install bundler -v 2.3.7
       - run:
@@ -47,7 +47,7 @@ jobs:
           command: |
             bundle install
       - save_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
           paths:
             - api/vendor/bundle
   rubocop:
@@ -65,9 +65,9 @@ jobs:
     working_directory: ~/photudio
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           command: gem install bundler -v 2.3.7
       - run:
@@ -94,9 +94,9 @@ jobs:
     working_directory: ~/photudio
     steps:
       - restore_cache:
-          key: v1-photudio-{{ .Branch }}-{{ .Revision }}
+          key: v2-photudio-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+          key: v2-dependencies-{{ checksum "api/Gemfile.lock" }}
       - run:
           name: Waiting for database startup
           working_directory: api
