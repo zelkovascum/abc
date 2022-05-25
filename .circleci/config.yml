@@ -122,12 +122,12 @@ jobs:
             bundle exec rubocop
 
   build_and_push_image_web:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    docker:
-      - image: cimg/node:lts
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
-      # - checkout
+      - setup_remote_docker:
+            version: 20.10.14
+      - checkout
       - aws-ecr/build-and-push-image:
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
@@ -138,12 +138,12 @@ jobs:
           # region: AWS_REGION
 
   build_and_push_image_api:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    docker:
-      - image: cimg/node:lts
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
-      # - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+      - checkout
       - aws-ecr/build-and-push-image:
           repo: "my-rails"
           tag: "${CIRCLE_SHA1}"
