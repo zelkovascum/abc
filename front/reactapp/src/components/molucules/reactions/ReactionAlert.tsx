@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, memo, SyntheticEvent } from "react";
+import React, { Dispatch, FC, memo, SyntheticEvent, useEffect } from "react";
 import { Alert as MuiAlert, Snackbar, AlertProps } from "@mui/material";
 import { ReactionNotificationAction } from "reducers/reactionNotification";
 
@@ -25,6 +25,14 @@ export const ReactionAlert: FC<Props> = memo((props) => {
 			payload: "",
 		});
 	};
+
+	useEffect(() => {
+		dispatch({
+			type: "CLOSE_MESSAGE",
+			payload: "",
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Snackbar
