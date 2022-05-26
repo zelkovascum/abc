@@ -4,10 +4,8 @@ require 'carrierwave/storage/fog'
 
 CarrierWave.configure do |config|
   if Rails.env.production?
-    # config.asset_host = 'https://server.inzs46.com'
-    # config.asset_host = 'https://d359zlcqb84ayi.cloudfront.net/'
-    # config.asset_host = "https://s3-ap-northeast-1.amazonaws.com/#{ENV['AWS_S3_BUCKET_NAME']}"
-    config.asset_host = "https://#{ENV['AWS_S3_BUCKET_NAME']}.s3.ap-northeast-1.amazonaws.com"
+    # cloudfrontに紐づけた独自ドメイン
+    config.asset_host = 'https://inzs46.com'
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory = ENV['AWS_S3_BUCKET_NAME']
@@ -25,3 +23,16 @@ CarrierWave.configure do |config|
     config.cache_storage = :file
   end
 end
+
+# CarrierWave.configure do |config|
+#   config.asset_host = 'https://inzs46.com'
+#   config.fog_credentials = {
+#   provider:              'AWS',
+#   aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+#   aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+#   use_iam_profile:       false,
+#   region:                'ap-northeast-1',
+#   }
+#   config.fog_directory  = ENV['AWS_S3_BUCKET_NAME']
+#   config.fog_public     = true
+# end
