@@ -1,4 +1,5 @@
 version: 2.1
+
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
   aws-ecs: circleci/aws-ecs@2.2.1
@@ -191,21 +192,21 @@ workflows:
           requires:
             - build_and_push_image_api
           # ECSのタスク定義名
-          family: "my-task"
+          family: "my-nginx-service"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-cluster"
+          cluster-name: "my-nginx-cluster"
           # サービス名
-          service-name: "my-service"
+          # service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=my-nginx-service,tag=${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_web
           # ECSのタスク定義名
-          family: "my-task"
+          family: "my-rails-service"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-cluster"
+          cluster-name: "my-rails-cluster"
           # サービス名
-          service-name: "my-service"
+          # service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=my-rails-service,tag=${CIRCLE_SHA1}"
