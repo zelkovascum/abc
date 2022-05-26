@@ -23,6 +23,7 @@ URL: https://inzs46.com
 - ``rubocop`` : Lintツール
 
 ## Front End: React
+- ``TypeScript``
 - ``creat-react-app``
 ### 主要ライブラリ
 - ``MUI V5`` : UIコンポーネントライブラリ
