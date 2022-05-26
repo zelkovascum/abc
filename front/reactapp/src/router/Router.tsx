@@ -1,4 +1,4 @@
-import { FC, memo, useContext } from "react";
+import { FC, memo } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SignIn } from "components/pages/users/SignIn";
 import { SignUp } from "components/pages/users/SignUp";
@@ -13,18 +13,11 @@ import { NotFound } from "components/pages/NotFound";
 import { CommonLayout } from "components/templates/CommonLayout";
 import { TopLayout } from "components/templates/TopLayout";
 import { PrivateRoute } from "./PrivateRoute";
-import { Reactions } from "components/pages/reactions/Reactions";
 import { PostShow } from "components/pages/posts/PostShow";
 import { MyPosts } from "components/pages/posts/MyPosts";
-import { AlertMessage } from "components/molucules/AlertMessage";
-import { ReactionNotificationContext } from "providers/ReactionNotificationProvider";
-import { ReactionAlert } from "components/molucules/reactions/ReactionAlert";
+import { ReactionsAndAlert } from "components/pages/reactions/ReactionsAndAlert";
 
 export const Router: FC = memo(() => {
-	const { notificationState, notificationDispatch } = useContext(
-		ReactionNotificationContext
-	);
-
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -42,20 +35,7 @@ export const Router: FC = memo(() => {
 						<Route path="/posts/:id" element={<PostShow />} />
 						<Route path="/users/:id" element={<Profile />} />
 						<Route path="/users/setting" element={<Setting />} />
-						<Route
-							path="/users/reactions"
-							element={
-								<>
-									<Reactions />
-									<ReactionAlert
-										open={notificationState.isAlertMessageOpen}
-										dispatch={notificationDispatch}
-										severity="info"
-										message={notificationState.message}
-									/>
-								</>
-							}
-						/>
+						<Route path="/users/reactions" element={<ReactionsAndAlert />} />
 						<Route path="/users/posts" element={<MyPosts />} />
 						<Route path="/rooms" element={<Rooms />} />
 						<Route path="/rooms/:id" element={<Room />} />
