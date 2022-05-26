@@ -6,7 +6,7 @@ URL: https://inzs46.com
 <!-- ![top]() -->
 
 # インフラ構成図
-<!-- ![image]() -->
+![インフラ drawio](https://user-images.githubusercontent.com/94943154/170498937-2fc6d401-27ae-4b63-a5be-505ad493a1fe.png)
 
 # 使用技術概略
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
