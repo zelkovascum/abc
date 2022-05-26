@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SignIn } from "components/pages/users/SignIn";
 import { SignUp } from "components/pages/users/SignUp";
@@ -16,32 +16,54 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Reactions } from "components/pages/reactions/Reactions";
 import { PostShow } from "components/pages/posts/PostShow";
 import { MyPosts } from "components/pages/posts/MyPosts";
+import { AlertMessage } from "components/molucules/AlertMessage";
+import { ReactionNotificationContext } from "providers/ReactionNotificationProvider";
+import { ReactionAlert } from "components/molucules/reactions/ReactionAlert";
 
-export const Router: FC = memo(() => (
-	<BrowserRouter>
-		<Routes>
-			<Route element={<TopLayout />}>
-				<Route path="/signup" element={<SignUp />} />
-				<Route path="/signin" element={<SignIn />} />
-			</Route>
+export const Router: FC = memo(() => {
+	const { notificationState, notificationDispatch } = useContext(
+		ReactionNotificationContext
+	);
 
-			<Route element={<PrivateRoute />}>
-				<Route element={<CommonLayout />}>
-					<Route path="/" element={<Home />} />
-					<Route path="/near" element={<Home />} />
-					<Route path="/map" element={<Map />} />
-					<Route path="/posts/new" element={<NewPost />} />
-					<Route path="/posts/:id" element={<PostShow />} />
-					<Route path="/users/:id" element={<Profile />} />
-					<Route path="/users/setting" element={<Setting />} />
-					<Route path="/users/reactions" element={<Reactions />} />
-					<Route path="/users/posts" element={<MyPosts />} />
-					<Route path="/rooms" element={<Rooms />} />
-					<Route path="/rooms/:id" element={<Room />} />
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route element={<TopLayout />}>
+					<Route path="/signup" element={<SignUp />} />
+					<Route path="/signin" element={<SignIn />} />
 				</Route>
-			</Route>
 
-			<Route path="*" element={<NotFound />} />
-		</Routes>
-	</BrowserRouter>
-));
+				<Route element={<PrivateRoute />}>
+					<Route element={<CommonLayout />}>
+						<Route path="/" element={<Home />} />
+						<Route path="/near" element={<Home />} />
+						<Route path="/map" element={<Map />} />
+						<Route path="/posts/new" element={<NewPost />} />
+						<Route path="/posts/:id" element={<PostShow />} />
+						<Route path="/users/:id" element={<Profile />} />
+						<Route path="/users/setting" element={<Setting />} />
+						<Route
+							path="/users/reactions"
+							element={
+								<>
+									<Reactions />
+									<ReactionAlert
+										open={notificationState.isAlertMessageOpen}
+										dispatch={notificationDispatch}
+										severity="info"
+										message={notificationState.message}
+									/>
+								</>
+							}
+						/>
+						<Route path="/users/posts" element={<MyPosts />} />
+						<Route path="/rooms" element={<Rooms />} />
+						<Route path="/rooms/:id" element={<Room />} />
+					</Route>
+				</Route>
+
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</BrowserRouter>
+	);
+});

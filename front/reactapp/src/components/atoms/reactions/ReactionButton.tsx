@@ -29,11 +29,12 @@ export const ReactionButton: FC<Props> = memo((props) => {
 				toUserId,
 			});
 			console.log(res.data);
-			setMessage(res.data.message);
+			// setMessage(res.data.message);
 			notificationDispatch({
 				type: "PUSHBUTTON",
+				payload: res.data.message,
 			});
-			setIsAlertMessageOpen(true);
+			// setIsAlertMessageOpen(true);
 			// if (res.data === "") return;
 			// navigate(`/rooms/${res.data.id}`);
 		} catch (e) {
@@ -46,12 +47,12 @@ export const ReactionButton: FC<Props> = memo((props) => {
 			<Button onClick={(e) => onClickReaction(e, fromUserId, toUserId)}>
 				リアクション
 			</Button>
-			<AlertMessage
+			{/* <AlertMessage
 				open={isAlertMessageOpen}
 				setOpen={setIsAlertMessageOpen}
 				severity="info"
 				message={message}
-			/>
+			/> */}
 		</>
 	);
 });
