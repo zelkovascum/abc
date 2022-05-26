@@ -5,10 +5,10 @@ URL: https://inzs46.com
 
 <!-- ![top]() -->
 
-## インフラ構成図
+# インフラ構成図
 <!-- ![image]() -->
 
-### 使用技術概略
+# 使用技術概略
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
 - **Front End:** React ( TypeScript )
 - **Infra:** Docker / Docker-Compose, AWS ( ECS Fargate / ECR / ALB / RDS / S3 / CloudFront / Route53 ), Circle CI
