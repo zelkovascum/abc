@@ -131,7 +131,7 @@ jobs:
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
           path: nginx
-          platform: linux/amd64
+          dockerfile: ./nginx/Dockerfile
           # dockerfile: ./nginx/Dockerfile
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -148,7 +148,7 @@ jobs:
           repo: "my-rails"
           tag: "${CIRCLE_SHA1}"
           path: ./api
-          platform: linux/amd64
+          dockerfile: ./api/Dockerfile.prod
           # dockerfile: ./api/Dockerfile.prod
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
