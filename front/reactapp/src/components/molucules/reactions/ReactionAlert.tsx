@@ -1,11 +1,6 @@
-import React, {
-	Dispatch,
-	FC,
-	memo,
-	SetStateAction,
-	SyntheticEvent,
-} from "react";
+import React, { Dispatch, FC, memo, SyntheticEvent } from "react";
 import { Alert as MuiAlert, Snackbar, AlertProps } from "@mui/material";
+import { ReactionNotificationAction } from "reducers/reactionNotification";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
 	<MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -13,19 +8,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
 
 type Props = {
 	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
+	dispatch: Dispatch<ReactionNotificationAction>;
 	severity: "error" | "success" | "info" | "warning";
 	message: string;
 };
 
-export const AlertMessage: FC<Props> = memo((props) => {
-	const { open, setOpen, severity, message } = props;
+export const ReactionAlert: FC<Props> = memo((props) => {
+	const { open, dispatch, severity, message } = props;
 	const handleCloseAlertMessage = (
 		e?: SyntheticEvent | Event,
 		reason?: string
 	) => {
 		if (reason === "clickaway") return;
-		setOpen(false);
+		dispatch({
+			type: "CLOSE_MESSAGE",
+			payload: "",
+		});
 	};
 
 	return (

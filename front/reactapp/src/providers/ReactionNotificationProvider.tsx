@@ -9,20 +9,15 @@ import {
 } from "react";
 import {
 	reactionInit,
+	ReactionNotificationAction,
 	reactionNotificationReducer,
+  ReactionNotificationState,
 } from "reducers/reactionNotification";
-
-type State = {
-	reactionState: "INITIAL" | "REACTION";
-};
-type Action = {
-	type: "PUSHBUTTON";
-};
 
 export const ReactionNotificationContext = createContext(
 	{} as {
-		notificationState: State;
-		notificationDispatch: Dispatch<Action>;
+		notificationState: ReactionNotificationState;
+		notificationDispatch: Dispatch<ReactionNotificationAction>;
 	}
 );
 
