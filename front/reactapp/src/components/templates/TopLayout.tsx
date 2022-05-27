@@ -1,39 +1,45 @@
 import { FC, memo } from "react";
 import { Outlet } from "react-router-dom";
-import { Grid, useMediaQuery, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { Top } from "components/pages/Top";
 import Image from "images/topImg.jpg";
-import { theme } from "providers/MuiThemeProvider";
 
 export const TopLayout: FC = memo(() => {
-	const matches = useMediaQuery(theme.breakpoints.down("md"));
-
 	return (
-		<Box
+		<Grid
+			container
+			justifyContent="center"
+			direction="column"
 			sx={{
-				backgroundImage: `url(${Image})`,
-				backgroundSize: "cover",
-				backgroundPosition: "center",
+				height: "200vh",
 			}}
 		>
-			<div style={{ background: "rgba(255, 255, 255, 0.5)" }}>
-				<Grid
-					container
-					justifyContent="center"
-					alignItems="center"
-					direction={matches ? "column-reverse" : undefined}
+			<Grid
+				item
+				xs={6}
+				sx={{
+					height: "100%",
+					backgroundImage: `url(${Image})`,
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+				}}
+			>
+				<Box
 					sx={{
-						height: matches ? "150vh" : "100vh",
+						display: "flex",
+						height: "100%",
+						background: "rgba(255, 255, 255, 0.5)",
 					}}
 				>
-					<Grid item xs={5}>
-						<Top />
-					</Grid>
-					<Grid item xs={5}>
-						<Outlet />
-					</Grid>
-				</Grid>
-			</div>
-		</Box>
+					<Outlet />
+					<div className="scrolldown">
+						<span>Scroll</span>
+					</div>
+				</Box>
+			</Grid>
+			<Grid item xs={6}>
+				<Top />
+			</Grid>
+		</Grid>
 	);
 });
