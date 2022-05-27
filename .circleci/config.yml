@@ -169,7 +169,7 @@ jobs:
           at: front/reactapp
       - aws-s3/sync:
           from: front/reactapp/build
-          to: $BUCKET_URL
+          to: ${BUCKET_URL}
 
 workflows:
   build:
