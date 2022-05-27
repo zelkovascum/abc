@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@7.3.0
   aws-ecs: circleci/aws-ecs@2.0.0
+  aws-s3: circleci/aws-s3@3.0.0
 
 executors:
   default_container:
@@ -140,33 +141,33 @@ jobs:
           tag: "${CIRCLE_SHA1}"
           path: ./api/
 
-  # front_build:
-  #   working_directory: ~/photudio/front/reactapp
-  #   docker:
-  #     - image: cimg/node:18.2.0
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: yarn install
-  #         command: yarn install
-  #     - run:
-  #         name: yarn build
-  #         command: yarn build
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .
+  front_build:
+    working_directory: ~/photudio/front/reactapp
+    docker:
+      - image: cimg/node:18.2.0
+    steps:
+      - checkout
+      - run:
+          name: yarn install
+          command: yarn install
+      - run:
+          name: yarn build
+          command: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
-  # front_deploy:
-  #   working_directory: ~/photudio/front/reactapp
-  #   docker:
-  #     - image: cimg/node:18.2.0
-  #   steps:
-  #     - attach_workspace:
-  #         at: ./front/reactapp
-  #     - aws-s3/sync:
-  #         from: ./build
-  #         to: $BUCKET_URL
+  front_deploy:
+    working_directory: ~/photudio/front/reactapp
+    docker:
+      - image: cimg/node:18.2.0
+    steps:
+      - attach_workspace:
+          at: ./front/reactapp
+      - aws-s3/sync:
+          from: ./build
+          to: $BUCKET_URL
 
 workflows:
   build:
@@ -221,15 +222,15 @@ workflows:
           cluster-name: "my-cluster"
           service-name: "my-service"
           container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
-      # - front_build:
-      #   filters:
-      #     branches:
-      #       only:
-      #         - main
-      # - front_deploy:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - front_build:
+        filters:
+          branches:
+            only:
+              - main
+      - front_deploy:
+          requires:
+            - front_build
+          filters:
+            branches:
+              only:
+                - main
