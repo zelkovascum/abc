@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@8.1.2
-  aws-ecs: circleci/aws-ecs@2.2.1
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-ecs: circleci/aws-ecs@2.0.0
 
 executors:
   default_container:
@@ -18,8 +18,6 @@ executors:
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ROOT_PASSWORD: password
-          # MYSQL_USER: root
-          # MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/photudio
 
 commands:
@@ -74,12 +72,13 @@ jobs:
             tcp://127.0.0.1:3306 -timeout 120s
       - run: mv ./api/config/database.yml.ci ./api/config/database.yml
       - install_bundler
-      # - run:
-      #     name: Uninstall mysql2 to reinstall mysql2 with native extensions
-      #     command: |
-      #       bundle exec gem uninstall mysql2
-      #     working_directory: api
       - run:
+          name: Uninstall mysql2 to reinstall mysql2 with native extensions
+          command: |
+            bundle exec gem uninstall mysql2
+          working_directory: api
+      - run:
+          name: Bundle install to install mysql2 with native extensions
           working_directory: api
           command: |
             bundle install --path vendor/bundle
@@ -130,10 +129,6 @@ jobs:
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-          # dockerfile: ./nginx/Dockerfile
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
 
   build_and_push_image_api:
     machine:
@@ -144,10 +139,34 @@ jobs:
           repo: "my-rails"
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-          # dockerfile: ./api/Dockerfile.prod
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
+
+  # front_build:
+  #   working_directory: ~/photudio/front/reactapp
+  #   docker:
+  #     - image: cimg/node:18.2.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: yarn install
+  #         command: yarn install
+  #     - run:
+  #         name: yarn build
+  #         command: yarn build
+  #     - persist_to_workspace:
+  #         root: .
+  #         paths:
+  #           - .
+
+  # front_deploy:
+  #   working_directory: ~/photudio/front/reactapp
+  #   docker:
+  #     - image: cimg/node:18.2.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: ./front/reactapp
+  #     - aws-s3/sync:
+  #         from: ./build
+  #         to: $BUCKET_URL
 
 workflows:
   build:
@@ -191,22 +210,26 @@ workflows:
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_api
-          # ECSのタスク定義名
-          family: "my-nginx-service"
-          # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-nginx-cluster"
-          # サービス名
-          # service-name: "my-service"
-          # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=my-nginx-service,tag=${CIRCLE_SHA1}"
+          family: "my-task"
+          cluster-name: "my-cluster"
+          service-name: "my-service"
+          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_web
-          # ECSのタスク定義名
-          family: "my-rails-service"
-          # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-rails-cluster"
-          # サービス名
-          # service-name: "my-service"
-          # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=my-rails-service,tag=${CIRCLE_SHA1}"
+          family: "my-task"
+          cluster-name: "my-cluster"
+          service-name: "my-service"
+          container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
+      # - front_build:
+      #   filters:
+      #     branches:
+      #       only:
+      #         - main
+      # - front_deploy:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
