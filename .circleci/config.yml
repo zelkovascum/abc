@@ -128,7 +128,7 @@ jobs:
     docker:
       - image: cimg/go:1.17
         auth:
-            username: mydockerhub-user
+            username: zelkovascum
             password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
@@ -150,7 +150,7 @@ jobs:
     docker:
       - image: cimg/go:1.17
         auth:
-          username: mydockerhub-user
+          username: zelkovascum
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
