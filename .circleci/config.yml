@@ -227,21 +227,21 @@ workflows:
           requires:
             - build_and_push_image_api
           # ECSのタスク定義名
-          family: "my-nginx-service"
+          family: "my-task"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-nginx-cluster"
+          cluster-name: "my-cluster"
           # サービス名
           service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=my-nginx-service,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_web
           # ECSのタスク定義名
-          family: "my-rails-service"
+          family: "my-task"
           # ECSのクラスター名かARNのフルパス
-          cluster-name: "my-rails-cluster"
+          cluster-name: "my-cluster"
           # サービス名
           service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=my-rails-service,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
