@@ -6,7 +6,7 @@ URL: https://inzs46.com
 <!-- ![top]() -->
 
 # インフラ構成図
-![インフラ drawio](https://user-images.githubusercontent.com/94943154/170498937-2fc6d401-27ae-4b63-a5be-505ad493a1fe.png)
+![インフラ drawio](https://user-images.githubusercontent.com/94943154/170649252-e49f890d-ade0-4558-ab44-e77c28e4f692.png)
 
 # 使用技術概略
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
@@ -15,17 +15,21 @@ URL: https://inzs46.com
 - **Third Party API:** Google Maps Platform(Maps JavaScript API / Geocoding API/Places API)
 
 # 使用技術詳細
-## Back End: Ruby on Rails, Nginx
+## Back End
+- ``Ruby 3.1.2``
+- ``Ruby on Rails　6.1.5``
+- ``Nginx``
 ### 主要gem
 - ``devise / devise_token_auth`` : トークン認証
 - ``carrierwave / aws-fog`` : AWSへのファイルアップロード
 - ``rspec`` : テストフレームワーク
 - ``rubocop`` : Lintツール
 
-## Front End: React
+## Front End
+- ``React 17.0.2``
 - ``TypeScript``
 - ``creat-react-app``
-### 主要ライブラリ
+### 主要パッケージ
 - ``MUI V5`` : UIコンポーネントライブラリ
 - ``React Router V6`` : UIとURLを同期
 - ``Axios``: PromiseベースのHTTPクライアント
@@ -49,19 +53,29 @@ URL: https://inzs46.com
 
 ### ``CircleCI``
 CI/CDパイプライン構築
-- rspec
-- rubocop
-- ECRへイメージプッシュ
-- ECSのサービスアップデート
+ビルド、テスト、デプロイを全自動化
+- テスト・Lint
+  - rspec
+  - rubocop
+- デプロイ（フロント）
+  - Reactのビルド
+  - S3へビルドしたファイルをアップロード
+- デプロイ（バック）
+  - ECRへイメージプッシュ（Rails,Nginx）
+  - ECSのサービスアップデート
 
 # 機能一覧
-## ユーザー利用機能
-- 機能
-- 機能
-  - 機能
-
-
-## 非ユーザー利用機能
-- 機能
-- 機能
-  - 機能
+- アカウント作成、ログイン、ログアウト機能
+- プロフィール画像登録機能
+- 投稿作成機能
+- 投稿削除機能
+- 投稿並べ替え機能（設定日時順、距離が近い順）
+- 投稿絞り込み機能（日時）
+- マップ機能
+  - 投稿の位置情報を元にマップにマーカー表示
+  - 表示するマーカー絞り込み機能（日時）
+- メッセージ機能
+- リアクション機能
+  - リアクションの通知機能
+- ローディング画面（スケルトンスクリーン）
+- レスポンシブ対応
