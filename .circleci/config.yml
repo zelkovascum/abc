@@ -135,8 +135,8 @@ jobs:
       - aws-ecr/build-and-push-image:
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
-          path: nginx
-          dockerfile: ./nginx/Dockerfile
+          path: ./nginx/
+          # dockerfile: ./nginx/Dockerfile
           # dockerfile: ./nginx/Dockerfile
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -167,8 +167,8 @@ jobs:
       - aws-ecr/build-and-push-image:
           repo: "my-rails"
           tag: "${CIRCLE_SHA1}"
-          path: ./api
-          dockerfile: ./api/Dockerfile.prod
+          path: ./api/
+          # dockerfile: ./api/Dockerfile.prod
           # dockerfile: ./api/Dockerfile.prod
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
