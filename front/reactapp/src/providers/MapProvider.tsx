@@ -8,7 +8,7 @@ import {
 	useState,
 } from "react";
 import { AuthContext } from "providers/AuthProvider";
-import { toGeocode } from "utils/toGeocode";
+import { toGeocode } from "utils/ToGeocode";
 
 export const MapContext = createContext(
 	{} as {

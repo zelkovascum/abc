@@ -3,7 +3,7 @@ import { Box, Button, Card, Stack, TextField, Typography } from "@mui/material";
 import { PlaceInput } from "components/atoms/PlaceInput";
 import { DateTimeInput } from "components/atoms/posts/DateTimeInput";
 import SendIcon from "@mui/icons-material/Send";
-import { toGeocode } from "utils/toGeocode";
+import { toGeocode } from "utils/ToGeocode";
 import { createPost } from "utils/api/post";
 import { useNavigate } from "react-router-dom";
 
