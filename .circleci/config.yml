@@ -124,10 +124,10 @@ jobs:
             bundle exec rubocop
 
   build_and_push_image_web:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    docker:
-      - image: cimg/base:stable
+    machine:
+      image: ubuntu-2004:202010-01
+    # docker:
+    #   - image: cimg/base:stable
             # username: zelkovascum
             # password: $DOCKERHUB_PASSWORD
     steps:
@@ -141,13 +141,13 @@ jobs:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           # region: AWS_REGION
-      - setup_remote_docker:
-            version: 20.10.14
+      # - setup_remote_docker:
+      #       version: 20.10.14
       #       docker_layer_caching: true
       # - setup_remote_docker:
       #     version: 20.10.11
       # - checkout
-      - run: docker buildx build . 
+      # - run: docker buildx build . 
       # - run: |
       #     TAG=0.1.$CIRCLE_BUILD_NUM
       #     docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
@@ -155,13 +155,13 @@ jobs:
       #     docker push CircleCI-Public/circleci-demo-docker:$TAG
 
   build_and_push_image_api:
-    # machine:
-    #   image: ubuntu-2004:202010-01
-    docker:
-      - image: cimg/base:stable
-        auth:
-          username: zelkovascum
-          password: $DOCKERHUB_PASSWORD
+    machine:
+      image: ubuntu-2004:202010-01
+    # docker:
+    #   - image: cimg/base:stable
+        # auth:
+        #   username: zelkovascum
+        #   password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
@@ -173,10 +173,10 @@ jobs:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           # region: AWS_REGION
-      - setup_remote_docker:
-          version: 20.10.14
+      # - setup_remote_docker:
+      #     version: 20.10.14
           # docker_layer_caching: true
-      - run: docker buildx build . 
+      # - run: docker buildx build . 
       # - run: |
       #     TAG=0.1.$CIRCLE_BUILD_NUM
       #     docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
