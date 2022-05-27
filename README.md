@@ -52,7 +52,7 @@ URL: https://inzs46.com
 - ``Route53``: 独自ドメインでのアクセス
 
 ### ``CircleCI``
-CI/CDパイプライン構築　　
+CI/CDパイプライン構築  
 ビルド、テスト、デプロイを全自動化
 - テスト・Lint
   - rspec
