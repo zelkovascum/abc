@@ -127,6 +127,9 @@ jobs:
     #   image: ubuntu-2004:202010-01
     docker:
       - image: cimg/go:1.17
+        auth:
+            username: mydockerhub-user
+            password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
@@ -146,6 +149,9 @@ jobs:
     #   image: ubuntu-2004:202010-01
     docker:
       - image: cimg/go:1.17
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
