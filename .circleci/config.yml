@@ -188,7 +188,7 @@ workflows:
                 - main
       - fetch_source_code:
           # 仮
-          requires:
+          equires:
             - front_deploy
           filters:
             branches:
