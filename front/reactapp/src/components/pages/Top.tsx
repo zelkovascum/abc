@@ -71,11 +71,11 @@ export const Top: FC = memo(() => {
 				>
 					How to use
 				</Typography>
-				<Typography align="center">
-					<Link href="https://github.com/zelkovascum/Photudio#sns%E5%9E%8B%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%97%E3%83%AA-photudio">
-						<Typography color="black">使い方はこちら！</Typography>
-					</Link>
-				</Typography>
+				<Link href="https://github.com/zelkovascum/Photudio#sns%E5%9E%8B%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%97%E3%83%AA-photudio">
+					<Typography align="center" color="black">
+						使い方はこちら！
+					</Typography>
+				</Link>
 			</Grid>
 		</Grid>
 	);
