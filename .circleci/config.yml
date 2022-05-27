@@ -142,7 +142,7 @@ jobs:
           path: ./api/
 
   front_build:
-    working_directory: ~/photudio/front/reactapp
+    working_directory: ~/photudio
     docker:
       - image: cimg/node:18.2.0
     steps:
@@ -150,29 +150,46 @@ jobs:
       - run:
           name: yarn install
           command: yarn install
+          working_directory: front/reactapp
       - run:
           name: yarn build
           command: yarn build
+          working_directory: front/reactapp
       - persist_to_workspace:
           root: .
           paths:
             - .
 
   front_deploy:
-    working_directory: ~/photudio/front/reactapp
+    working_directory: ~/photudio
     docker:
       - image: cimg/node:18.2.0
     steps:
       - attach_workspace:
-          at: ./front/reactapp
+          at: front/reactapp
       - aws-s3/sync:
-          from: ./build
+          from: front/reactapp/build
           to: $BUCKET_URL
 
 workflows:
   build:
     jobs:
+      - front_build:
+        filters:
+          branches:
+            only:
+              - main
+      - front_deploy:
+          requires:
+            - front_build
+          filters:
+            branches:
+              only:
+                - main
       - fetch_source_code:
+          # 仮
+          requires:
+            - front_deploy
           filters:
             branches:
               only: main
@@ -222,15 +239,3 @@ workflows:
           cluster-name: "my-cluster"
           service-name: "my-service"
           container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
-      - front_build:
-        filters:
-          branches:
-            only:
-              - main
-      - front_deploy:
-          requires:
-            - front_build
-          filters:
-            branches:
-              only:
-                - main
