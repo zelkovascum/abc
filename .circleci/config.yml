@@ -136,8 +136,8 @@ jobs:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           # region: AWS_REGION
-      # - setup_remote_docker:
-      #       version: 20.10.14
+      - setup_remote_docker:
+            version: 20.10.14
 
   build_and_push_image_api:
     machine:
@@ -153,6 +153,8 @@ jobs:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           # region: AWS_REGION
+      - setup_remote_docker:
+          version: 20.10.14
 
 workflows:
   build:
