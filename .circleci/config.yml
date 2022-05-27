@@ -166,11 +166,10 @@ jobs:
       - image: cimg/node:18.2.0
     steps:
       - attach_workspace:
-          # at: front/reactapp
           at: .
       - aws-s3/sync:
-          from: ./front/reactapp/build
-          to: "${BUCKET_URL}"
+          from: front/reactapp/build
+          to: ${BUCKET_URL}
 
 workflows:
   build:
@@ -188,9 +187,6 @@ workflows:
               only:
                 - main
       - fetch_source_code:
-          # 仮
-          requires:
-            - front_deploy
           filters:
             branches:
               only: main
