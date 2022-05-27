@@ -168,7 +168,7 @@ jobs:
       - attach_workspace:
           at: front/reactapp
       - aws-s3/sync:
-          from: front/reactapp/build
+          from: front/reactapp
           to: "${BUCKET_URL}"
 
 workflows:
