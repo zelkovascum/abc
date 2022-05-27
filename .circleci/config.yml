@@ -165,10 +165,11 @@ jobs:
     docker:
       - image: cimg/node:18.2.0
     steps:
-      # - attach_workspace:
-      #     at: front/reactapp
+      - attach_workspace:
+          # at: front/reactapp
+          at: .
       - aws-s3/sync:
-          from: front/reactapp/build
+          from: ./front/reactapp/build
           to: "${BUCKET_URL}"
 
 workflows:
