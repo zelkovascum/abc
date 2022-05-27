@@ -1,8 +1,8 @@
-import { FC, memo, MouseEvent, useState, useContext } from "react";
+import { FC, memo, MouseEvent, useContext } from "react";
 import { Button } from "@mui/material";
 import { createReaction } from "utils/api/reaction";
 // import { useNavigate } from "react-router-dom";
-import { AlertMessage } from "components/molucules/AlertMessage";
+// import { AlertMessage } from "components/molucules/AlertMessage";
 import { ReactionNotificationContext } from "providers/ReactionNotificationProvider";
 
 type Props = {
@@ -12,8 +12,8 @@ type Props = {
 
 export const ReactionButton: FC<Props> = memo((props) => {
 	const { fromUserId, toUserId } = props;
-	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
-	const [message, setMessage] = useState<string>("");
+	// const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
+	// const [message, setMessage] = useState<string>("");
 	// const navigate = useNavigate();
 	const { notificationDispatch } = useContext(ReactionNotificationContext);
 
