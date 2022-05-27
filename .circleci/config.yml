@@ -143,6 +143,11 @@ jobs:
           # region: AWS_REGION
       - setup_remote_docker:
             version: 20.10.14
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push CircleCI-Public/circleci-demo-docker:$TAG
 
   build_and_push_image_api:
     # machine:
@@ -165,6 +170,11 @@ jobs:
           # region: AWS_REGION
       - setup_remote_docker:
           version: 20.10.14
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push CircleCI-Public/circleci-demo-docker:$TAG
 
 workflows:
   build:
