@@ -1,15 +1,15 @@
 export type ReactionNotificationState = {
-	reactionState: "INITIAL" | "REACTION";
+	// reactionState: "INITIAL" | "REACTION";
 	isAlertMessageOpen: boolean;
 	message: string;
 };
 export type ReactionNotificationAction = {
-	type:"CLOSE_MESSAGE"| "PUSHBUTTON";
+	type: "CLOSE_MESSAGE" | "PUSHBUTTON";
 	payload: string;
 };
 
 export const reactionInit: ReactionNotificationState = {
-	reactionState: "INITIAL",
+	// reactionState: "INITIAL",
 	isAlertMessageOpen: false,
 	message: "",
 };
@@ -22,13 +22,13 @@ export const reactionNotificationReducer = (
 	switch (action.type) {
 		case "CLOSE_MESSAGE":
 			return {
-        ...state,
-				reactionState: "INITIAL" ,
+				...state,
+				// reactionState: "INITIAL" ,
 				isAlertMessageOpen: false,
 			};
 		case "PUSHBUTTON":
 			return {
-				reactionState: "REACTION",
+				// reactionState: "REACTION",
 				isAlertMessageOpen: true,
 				message: action.payload,
 			};
