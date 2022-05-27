@@ -4,7 +4,7 @@ orbs:
   # aws-ecr: circleci/aws-ecr@8.1.2
   aws-ecr: circleci/aws-ecr@7.3.0
   # aws-ecs: circleci/aws-ecs@2.2.1
-  aws-ecs: circleci/aws-ecs@1.4.0
+  aws-ecs: circleci/aws-ecs@2.0.0
 
 executors:
   default_container:
@@ -231,7 +231,7 @@ workflows:
           # ECSのクラスター名かARNのフルパス
           cluster-name: "my-nginx-cluster"
           # サービス名
-          # service-name: "my-service"
+          service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=my-nginx-service,tag=${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
@@ -242,6 +242,6 @@ workflows:
           # ECSのクラスター名かARNのフルパス
           cluster-name: "my-rails-cluster"
           # サービス名
-          # service-name: "my-service"
+          service-name: "my-service"
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=my-rails-service,tag=${CIRCLE_SHA1}"
