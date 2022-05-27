@@ -1,3 +1,55 @@
+/* やりたかったやつ */
+/*スクロールダウン全体の場所*/
+.scrolldown {
+	/*描画位置*/
+	position: absolute;
+	left: 50%;
+	bottom: 5px;
+	/*全体の高さ*/
+	height: 50px;
+}
+/*Scrollテキストの描写*/
+.scrolldown span {
+	/*描画位置*/
+	position: absolute;
+	left: -15px;
+	top: -15px;
+	/*テキストの形状*/
+	color: rgb(0, 0, 0);
+	font-size: 0.7rem;
+	letter-spacing: 0.05em;
+}
+/* 線の描写 */
+.scrolldown::after {
+	content: "";
+	/*描画位置*/
+	position: absolute;
+	top: 0;
+	/*線の形状*/
+	width: 2px;
+	height: 40px;
+	background: rgb(0, 0, 0);
+	/*線の動き1.4秒かけて動く。永遠にループ*/
+	animation: pathmove 1.4s ease-in-out infinite;
+	opacity: 0;
+}
+@keyframes pathmove {
+	0% {
+		height: 0;
+		top: 0;
+		opacity: 0;
+	}
+	30% {
+		height: 30px;
+		opacity: 1;
+	}
+	100% {
+		height: 0;
+		top: 50px;
+		opacity: 0;
+	}
+}
+
 /* AutocompleteのCSS */
 .pac-container {
 	z-index: 1301;
