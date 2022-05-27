@@ -51,7 +51,7 @@ URL: https://inzs46.com
 - ``CloudFront``: .html、.css、.js、イメージファイル等の配信
 - ``Route53``: 独自ドメインでのアクセス
 
-### ``CircleCI``
+### ``Circle CI``
 CI/CDパイプライン構築  
 ビルド、テスト、デプロイを全自動化
 - テスト・Lint
