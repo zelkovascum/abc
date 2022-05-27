@@ -175,15 +175,12 @@ workflows:
   build:
     jobs:
       - front_build:
-        filters:
-          branches:
-            only: main
-      - front_deploy:
-          requires:
-            - front_build
           filters:
             branches:
               only: main
+      - front_deploy:
+          requires:
+            - front_build
       - fetch_source_code:
           filters:
             branches:
