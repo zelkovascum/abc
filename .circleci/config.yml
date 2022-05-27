@@ -1,9 +1,7 @@
 version: 2.1
 
 orbs:
-  # aws-ecr: circleci/aws-ecr@8.1.2
   aws-ecr: circleci/aws-ecr@7.3.0
-  # aws-ecs: circleci/aws-ecs@2.2.1
   aws-ecs: circleci/aws-ecs@2.0.0
 
 executors:
@@ -20,8 +18,6 @@ executors:
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ROOT_PASSWORD: password
-          # MYSQL_USER: root
-          # MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/photudio
 
 commands:
@@ -127,62 +123,50 @@ jobs:
   build_and_push_image_web:
     machine:
       image: ubuntu-2004:202010-01
-    # docker:
-    #   - image: cimg/base:stable
-            # username: zelkovascum
-            # password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
           repo: "my-nginx"
           tag: "${CIRCLE_SHA1}"
           path: ./nginx/
-          # dockerfile: ./nginx/Dockerfile
-          # dockerfile: ./nginx/Dockerfile
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
-      # - setup_remote_docker:
-      #       version: 20.10.14
-      #       docker_layer_caching: true
-      # - setup_remote_docker:
-      #     version: 20.10.11
-      # - checkout
-      # - run: docker buildx build . 
-      # - run: |
-      #     TAG=0.1.$CIRCLE_BUILD_NUM
-      #     docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
-      #     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-      #     docker push CircleCI-Public/circleci-demo-docker:$TAG
 
   build_and_push_image_api:
     machine:
       image: ubuntu-2004:202010-01
-    # docker:
-    #   - image: cimg/base:stable
-        # auth:
-        #   username: zelkovascum
-        #   password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - aws-ecr/build-and-push-image:
           repo: "my-rails"
           tag: "${CIRCLE_SHA1}"
           path: ./api/
-          # dockerfile: ./api/Dockerfile.prod
-          # dockerfile: ./api/Dockerfile.prod
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # region: AWS_REGION
-      # - setup_remote_docker:
-      #     version: 20.10.14
-          # docker_layer_caching: true
-      # - run: docker buildx build . 
-      # - run: |
-      #     TAG=0.1.$CIRCLE_BUILD_NUM
-      #     docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
-      #     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-      #     docker push CircleCI-Public/circleci-demo-docker:$TAG
+
+  # front_build:
+  #   working_directory: ~/photudio/front/reactapp
+  #   docker:
+  #     - image: cimg/node:18.2.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: yarn install
+  #         command: yarn install
+  #     - run:
+  #         name: yarn build
+  #         command: yarn build
+  #     - persist_to_workspace:
+  #         root: .
+  #         paths:
+  #           - .
+
+  # front_deploy:
+  #   working_directory: ~/photudio/front/reactapp
+  #   docker:
+  #     - image: cimg/node:18.2.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: ./front/reactapp
+  #     - aws-s3/sync:
+  #         from: ./build
+  #         to: $BUCKET_URL
 
 workflows:
   build:
@@ -226,22 +210,26 @@ workflows:
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_api
-          # ECSのタスク定義名
           family: "my-task"
-          # ECSのクラスター名かARNのフルパス
           cluster-name: "my-cluster"
-          # サービス名
           service-name: "my-service"
-          # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
           requires:
             - build_and_push_image_web
-          # ECSのタスク定義名
           family: "my-task"
-          # ECSのクラスター名かARNのフルパス
           cluster-name: "my-cluster"
-          # サービス名
           service-name: "my-service"
-          # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=rails,tag=${CIRCLE_SHA1}"
+      # - front_build:
+      #   filters:
+      #     branches:
+      #       only:
+      #         - main
+      # - front_deploy:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
