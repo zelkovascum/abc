@@ -37,7 +37,7 @@ export const TopLayout: FC = memo(() => {
 					</div>
 				</Box>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={6} height="100%">
 				<Top />
 			</Grid>
 		</Grid>
