@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Grid, Link, Typography, Box } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 import manImg from "images/man.jpg";
 import mapImage from "images/map.jpg";
 import timeImage from "images/time.jpg";
