@@ -177,8 +177,7 @@ workflows:
       - front_build:
         filters:
           branches:
-            only:
-              - main
+            only: main
       - front_deploy:
           requires:
             - front_build
