@@ -39,7 +39,7 @@ URL: https://inzs46.com
 - ``Maps JavaScript API`` / ``Geocoding API`` / ``Places API`` : Googleマップの使用
 
 ## Infra
-### ``Docker / Docker-Compose``
+### ``Docker / Docker Compose``
 開発環境をコンテナ化（Rails,Nginx,MySQL,React）
 
 ### ``AWS``
