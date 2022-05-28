@@ -11,7 +11,7 @@ URL: https://inzs46.com
 # 使用技術概略
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
 - **Front End:** React ( TypeScript )
-- **Infra:** Docker / Docker-Compose, AWS ( ECS Fargate / ECR / ALB / RDS / S3 / CloudFront / Route53 ), Circle CI
+- **Infra:** Docker / Docker-Compose, AWS ( ECS Fargate / ECR / ALB / RDS / S3 / CloudFront / Route53 ), CircleCI
 - **Third Party API:** Google Maps Platform(Maps JavaScript API / Geocoding API/Places API)
 
 # 使用技術詳細
@@ -51,7 +51,7 @@ URL: https://inzs46.com
 - ``CloudFront``: .html、.css、.js、イメージファイル等の配信
 - ``Route53``: 独自ドメインでのアクセス
 
-### ``Circle CI``
+### ``CircleCI``
 CI/CDパイプライン構築  
 ビルド、テスト、デプロイを全自動化
 - テスト・Lint
