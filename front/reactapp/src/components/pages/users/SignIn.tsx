@@ -55,14 +55,14 @@ export const SignIn: FC = () => {
 	};
 
 	return (
-		<Box width="330px" margin="auto">
+		<Box sx={{ width: "330px", m: "auto" }}>
 			<form noValidate autoComplete="off">
 				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 5px 1px" }}>
 					<CardContent>
 						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
 							Photudio
 						</Typography>
-						<CameraAltIcon sx={{ fontSize: 35 }} />
+						<CameraAltIcon sx={{ fontSize: 32 }} />
 					</CardContent>
 					<CardContent>
 						<TextField
@@ -105,6 +105,9 @@ export const SignIn: FC = () => {
 						</Box>
 					</CardContent>
 				</Card>
+				<Box
+					sx={{ display: { sm: "block", md: "none" }, height: "100px" }}
+				></Box>
 			</form>
 			<AlertMessage
 				open={isAlertMessageOpen}

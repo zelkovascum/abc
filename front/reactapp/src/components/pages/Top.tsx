@@ -35,29 +35,31 @@ export const Top: FC = memo(() => {
 					<Grid
 						item
 						sx={{
-							widows: imageStyle,
+							width: imageStyle,
 							height: imageStyle,
 						}}
 					>
-						<img alt="map" src={mapImage} height="100%" width="100%" />
+						<img alt="man" src={manImg} height="100%" max-width="100%" />
 					</Grid>
 					<Grid
 						item
 						sx={{
-							widows: imageStyle,
+							display: { xs: "none", sm: "block" },
+							width: imageStyle,
 							height: imageStyle,
 						}}
 					>
-						<img alt="man" src={manImg} height="100%" width="100%" />
+						<img alt="map" src={mapImage} height="100%" max-width="100%" />
 					</Grid>
 					<Grid
 						item
 						sx={{
-							widows: imageStyle,
+							display: { xs: "none", sm: "none", md: "block" },
+							width: imageStyle,
 							height: imageStyle,
 						}}
 					>
-						<img alt="time" src={timeImage} height="100%" width="100%" />
+						<img alt="time" src={timeImage} height="100%" max-width="100%" />
 					</Grid>
 				</Grid>
 			</Grid>
@@ -82,7 +84,7 @@ export const Top: FC = memo(() => {
 });
 
 const imageStyle = {
-	xs: "100px",
+	xs: "120px",
 	sm: "120px",
 	md: "140px",
 };
