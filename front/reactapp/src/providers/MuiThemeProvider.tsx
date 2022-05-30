@@ -8,8 +8,8 @@ export const theme = createTheme({
 			contrastText: "#ffffff",
 		},
 		secondary: {
-			main: "#2b8a8a",
-			contrastText: "#ffffff",
+			main: "#000000",
+			contrastText: "#000000",
 		},
 	},
 	breakpoints: {
