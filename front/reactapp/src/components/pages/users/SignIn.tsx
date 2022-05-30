@@ -18,8 +18,8 @@ import { AlertMessage } from "../../molucules/AlertMessage";
 export const SignIn: FC = () => {
 	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const [email, setEmail] = useState<string>("test@example.com");
-	const [password, setPassword] = useState<string>("password");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const processing = useRef(false);
 
@@ -30,6 +30,37 @@ export const SignIn: FC = () => {
 		const params: SignInParams = {
 			email,
 			password,
+		};
+		try {
+			const res = await signIn(params);
+			if (res.status === 200) {
+				// ログインに成功した場合はCookieに各値を格納
+				Cookies.set("_access_token", res.headers["access-token"]);
+				Cookies.set("_client", res.headers["client"]);
+				Cookies.set("_uid", res.headers["uid"]);
+				setIsSignIn(true);
+				setCurrentUser(res.data.data);
+				navigate("/");
+				console.log("Signed in successfully!");
+				processing.current = false;
+			} else {
+				setIsAlertMessageOpen(true);
+				processing.current = false;
+			}
+		} catch (e) {
+			console.error(e);
+			setIsAlertMessageOpen(true);
+			processing.current = false;
+		}
+	};
+
+	const handleSubmitGuest = async (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		if (processing.current) return;
+		processing.current = true;
+		const params: SignInParams = {
+			email: "guest@mail.com",
+			password: "guestpassword",
 		};
 		try {
 			const res = await signIn(params);
@@ -96,6 +127,17 @@ export const SignIn: FC = () => {
 							onClick={handleSubmit}
 						>
 							ログイン
+						</Button>
+						<Button
+							type="submit"
+							variant="contained"
+							size="large"
+							fullWidth
+							color="info"
+							onClick={handleSubmitGuest}
+							sx={{ mt: 0.5 }}
+						>
+							ゲストログイン
 						</Button>
 						<Box textAlign="center">
 							<Typography variant="body2">
