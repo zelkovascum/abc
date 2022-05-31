@@ -2,7 +2,7 @@ import { FC, memo, useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
-import { createRoom } from "utils/api/room";
+import { getDetailRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
 
 export const Profile: FC = memo(() => {
@@ -30,14 +30,18 @@ export const Profile: FC = memo(() => {
 		}
 	};
 
-	const handleCreateRoom = async (
+	const handleGetDetailRoom = async (
 		e: React.MouseEvent<HTMLButtonElement>,
 		id: number
 	) => {
 		e.preventDefault();
 		try {
-			const res = await createRoom(id);
-			navigate(`/rooms/${res.data.id}`);
+			const res = await getDetailRoom(id);
+			if (res.status === 200) {
+				navigate(`/rooms/${res.data.id}`);
+			} else if (res.status === 204) {
+				console.log(res);
+			}
 		} catch (e) {
 			console.error(e);
 		}
@@ -82,7 +86,7 @@ export const Profile: FC = memo(() => {
 							// _hover={{ opacity: 0.8 }}
 							// bg="teal"
 							// color="white"
-							onClick={(e) => handleCreateRoom(e, user.id)}
+							onClick={(e) => handleGetDetailRoom(e, user.id)}
 						>
 							DM
 						</Button>
