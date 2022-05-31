@@ -15,7 +15,7 @@ SNS風のマッチングアプリです。
 <!-- ![top]() -->
 
 # インフラ構成図
-![インフラ drawio](https://user-images.githubusercontent.com/94943154/170649252-e49f890d-ade0-4558-ab44-e77c28e4f692.png)
+![インフラ drawio](https://user-images.githubusercontent.com/94943154/171155430-fb99e0a2-94d7-4be4-85c7-f949747f0733.png)
 
 # 使用技術概略
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
