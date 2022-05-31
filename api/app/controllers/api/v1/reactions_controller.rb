@@ -7,6 +7,7 @@ class Api::V1::ReactionsController < ApplicationController
     render json: reaction_users, status: :ok
   end
 
+  # リアクション&ルーム作成
   def create
     is_room_exist = false
     sent_reaction = Reaction.find_or_create_by(reaction_params)
@@ -22,16 +23,16 @@ class Api::V1::ReactionsController < ApplicationController
     received_reaction.update(matched: true)
     my_entries = Entry.where(user_id: sent_reaction.to_user_id)
     other_entries = Entry.where(user_id: sent_reaction.from_user_id)
-    my_entries.each do |me|
-      other_entries.each do |oe|
-        is_room_exist = true if me.room_id == oe.room_id
+    my_entries.each do |my_entrie|
+      other_entries.each do |other_entrie|
+        is_room_exist = true if my_entrie.room_id == other_entrie.room_id
       end
     end
     if is_room_exist
-      my_entries.each do |me|
-        other_entries.each do |oe|
-          if me.room_id == oe.room_id
-            room = Room.find_by(id: me.room_id)
+      my_entries.each do |my_entrie|
+        other_entries.each do |other_entrie|
+          if my_entrie.room_id == other_entrie.room_id
+            room = Room.find_by(id: my_entrie.room_id)
             render json: { room:, message: '既にマッチしています' }, status: :ok
           end
         end
