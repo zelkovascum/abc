@@ -2,8 +2,9 @@ import { FC, memo, useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
-import { createRoom } from "utils/api/room";
+import { getDetailRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
+import { AlertMessage } from "components/molucules/AlertMessage";
 
 export const Profile: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
@@ -13,6 +14,7 @@ export const Profile: FC = memo(() => {
 		email: "",
 		image: "",
 	});
+	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const navigate = useNavigate();
 	const { id } = useParams();
 
@@ -30,14 +32,18 @@ export const Profile: FC = memo(() => {
 		}
 	};
 
-	const handleCreateRoom = async (
+	const handleGetDetailRoom = async (
 		e: React.MouseEvent<HTMLButtonElement>,
 		id: number
 	) => {
 		e.preventDefault();
 		try {
-			const res = await createRoom(id);
-			navigate(`/rooms/${res.data.id}`);
+			const res = await getDetailRoom(id);
+			if (res.status === 200) {
+				navigate(`/rooms/${res.data.id}`);
+			} else if (res.status === 204) {
+				setIsAlertMessageOpen(true);
+			}
 		} catch (e) {
 			console.error(e);
 		}
@@ -48,10 +54,7 @@ export const Profile: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box>
-			{/* <Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
-				プロフィール
-			</Typography> */}
+		<>
 			<Box
 				sx={{
 					width: "240px",
@@ -82,13 +85,19 @@ export const Profile: FC = memo(() => {
 							// _hover={{ opacity: 0.8 }}
 							// bg="teal"
 							// color="white"
-							onClick={(e) => handleCreateRoom(e, user.id)}
+							onClick={(e) => handleGetDetailRoom(e, user.id)}
 						>
 							DM
 						</Button>
 					)}
 				</Box>
 			</Box>
-		</Box>
+			<AlertMessage
+				open={isAlertMessageOpen}
+				setOpen={setIsAlertMessageOpen}
+				severity="warning"
+				message="マッチしていません"
+			/>
+		</>
 	);
 });
