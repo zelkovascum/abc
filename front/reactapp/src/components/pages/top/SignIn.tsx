@@ -1,27 +1,25 @@
-import { useState, useContext, MouseEvent, FC, memo, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, MouseEvent, FC, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
 	Box,
 	Button,
-	Card,
 	CardContent,
-	TextField,
 	Typography,
+	TextField,
+	Card,
 } from "@mui/material";
-import { SignUpParams } from "types";
+import { SignInParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { AlertMessage } from "components/molucules/AlertMessage";
-import { signUp } from "utils/api/auth";
+import { signIn } from "utils/api/auth";
+import { AlertMessage } from "../../molucules/AlertMessage";
 
-export const SignUp: FC = memo(() => {
+export const SignIn: FC = () => {
 	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-	const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const processing = useRef(false);
 
@@ -29,17 +27,45 @@ export const SignUp: FC = memo(() => {
 		e.preventDefault();
 		if (processing.current) return;
 		processing.current = true;
-		const params: SignUpParams = {
-			name,
+		const params: SignInParams = {
 			email,
 			password,
-			passwordConfirmation,
 		};
 		try {
-			const res = await signUp(params);
-			console.log(res);
+			const res = await signIn(params);
 			if (res.status === 200) {
-				// アカウント作成と同時にログイン
+				// ログインに成功した場合はCookieに各値を格納
+				Cookies.set("_access_token", res.headers["access-token"]);
+				Cookies.set("_client", res.headers["client"]);
+				Cookies.set("_uid", res.headers["uid"]);
+				setIsSignIn(true);
+				setCurrentUser(res.data.data);
+				navigate("/");
+				console.log("Signed in successfully!");
+				processing.current = false;
+			} else {
+				setIsAlertMessageOpen(true);
+				processing.current = false;
+			}
+		} catch (e) {
+			console.error(e);
+			setIsAlertMessageOpen(true);
+			processing.current = false;
+		}
+	};
+
+	const handleSubmitGuest = async (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		if (processing.current) return;
+		processing.current = true;
+		const params: SignInParams = {
+			email: "guest@mail.com",
+			password: "guestpassword",
+		};
+		try {
+			const res = await signIn(params);
+			if (res.status === 200) {
+				// ログインに成功した場合はCookieに各値を格納
 				Cookies.set("_access_token", res.headers["access-token"]);
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
@@ -60,33 +86,26 @@ export const SignUp: FC = memo(() => {
 	};
 
 	return (
-		<Box width="330px" margin="auto">
+		<Box sx={{ width: "330px", m: "auto" }}>
 			<form noValidate autoComplete="off">
 				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 5px 1px" }}>
-					<CardContent>
-						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+					<CardContent sx={{ p: 1 }}>
+						<Typography
+							sx={{ fontSize: { xs: 24, sm: 24, md: 30 }, fontWeight: "bold" }}
+						>
 							Photudio
 						</Typography>
-						<CameraAltIcon sx={{ fontSize: 35 }} />
+						<CameraAltIcon sx={{ fontSize: { xs: 24, sm: 24, md: 30 } }} />
 					</CardContent>
-					<CardContent>
-						<TextField
-							variant="outlined"
-							required
-							fullWidth
-							label="ユーザーネーム"
-							value={name}
-							margin="dense"
-							onChange={(event) => setName(event.target.value)}
-						/>
+					<CardContent sx={{ pt: 0 }}>
 						<TextField
 							variant="outlined"
 							required
 							fullWidth
 							label="メールアドレス"
 							value={email}
-							margin="dense"
 							onChange={(event) => setEmail(event.target.value)}
+							sx={{ mb: 0.5 }}
 						/>
 						<TextField
 							variant="outlined"
@@ -96,21 +115,9 @@ export const SignUp: FC = memo(() => {
 							type="password"
 							placeholder="最低6文字"
 							value={password}
-							margin="dense"
 							autoComplete="current-password"
 							onChange={(event) => setPassword(event.target.value)}
-						/>
-						<TextField
-							variant="outlined"
-							required
-							fullWidth
-							label="パスワード再入力"
-							placeholder="最低6文字"
-							type="password"
-							value={passwordConfirmation}
-							margin="dense"
-							autoComplete="current-password"
-							onChange={(event) => setPasswordConfirmation(event.target.value)}
+							sx={{ mb: 0.5 }}
 						/>
 						<Button
 							type="submit"
@@ -118,13 +125,33 @@ export const SignUp: FC = memo(() => {
 							size="large"
 							fullWidth
 							color="primary"
-							disabled={!(name && email && password && passwordConfirmation)}
+							disabled={!(email && password)}
 							onClick={handleSubmit}
+							sx={{ mb: 0.5 }}
 						>
-							登録
+							ログイン
 						</Button>
+						<Button
+							type="submit"
+							variant="contained"
+							size="large"
+							fullWidth
+							color="info"
+							onClick={handleSubmitGuest}
+						>
+							ゲストログイン
+						</Button>
+						<Box textAlign="center">
+							<Typography variant="body2">
+								アカウントをお持ちでないですか？ &nbsp;
+								<Link to="/signup">登録する</Link>
+							</Typography>
+						</Box>
 					</CardContent>
 				</Card>
+				<Box
+					sx={{ display: { sm: "block", md: "none" }, height: "100px" }}
+				></Box>
 			</form>
 			<AlertMessage
 				open={isAlertMessageOpen}
@@ -134,4 +161,4 @@ export const SignUp: FC = memo(() => {
 			/>
 		</Box>
 	);
-});
+};

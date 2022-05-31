@@ -1,25 +1,27 @@
-import { useState, useContext, MouseEvent, FC, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useContext, MouseEvent, FC, memo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
 	Box,
 	Button,
-	CardContent,
-	Typography,
-	TextField,
 	Card,
+	CardContent,
+	TextField,
+	Typography,
 } from "@mui/material";
-import { SignInParams } from "types";
+import { SignUpParams } from "types";
 import { AuthContext } from "providers/AuthProvider";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { signIn } from "utils/api/auth";
-import { AlertMessage } from "../../molucules/AlertMessage";
+import { AlertMessage } from "components/molucules/AlertMessage";
+import { signUp } from "utils/api/auth";
 
-export const SignIn: FC = () => {
+export const SignUp: FC = memo(() => {
 	const { setIsSignIn, setCurrentUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const [email, setEmail] = useState<string>("test@example.com");
-	const [password, setPassword] = useState<string>("password");
+	const [name, setName] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const processing = useRef(false);
 
@@ -27,14 +29,17 @@ export const SignIn: FC = () => {
 		e.preventDefault();
 		if (processing.current) return;
 		processing.current = true;
-		const params: SignInParams = {
+		const params: SignUpParams = {
+			name,
 			email,
 			password,
+			passwordConfirmation,
 		};
 		try {
-			const res = await signIn(params);
+			const res = await signUp(params);
+			console.log(res);
 			if (res.status === 200) {
-				// ログインに成功した場合はCookieに各値を格納
+				// アカウント作成と同時にログイン
 				Cookies.set("_access_token", res.headers["access-token"]);
 				Cookies.set("_client", res.headers["client"]);
 				Cookies.set("_uid", res.headers["uid"]);
@@ -55,24 +60,35 @@ export const SignIn: FC = () => {
 	};
 
 	return (
-		<Box sx={{ width: "330px", m: "auto" }}>
+		<Box width="330px" margin="auto">
 			<form noValidate autoComplete="off">
 				<Card sx={{ textAlign: "center", boxShadow: "0px 0px 5px 1px" }}>
-					<CardContent>
-						<Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+					<CardContent sx={{ p: 1 }}>
+						<Typography
+							sx={{ fontSize: { xs: 24, sm: 24, md: 30 }, fontWeight: "bold" }}
+						>
 							Photudio
 						</Typography>
-						<CameraAltIcon sx={{ fontSize: 32 }} />
+						<CameraAltIcon sx={{ fontSize: { xs: 24, sm: 24, md: 30 } }} />
 					</CardContent>
-					<CardContent>
+					<CardContent sx={{ pt: 0 }}>
+						<TextField
+							variant="outlined"
+							required
+							fullWidth
+							label="ユーザーネーム"
+							value={name}
+							onChange={(event) => setName(event.target.value)}
+							sx={{ mb: 0.5 }}
+						/>
 						<TextField
 							variant="outlined"
 							required
 							fullWidth
 							label="メールアドレス"
 							value={email}
-							margin="dense"
 							onChange={(event) => setEmail(event.target.value)}
+							sx={{ mb: 0.5 }}
 						/>
 						<TextField
 							variant="outlined"
@@ -82,9 +98,21 @@ export const SignIn: FC = () => {
 							type="password"
 							placeholder="最低6文字"
 							value={password}
-							margin="dense"
 							autoComplete="current-password"
 							onChange={(event) => setPassword(event.target.value)}
+							sx={{ mb: 0.5 }}
+						/>
+						<TextField
+							variant="outlined"
+							required
+							fullWidth
+							label="パスワード再入力"
+							placeholder="最低6文字"
+							type="password"
+							value={passwordConfirmation}
+							autoComplete="current-password"
+							onChange={(event) => setPasswordConfirmation(event.target.value)}
+							sx={{ mb: 0.5 }}
 						/>
 						<Button
 							type="submit"
@@ -92,22 +120,13 @@ export const SignIn: FC = () => {
 							size="large"
 							fullWidth
 							color="primary"
-							disabled={!(email && password)}
+							disabled={!(name && email && password && passwordConfirmation)}
 							onClick={handleSubmit}
 						>
-							ログイン
+							登録
 						</Button>
-						<Box textAlign="center">
-							<Typography variant="body2">
-								アカウントをお持ちでないですか？ &nbsp;
-								<Link to="/signup">登録する</Link>
-							</Typography>
-						</Box>
 					</CardContent>
 				</Card>
-				<Box
-					sx={{ display: { sm: "block", md: "none" }, height: "100px" }}
-				></Box>
 			</form>
 			<AlertMessage
 				open={isAlertMessageOpen}
@@ -117,4 +136,4 @@ export const SignIn: FC = () => {
 			/>
 		</Box>
 	);
-};
+});
