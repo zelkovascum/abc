@@ -11,7 +11,7 @@ export const getAllReactions = () =>
 		},
 	});
 
-// リアクション
+// リアクション&ルーム作成
 export const createReaction = (params: Reaction) =>
 	client.post(`/reactions`, params, {
 		headers: {

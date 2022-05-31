@@ -14,36 +14,6 @@ class Api::V1::RoomsController < ApplicationController
     render json: rooms_array
   end
 
-  # 消す
-  # def create
-  #   is_room_exist = false
-  #   my_entries = Entry.where(user_id: current_api_v1_user.id)
-  #   other_entries = Entry.where(user_id: params[:id])
-  #   my_entries.each do |me|
-  #     other_entries.each do |oe|
-  #       is_room_exist = true if me.room_id == oe.room_id
-  #     end
-  #   end
-  #   if is_room_exist
-  #     my_entries = Entry.where(user_id: current_api_v1_user.id)
-  #     other_entries = Entry.where(user_id: params[:id])
-  #     my_entries.each do |me|
-  #       other_entries.each do |oe|
-  #         if me.room_id == oe.room_id
-  #           room = Room.find_by(id: me.room_id)
-  #           render json: room
-  #         end
-  #       end
-  #     end
-  #   else
-  #     room = Room.create
-  #     Entry.create(room_id: room.id, user_id: current_api_v1_user.id)
-  #     Entry.create(room_id: room.id, user_id: params[:id])
-  #     room = Room.find_by(id: room.id)
-  #     render json: room
-  #   end
-  # end
-
   def show
     room = Room.find_by(id: params[:id])
     if room
