@@ -4,6 +4,7 @@ import { Avatar, Box, Button, Typography } from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { getDetailRoom } from "utils/api/room";
 import { getDetailUser } from "utils/api/user";
+import { AlertMessage } from "components/molucules/AlertMessage";
 
 export const Profile: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
@@ -13,6 +14,7 @@ export const Profile: FC = memo(() => {
 		email: "",
 		image: "",
 	});
+	const [isAlertMessageOpen, setIsAlertMessageOpen] = useState<boolean>(false);
 	const navigate = useNavigate();
 	const { id } = useParams();
 
@@ -40,7 +42,7 @@ export const Profile: FC = memo(() => {
 			if (res.status === 200) {
 				navigate(`/rooms/${res.data.id}`);
 			} else if (res.status === 204) {
-				console.log(res);
+				setIsAlertMessageOpen(true);
 			}
 		} catch (e) {
 			console.error(e);
@@ -52,10 +54,7 @@ export const Profile: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<Box>
-			{/* <Typography sx={{ as: "h1", textAlign: "center" }} mb={4}>
-				プロフィール
-			</Typography> */}
+		<>
 			<Box
 				sx={{
 					width: "240px",
@@ -93,6 +92,12 @@ export const Profile: FC = memo(() => {
 					)}
 				</Box>
 			</Box>
-		</Box>
+			<AlertMessage
+				open={isAlertMessageOpen}
+				setOpen={setIsAlertMessageOpen}
+				severity="warning"
+				message="マッチしていません"
+			/>
+		</>
 	);
 });
