@@ -23,7 +23,7 @@ class Api::V1::PostsController < ApplicationController
 
   def show
     post = Post.find(params[:id])
-    post_list = {
+    post_info = {
       id: post.id,
       user: post.user,
       lat: post.lat,
@@ -32,7 +32,7 @@ class Api::V1::PostsController < ApplicationController
       date_time: post.date_time,
       content: post.content
     }
-    render json: post_list
+    render json: post_info
   end
 
   def create
