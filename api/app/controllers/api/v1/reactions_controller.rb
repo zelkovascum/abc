@@ -16,7 +16,7 @@ class Api::V1::ReactionsController < ApplicationController
       to_user_id: sent_reaction.from_user_id
     )
     unless received_reaction
-      render json: { message: 'リアクションしました' }, status: :ok
+      render json: { message: 'リアクションしました' }, status: :created
     end
     return unless received_reaction
     sent_reaction.update(matched: true)
@@ -42,7 +42,7 @@ class Api::V1::ReactionsController < ApplicationController
       Entry.create(room_id: room.id, user_id: sent_reaction.to_user_id)
       Entry.create(room_id: room.id, user_id: sent_reaction.from_user_id)
       room = Room.find_by(id: room.id)
-      render json: { room:, message: 'マッチしました' }, status: :ok
+      render json: { room:, message: 'マッチしました' }, status: :created
     end
   end
 

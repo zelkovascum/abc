@@ -18,12 +18,12 @@ class Api::V1::PostsController < ApplicationController
         content: post.content
       }
     end
-    render json: posts_array
+    render json: posts_array, status: :ok
   end
 
   def show
     post = Post.find(params[:id])
-    post_list = {
+    post_info = {
       id: post.id,
       user: post.user,
       lat: post.lat,
@@ -32,28 +32,15 @@ class Api::V1::PostsController < ApplicationController
       date_time: post.date_time,
       content: post.content
     }
-    render json: post_list
+    render json: post_info, status: :ok
   end
 
   def create
     post = Post.new(post_params)
     if post.save
-      render json: post
+      render json: post, status: :created
     else
-      render json: post.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    post = Post.find(params[:id])
-    if current_api_v1_user.id == post.user_id
-      if post.update(post_params)
-        render json: post
-      else
-        render json: post.errors, status: :unprocessable_entity
-      end
-    else
-      render json: { message: 'can not update data' }, status: :unprocessable_entity
+      render json: post.errors, status: :bad_request
     end
   end
 
@@ -63,7 +50,7 @@ class Api::V1::PostsController < ApplicationController
       post.destroy
       render json: post
     else
-      render json: { message: 'can not delete data' }, status: :unprocessable_entity
+      render json: {}, status: :bad_request
     end
   end
 
