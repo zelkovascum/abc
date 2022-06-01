@@ -14,14 +14,14 @@ type Props = {
 	imageUrl?: string;
 	name: string;
 	handleGetDetailRoom: () => void;
-	roomId: number | undefined;
+	roomId: number;
 };
 
 export const UserCard: FC<Props> = memo((props) => {
 	const { imageUrl, name, handleGetDetailRoom, roomId } = props;
 
 	return (
-		<Card sx={PostCardStyle}>
+		<Card sx={CardStyle}>
 			<ListItem sx={{ pl: 0.5 }}>
 				<ListItemAvatar>
 					<Avatar src={imageUrl} />
@@ -38,7 +38,7 @@ export const UserCard: FC<Props> = memo((props) => {
 					<Typography sx={{ fontSize: "16px" }}>twitter</Typography>
 				</Grid>
 			</Grid>
-			{roomId !== undefined ? (
+			{roomId !== 0 ? (
 				<Button onClick={() => handleGetDetailRoom()}>メッセージ</Button>
 			) : (
 				<Typography>マッチしていないユーザーです</Typography>
@@ -47,7 +47,7 @@ export const UserCard: FC<Props> = memo((props) => {
 	);
 });
 
-export const PostCardStyle = {
+export const CardStyle = {
 	width: {
 		xs: "250px",
 		sm: "350px",
@@ -58,7 +58,6 @@ export const PostCardStyle = {
 	minHeight: "180px",
 	m: "auto",
 	borderRadius: 1,
-	cursor: "pointer",
 	px: 2,
 	py: 0.5,
 };
