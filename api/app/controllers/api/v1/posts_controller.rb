@@ -44,19 +44,6 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
-  def update
-    post = Post.find(params[:id])
-    if current_api_v1_user.id == post.user_id
-      if post.update(post_params)
-        render json: post, status: :ok
-      else
-        render json: post.errors, status: :bad_request
-      end
-    else
-      render json: {}, status: :bad_request
-    end
-  end
-
   def destroy
     post = Post.find(params[:id])
     if current_api_v1_user.id == post.user_id
