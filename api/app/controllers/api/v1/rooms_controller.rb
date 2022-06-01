@@ -16,12 +16,8 @@ class Api::V1::RoomsController < ApplicationController
 
   def show
     room = Room.find_by(id: params[:id])
-    if room
-      other_user = room.users.where.not(id: current_api_v1_user.id)[0]
-      messages = room.messages.order(created_at: :asc)
-      render json: { other_user:, messages: }, status: :ok
-    else
-      render json: {}, status: :no_content
-    end
+    other_user = room.users.where.not(id: current_api_v1_user.id)[0]
+    messages = room.messages.order(created_at: :asc)
+    render json: { other_user:, messages: }, status: :ok
   end
 end
