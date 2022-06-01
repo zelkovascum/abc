@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
+import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
 import { FC, memo, useEffect, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { userReducer, userInit } from "reducers/user";
@@ -49,7 +49,7 @@ export const Profile: FC = memo(() => {
 				}}
 			>
 				{state.fetchState !== "OK" ? (
-					<PostSkeleton />
+					<CardSkeleton />
 				) : (
 					<UserCard
 						imageUrl={state.user!.image.url}

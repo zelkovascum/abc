@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getDetailPost } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postInit, postReducer } from "reducers/post";
-import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
+import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
 import { AuthContext } from "providers/AuthProvider";
 import { PostCard } from "components/organisms/posts/PostCard";
 
@@ -52,7 +52,7 @@ export const PostShow: FC = memo(() => {
 				}}
 			>
 				{state.fetchState !== "OK" ? (
-					<PostSkeleton />
+					<CardSkeleton />
 				) : (
 					<PostCard
 						userId={state.post!.user.id}
