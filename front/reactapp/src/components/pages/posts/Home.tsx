@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
+import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getDetailPost } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postInit, postReducer } from "reducers/post";
-import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
+import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { AuthContext } from "providers/AuthProvider";
 import { PostCard } from "components/organisms/posts/PostCard";
 

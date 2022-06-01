@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
+import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { FC, memo, useEffect, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { userReducer, userInit } from "reducers/user";
@@ -14,7 +14,6 @@ export const Profile: FC = memo(() => {
 	const handleGetDetailUser = async (id: string) => {
 		try {
 			await getDetailUser(id).then((res) => {
-				console.log(res.data.userInfo);
 				dispatch({
 					type: "FETCH_SUCCESS",
 					userPayload: res.data.userInfo,
