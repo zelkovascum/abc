@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
+import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
 import { HomeTabs } from "components/molucules/posts/HomeTabs";
 import { MapContext } from "providers/MapProvider";
 import { calculateDistance } from "utils/calculateDistance";
@@ -103,16 +103,16 @@ export const Home: FC = memo(() => {
 			<Grid container direction="column" wrap="nowrap" spacing={3}>
 				{state.fetchState !== "OK" ? (
 					<>
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
-						<PostSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
 					</>
 				) : (
 					<>
