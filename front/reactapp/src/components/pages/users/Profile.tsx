@@ -14,7 +14,6 @@ export const Profile: FC = memo(() => {
 	const handleGetDetailUser = async (id: string) => {
 		try {
 			await getDetailUser(id).then((res) => {
-				console.log(res.data.userInfo);
 				dispatch({
 					type: "FETCH_SUCCESS",
 					userPayload: res.data.userInfo,
