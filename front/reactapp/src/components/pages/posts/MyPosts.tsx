@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { getAllPosts } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
 import { postsInit, postsReducer } from "reducers/posts";
-import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
+import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { AuthContext } from "providers/AuthProvider";
 import { PostCard } from "components/organisms/posts/PostCard";
 

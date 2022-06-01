@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { CardSkeleton } from "components/atoms/posts/CardSkeleton";
+import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { FC, memo, useEffect, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { userReducer, userInit } from "reducers/user";
