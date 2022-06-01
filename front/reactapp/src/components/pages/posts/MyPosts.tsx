@@ -74,7 +74,7 @@ export const MyPosts: FC = memo(() => {
 									currentUserId={currentUser!.id}
 									onClickProfile={() => {}}
 									onClickPost={() => {}}
-									reactionOrDeleteButton="delete"
+									postCardType="myPost"
 								/>
 							</Grid>
 						))}

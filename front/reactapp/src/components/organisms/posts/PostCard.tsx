@@ -22,7 +22,7 @@ type Props = {
 	currentUserId: number;
 	onClickProfile: () => void;
 	onClickPost: () => void;
-	reactionOrDeleteButton: "reaction" | "delete" | "none";
+	postCardType: "home" | "detail" | "myPost";
 };
 
 export const PostCard: FC<Props> = memo((props) => {
@@ -37,7 +37,7 @@ export const PostCard: FC<Props> = memo((props) => {
 		currentUserId,
 		onClickProfile,
 		onClickPost,
-		reactionOrDeleteButton,
+		postCardType,
 	} = props;
 
 	return (
@@ -49,9 +49,9 @@ export const PostCard: FC<Props> = memo((props) => {
 				<ListItemText
 					primary={<Typography sx={{ color: "teal" }}>{name}</Typography>}
 				/>
-				{reactionOrDeleteButton === "reaction" ? (
+				{postCardType === "detail" ? (
 					<ReactionButton fromUserId={currentUserId} toUserId={userId} />
-				) : reactionOrDeleteButton === "delete" ? (
+				) : postCardType === "myPost" ? (
 					<PostDeleteButton postId={postId!} />
 				) : (
 					<></>
