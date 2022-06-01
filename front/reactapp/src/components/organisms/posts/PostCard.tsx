@@ -42,7 +42,13 @@ export const PostCard: FC<Props> = memo((props) => {
 
 	return (
 		<Card sx={PostCardStyle}>
-			<ListItem onClick={() => onClickProfile()} sx={{ pl: 0.5 }}>
+			<ListItem
+				onClick={() => onClickProfile()}
+				sx={{
+					cursor: postCardType === "myPost" ? "default" : "pointer",
+					pl: 0.5,
+				}}
+			>
 				<ListItemAvatar>
 					<Avatar src={imageUrl} />
 				</ListItemAvatar>
@@ -57,7 +63,11 @@ export const PostCard: FC<Props> = memo((props) => {
 					<></>
 				)}
 			</ListItem>
-			<Grid container onClick={() => onClickPost()}>
+			<Grid
+				container
+				onClick={() => onClickPost()}
+				sx={{ cursor: postCardType === "home" ? "pointer" : "default" }}
+			>
 				<Grid item xs={2} sm={1.5}>
 					場所:
 				</Grid>
@@ -89,7 +99,6 @@ export const PostCardStyle = {
 	minHeight: "180px",
 	m: "auto",
 	borderRadius: 1,
-	cursor: "pointer",
 	px: 2,
 	py: 0.5,
 };
