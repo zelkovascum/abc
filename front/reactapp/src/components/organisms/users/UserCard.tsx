@@ -14,7 +14,7 @@ type Props = {
 	imageUrl?: string;
 	name: string;
 	handleGetDetailRoom: () => void;
-	roomId: number | undefined;
+	roomId: number;
 };
 
 export const UserCard: FC<Props> = memo((props) => {
@@ -38,7 +38,7 @@ export const UserCard: FC<Props> = memo((props) => {
 					<Typography sx={{ fontSize: "16px" }}>twitter</Typography>
 				</Grid>
 			</Grid>
-			{roomId !== undefined ? (
+			{roomId !== 0 ? (
 				<Button onClick={() => handleGetDetailRoom()}>メッセージ</Button>
 			) : (
 				<Typography>マッチしていないユーザーです</Typography>

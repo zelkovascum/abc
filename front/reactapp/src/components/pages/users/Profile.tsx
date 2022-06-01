@@ -1,36 +1,33 @@
-import { FC, memo, useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { PostSkeleton } from "components/atoms/posts/PostSkeleton";
+import { FC, memo, useEffect, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { userReducer, userInit } from "reducers/user";
 import { getDetailUser } from "utils/api/user";
 import { UserCard } from "../../organisms/users/UserCard";
 
 export const Profile: FC = memo(() => {
-	const [user, setUser] = useState({
-		id: 0,
-		name: "",
-		email: "",
-		imageUrl: "",
-	});
-	const [roomId, setRoomId] = useState<number | undefined>();
+	const [state, dispatch] = useReducer(userReducer, userInit);
 	const navigate = useNavigate();
 	const { id } = useParams();
 
 	const handleGetDetailUser = async (id: string) => {
 		try {
-			const res = await getDetailUser(id);
-			setUser({
-				id: res.data.userInfo.id,
-				name: res.data.userInfo.name,
-				email: res.data.userInfo.email,
-				imageUrl: res.data.userInfo.image.url,
+			await getDetailUser(id).then((res) => {
+				console.log(res.data.userInfo);
+				dispatch({
+					type: "FETCH_SUCCESS",
+					userPayload: res.data.userInfo,
+					roomPayload: res.data.roomId,
+				});
 			});
-			setRoomId(res.data.roomId);
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
 	const handleGetDetailRoom = () => {
-		navigate(`/rooms/${roomId}`);
+		navigate(`/rooms/${state.roomId}`);
 	};
 
 	useEffect(() => {
@@ -38,11 +35,30 @@ export const Profile: FC = memo(() => {
 	}, [id]);
 
 	return (
-		<UserCard
-			imageUrl={user.imageUrl}
-			name={user.name}
-			handleGetDetailRoom={() => handleGetDetailRoom()}
-			roomId={roomId}
-		/>
+		<>
+			<Box
+				sx={{
+					width: {
+						xs: "300px",
+						sm: "400px",
+						md: "500px",
+						lg: "600px",
+						xl: "650px",
+					},
+					p: "40px",
+				}}
+			>
+				{state.fetchState !== "OK" ? (
+					<PostSkeleton />
+				) : (
+					<UserCard
+						imageUrl={state.user!.image.url}
+						name={state.user!.name}
+						handleGetDetailRoom={() => handleGetDetailRoom()}
+						roomId={state.roomId!}
+					/>
+				)}
+			</Box>
+		</>
 	);
 });
