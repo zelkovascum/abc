@@ -34,7 +34,7 @@ class Api::V1::UsersController < ApplicationController
         end
       end
     else
-      render json: { user_info: }, status: :ok
+      render json: { user_info:, room_id: 0 }, status: :ok
     end
   end
 
