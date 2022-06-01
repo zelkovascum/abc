@@ -11,7 +11,7 @@ class Api::V1::RoomsController < ApplicationController
         last_message: room.messages[-1]
       }
     end
-    render json: rooms_array
+    render json: rooms_array, status: :ok
   end
 
   def show

@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     users = User.all.order(created_at: :desc)
-    render json: users
+    render json: users, status: :ok
   end
 
   def show
@@ -42,12 +42,12 @@ class Api::V1::UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     if user.id == current_api_v1_user.id
       if user.update(user_params)
-        render json: user
+        render json: user, status: :ok
       else
-        render json: user.errors, status: :unprocessable_entity
+        render json: user.errors, status: :bad_request
       end
     else
-      render json: { message: 'can not update data' }, status: :unprocessable_entity
+      render json: {}, status: :bad_request
     end
   end
 
