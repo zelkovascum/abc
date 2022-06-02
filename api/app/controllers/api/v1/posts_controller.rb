@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :authenticate_api_v1_user!, only: %i[create update destroy]
+  before_action :authenticate_api_v1_user!, only: %i[create destroy]
 
   def index
     posts = if params[:is_my_posts] == 'true'
