@@ -21,7 +21,6 @@ export const PostShow: FC = memo(() => {
 	const handleGetDetailPost = async () => {
 		try {
 			await getDetailPost(parseInt(id!)).then((res) => {
-				console.log(res.data);
 				dispatch({
 					type: "FETCH_SUCCESS",
 					payload: res.data,
