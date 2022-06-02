@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users do
-        member do
-          resources :rooms, only: %i[create]
-        end
-      end
+      resources :users
+      # resources :users do
+      #   member do
+      #     resources :rooms, only: %i[create]
+      #   end
+      # end
 
-      resources :posts
+      resources :posts, only: %i[index show create destroy]
 
-      # resources :rooms, only: %i[show index] do
-      resources :rooms, only: %i[show index create] do
+      resources :rooms, only: %i[index show] do
         member do
           resources :messages, only: %i[create]
         end
