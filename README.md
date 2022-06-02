@@ -1,5 +1,5 @@
 # SNS型マッチングアプリ Photudio
-URL: https://inzs46.com
+<!-- URL: https://inzs46.com -->
 ### 概要
 SNS風のマッチングアプリです。
 
