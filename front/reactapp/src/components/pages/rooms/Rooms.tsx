@@ -20,7 +20,7 @@ import {
 import { AuthContext } from "providers/AuthProvider";
 import { getAllRooms } from "utils/api/room";
 import { roomsInit, roomsReducer } from "reducers/rooms";
-import { RoomSkeleton } from "components/atoms/posts/RoomSkeleton";
+import { RoomSkeleton } from "components/atoms/rooms/RoomSkeleton";
 
 export const Rooms: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
