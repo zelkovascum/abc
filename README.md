@@ -54,7 +54,7 @@ SNS風のマッチングアプリです。
 - ``ECS Fargate``: Rails&Nginxのコンテナを実行
 - ``ECR``: Rails&Nginxのコンテナイメージを保存
 - ``ALB``: コンテナの負荷分散
-- ``RDS (MySQL)``: DBエンジンはMySQLを使用
+- ``RDS``: DBエンジンはMySQLを使用
 - ``S3``: Reactのホスティング、画像の保存
 - ``CloudFront``: .html、.css、.js、イメージファイル等の配信
 - ``Route53``: 独自ドメインでのアクセス
