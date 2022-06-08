@@ -28,6 +28,7 @@ export const RoomMessages: FC<Props> = memo((props) => {
 					messageUserId={message.userId}
 					otherUserId={otherUserId}
 					messageContent={message.content}
+					messageImage={message.image?.url}
 					messageRef={messageRef}
 				/>
 			))}
