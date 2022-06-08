@@ -82,7 +82,11 @@ export type Room = {
 export type Message = {
 	id: number;
 	content: string;
+	image?: {
+		url: string;
+	};
 	userId: number;
+	// roomId: number;
 };
 
 export type Reaction = {

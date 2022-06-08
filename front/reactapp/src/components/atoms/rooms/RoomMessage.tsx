@@ -1,15 +1,22 @@
 import { FC, memo, Ref } from "react";
-import { Card, Grid, Typography } from "@mui/material";
+import { Card, CardMedia, Grid, Typography } from "@mui/material";
 
 type Props = {
 	messageUserId: number;
 	otherUserId: number;
 	messageContent: string;
+	messageImage: string | undefined;
 	messageRef: Ref<HTMLDivElement>;
 };
 
 export const RoomMessage: FC<Props> = memo((props) => {
-	const { messageUserId, otherUserId, messageContent, messageRef } = props;
+	const {
+		messageUserId,
+		otherUserId,
+		messageContent,
+		messageImage,
+		messageRef,
+	} = props;
 
 	return (
 		<Grid
@@ -26,6 +33,7 @@ export const RoomMessage: FC<Props> = memo((props) => {
 						wordBreak: "break-all",
 					}}
 				>
+					<CardMedia component="img" alt="" image={messageImage} />
 					<Typography
 						color={messageUserId === otherUserId ? "black" : "white"}
 						sx={{ wordWrap: "breakWord", p: 1 }}
