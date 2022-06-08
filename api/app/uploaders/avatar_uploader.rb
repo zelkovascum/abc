@@ -39,7 +39,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w[jpg jpeg png gif]
+    %w(jpg jpeg png gif)
   end
 
   # Override the filename of the uploaded files:
