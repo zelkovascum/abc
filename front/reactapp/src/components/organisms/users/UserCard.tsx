@@ -8,6 +8,7 @@ import {
 	ListItemText,
 	Grid,
 	Button,
+	Link,
 } from "@mui/material";
 
 type Props = {
@@ -33,10 +34,10 @@ export const UserCard: FC<Props> = memo((props) => {
 			</ListItem>
 			<Grid container>
 				<Grid item xs={2} sm={1.5}>
-					SNS:
+					<Typography>SNS:</Typography>
 				</Grid>
 				<Grid item xs={10} sm={10.5}>
-					<Typography sx={{ fontSize: "16px" }}>{snsLink}</Typography>
+					{snsLink ? <Link href={snsLink}>{snsLink}</Link> : "未設定"}
 				</Grid>
 			</Grid>
 			{roomId !== 0 ? (

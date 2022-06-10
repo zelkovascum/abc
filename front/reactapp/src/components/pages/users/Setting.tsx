@@ -1,5 +1,13 @@
 import { FC, memo, useContext, useState } from "react";
-import { Avatar, Button, Box, Typography, Stack, Divider } from "@mui/material";
+import {
+	Avatar,
+	Button,
+	Box,
+	Typography,
+	Stack,
+	Divider,
+	Link,
+} from "@mui/material";
 import { AuthContext } from "providers/AuthProvider";
 import { ImageUploadModal } from "components/molucules/users/ImageUploadModal";
 import { CurrentLocationUpdateModal } from "components/molucules/users/CurrentLocationUpdateModal";
@@ -44,7 +52,12 @@ export const Setting: FC = memo(() => {
 				</Button>
 				<Divider />
 				<Typography>
-					SNSリンク: {currentUser?.sns ? currentUser?.sns : "未設定"}
+					SNSリンク:{" "}
+					{currentUser?.sns ? (
+						<Link href={currentUser?.sns}>{currentUser?.sns}</Link>
+					) : (
+						"未設定"
+					)}
 				</Typography>
 				<Button onClick={() => setIsOpenSnsUpdateModal(true)}>
 					SNSリンク変更
