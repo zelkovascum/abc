@@ -9,9 +9,16 @@ SNS風のマッチングアプリです。
 ### 目的
 
 
-## 使い方
-### ゲストログイン
-<img width="1077" alt="スクリーンショット 2022-06-10 23 06 57" src="https://user-images.githubusercontent.com/94943154/173099850-daf40afc-7b7b-47b9-b5c6-05591a16bbc6.png">
+## 使用イメージ
+### ログイン
+<img width="1077" alt="スクリーンショット 2022-06-10 23 06 57" src="https://user-images.githubusercontent.com/94943154/173105516-41856744-3c52-41bd-a946-341371f4fb21.png">
+
+### ホーム画面
+<img width="1065" alt="スクリーンショット 2022-06-11 1 11 20" src="https://user-images.githubusercontent.com/94943154/173109113-cc9d55cb-fc20-447a-bf2f-7b112b32541f.png">
+
+### 募集（投稿）一覧
+<img width="1195" alt="スクリーンショット 2022-06-11 1 01 13" src="https://user-images.githubusercontent.com/94943154/173107287-b5241a46-504b-4fde-b667-fdc464a67811.png">
+
 
 
 <!-- ![top]() -->
