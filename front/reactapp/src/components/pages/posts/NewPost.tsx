@@ -73,7 +73,7 @@ export const NewPost: FC = memo(() => {
 			}}
 		>
 			<Stack spacing={1.5}>
-				<Typography sx={{ textAlign: "center" }}>新規</Typography>
+				<Typography sx={{ textAlign: "center" }}>新規投稿</Typography>
 				<Box>
 					<Typography ml={2}>場所</Typography>
 					<PlaceInput
