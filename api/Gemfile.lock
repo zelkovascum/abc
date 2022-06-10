@@ -285,6 +285,7 @@ DEPENDENCIES
   factory_bot_rails
   fog-aws
   listen (~> 3.3)
+  mini_magick
   mysql2 (~> 0.5)
   net-imap
   net-pop
@@ -300,7 +301,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-  ruby 3.1.2p20
+   ruby 3.1.2p20
 
 BUNDLED WITH
-  2.3.7
+   2.3.7
