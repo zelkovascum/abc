@@ -9,7 +9,10 @@ SNS風のマッチングアプリです。
 ### 目的
 
 
-### 使い方
+## 使い方
+### ゲストログイン
+<img width="1077" alt="スクリーンショット 2022-06-10 23 06 57" src="https://user-images.githubusercontent.com/94943154/173099850-daf40afc-7b7b-47b9-b5c6-05591a16bbc6.png">
+
 
 <!-- ![top]() -->
 
