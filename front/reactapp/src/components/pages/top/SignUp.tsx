@@ -87,7 +87,7 @@ export const SignUp: FC = memo(() => {
 							fullWidth
 							label="メールアドレス"
 							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 							sx={{ mb: 0.5 }}
 						/>
 						<TextField
@@ -99,7 +99,7 @@ export const SignUp: FC = memo(() => {
 							placeholder="最低6文字"
 							value={password}
 							autoComplete="current-password"
-							onChange={(event) => setPassword(event.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 							sx={{ mb: 0.5 }}
 						/>
 						<TextField
