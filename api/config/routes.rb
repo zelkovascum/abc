@@ -16,12 +16,6 @@ Rails.application.routes.draw do
         end
       end
 
-      # resources :messages do
-      #   member do
-      #     get :download
-      #   end
-      # end
-
       resources :reactions, only: %i[index create]
 
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
