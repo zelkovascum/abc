@@ -10,6 +10,11 @@ SNS風のマッチングアプリです。
 
 
 ## 使用イメージ
+
+<https://user-images.githubusercontent.com/94943154/173129112-65caea77-02c8-4e69-894b-00aaed2eab0c.mov>
+
+<https://user-images.githubusercontent.com/94943154/173129863-e08308a2-9b6c-446f-b949-dd9208167ecb.mov>
+
 ### ログイン
 <img width="1077" alt="スクリーンショット 2022-06-10 23 06 57" src="https://user-images.githubusercontent.com/94943154/173105516-41856744-3c52-41bd-a946-341371f4fb21.png">
 
@@ -20,10 +25,7 @@ SNS風のマッチングアプリです。
 <img width="1195" alt="スクリーンショット 2022-06-11 1 01 13" src="https://user-images.githubusercontent.com/94943154/173107287-b5241a46-504b-4fde-b667-fdc464a67811.png">
 
 ### 投稿一覧（マップ）
-現在地付近のマップを表示  
-投稿がマップ上に表示されており、クリックすると詳細へ
-
-<https://user-images.githubusercontent.com/94943154/173119047-ac00c57a-2361-448d-8815-227350bb053d.mov>
+<img width="1282" alt="スクリーンショット 2022-06-11 0 57 02" src="https://user-images.githubusercontent.com/94943154/173130191-3d05341c-0c0d-42e6-8cc0-ac20d13403f6.png">
 
 ### 投稿詳細
 <img width="1020" alt="スクリーンショット 2022-06-11 2 34 17" src="https://user-images.githubusercontent.com/94943154/173121029-cb567800-d626-40ed-be86-477e7c69c8cb.png">
