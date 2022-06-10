@@ -16,8 +16,13 @@ SNS風のマッチングアプリです。
 ### ホーム画面
 <img width="1065" alt="スクリーンショット 2022-06-11 1 11 20" src="https://user-images.githubusercontent.com/94943154/173109113-cc9d55cb-fc20-447a-bf2f-7b112b32541f.png">
 
-### 募集（投稿）一覧
+### 投稿一覧
 <img width="1195" alt="スクリーンショット 2022-06-11 1 01 13" src="https://user-images.githubusercontent.com/94943154/173107287-b5241a46-504b-4fde-b667-fdc464a67811.png">
+
+### 投稿一覧（マップ）
+現在地付近のマップを表示  
+投稿がマップ上に表示されており、クリックすると詳細へ
+![map](https://user-images.githubusercontent.com/94943154/173114274-8de52453-0db1-47f4-8f3a-51078fe1adcd.gif)
 
 
 
