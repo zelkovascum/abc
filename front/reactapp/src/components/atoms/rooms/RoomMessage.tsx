@@ -34,12 +34,16 @@ export const RoomMessage: FC<Props> = memo((props) => {
 					}}
 				>
 					<CardMedia component="img" alt="" image={messageImage} />
-					<Typography
-						color={messageUserId === otherUserId ? "black" : "white"}
-						sx={{ wordWrap: "breakWord", p: 1 }}
-					>
-						{messageContent}
-					</Typography>
+					{messageContent ? (
+						<Typography
+							color={messageUserId === otherUserId ? "black" : "white"}
+							sx={{ wordWrap: "breakWord", p: 1 }}
+						>
+							{messageContent}
+						</Typography>
+					) : (
+						<></>
+					)}
 				</Card>
 			</Grid>
 		</Grid>
