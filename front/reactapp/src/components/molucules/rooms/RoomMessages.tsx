@@ -17,7 +17,7 @@ export const RoomMessages: FC<Props> = memo((props) => {
 			sx={{
 				width: "100%",
 				position: "relative",
-				zIndex: -1,
+				zIndex: 1,
 				top: "50px",
 				mb: "115px",
 			}}

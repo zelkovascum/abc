@@ -75,7 +75,7 @@ export const Header: FC = memo(() => {
 	}, [notificationState]);
 
 	return (
-		<Box position="fixed" right={0} left={0} zIndex={1}>
+		<Box position="fixed" right={0} left={0} zIndex={10}>
 			<AppBar position="static">
 				<Toolbar>
 					<Typography variant="h6" noWrap component="div">
