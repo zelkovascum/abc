@@ -22,7 +22,7 @@ SNS風のマッチングアプリです。
 ### 投稿一覧（マップ）
 現在地付近のマップを表示  
 投稿がマップ上に表示されており、クリックすると詳細へ
-![map](https://user-images.githubusercontent.com/94943154/173114274-8de52453-0db1-47f4-8f3a-51078fe1adcd.gif)
+![ダウンロード](https://user-images.githubusercontent.com/94943154/173114828-660e3f01-f0cb-4c85-85f5-bdc25b1d2540.gif)
 
 
 
