@@ -24,6 +24,7 @@ export type User = {
 		url: string;
 	};
 	address: string;
+	sns: string;
 	allowPasswordChange: boolean;
 	created_at: Date;
 	updated_at: Date;

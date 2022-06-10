@@ -5,6 +5,7 @@ import { ImageUploadModal } from "components/molucules/users/ImageUploadModal";
 import { CurrentLocationUpdateModal } from "components/molucules/users/CurrentLocationUpdateModal";
 import { SignOutModal } from "components/molucules/users/SignOutModal";
 import { transformPlace } from "utils/transformForRead";
+import { SnsUpdateModal } from "components/molucules/users/SnsUpdateModal";
 
 export const Setting: FC = memo(() => {
 	const { currentUser } = useContext(AuthContext);
@@ -13,6 +14,7 @@ export const Setting: FC = memo(() => {
 		isOpenCurrentLocationUpdateModal,
 		setIsOpenCurrentLocationUpdateModal,
 	] = useState(false);
+	const [isOpenSnsUpdateModal, setIsOpenSnsUpdateModal] = useState(false);
 	const [isOpenSignOutModal, setIsOpenSignOutModal] = useState(false);
 
 	return (
@@ -41,6 +43,13 @@ export const Setting: FC = memo(() => {
 					現在地を変更
 				</Button>
 				<Divider />
+				<Typography>
+					SNSリンク: {currentUser?.sns ? currentUser?.sns : "未設定"}
+				</Typography>
+				<Button onClick={() => setIsOpenSnsUpdateModal(true)}>
+					SNSリンク変更
+				</Button>
+				<Divider />
 				<Button onClick={() => setIsOpenSignOutModal(true)}>ログアウト</Button>
 			</Stack>
 			<SignOutModal
@@ -55,6 +64,11 @@ export const Setting: FC = memo(() => {
 			<CurrentLocationUpdateModal
 				isOpenModal={isOpenCurrentLocationUpdateModal}
 				setIsOpenModal={setIsOpenCurrentLocationUpdateModal}
+				userId={currentUser?.id!}
+			/>
+			<SnsUpdateModal
+				isOpenModal={isOpenSnsUpdateModal}
+				setIsOpenModal={setIsOpenSnsUpdateModal}
 				userId={currentUser?.id!}
 			/>
 		</>
