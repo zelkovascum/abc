@@ -14,6 +14,7 @@ export const PostDeleteButton: FC<Props> = memo((props) => {
 
 	const onClickDelete = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		e.stopPropagation();
 		if (processing.current) return;
 		processing.current = true;
 		try {

@@ -23,6 +23,7 @@ export const ReactionButton: FC<Props> = memo((props) => {
 		toUserId: number
 	) => {
 		e.preventDefault();
+    e.stopPropagation();
 		try {
 			const res = await createReaction({
 				fromUserId,
