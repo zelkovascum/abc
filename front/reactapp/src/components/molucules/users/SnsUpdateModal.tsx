@@ -22,7 +22,11 @@ export const SnsUpdateModal: FC<Props> = memo((props) => {
 
 	const handleUpdate = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		await updateUser(userId, { sns: snsLink })
+		let link = snsLink;
+		if (!link.startsWith("http://") && !link.startsWith("https://")) {
+			link = `http://${link}`;
+		}
+		await updateUser(userId, { sns: link })
 			.then((res) => {
 				setSnsLink("");
 				window.location.reload();
