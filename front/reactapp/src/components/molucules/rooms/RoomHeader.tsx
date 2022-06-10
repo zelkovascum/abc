@@ -21,6 +21,7 @@ export const RoomHeader: FC<Props> = memo((props) => {
 				pt: 2,
 				pb: 1,
 				bgcolor: "white",
+				zIndex: 2,
 			}}
 		>
 			<Avatar src={imageUrl} sx={{ mr: 1 }} />

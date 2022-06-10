@@ -71,6 +71,7 @@ export const RoomInputField: FC<Props> = memo((props) => {
 				pt: 1,
 				pb: 2,
 				bgcolor: "white",
+				zIndex: 2,
 			}}
 		>
 			<TextField
