@@ -3,6 +3,7 @@ import { AxiosPromise } from "axios";
 import { client } from "./client";
 
 type Params = {
+	name?: string;
 	address?: string;
 	sns?: string;
 };
