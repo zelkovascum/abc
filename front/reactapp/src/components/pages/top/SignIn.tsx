@@ -104,7 +104,7 @@ export const SignIn: FC = () => {
 							fullWidth
 							label="メールアドレス"
 							value={email}
-							onChange={(event) => setEmail(event.target.value)}
+							onChange={(e) => setEmail(e.target.value)}
 							sx={{ mb: 0.5 }}
 						/>
 						<TextField
@@ -116,7 +116,7 @@ export const SignIn: FC = () => {
 							placeholder="最低6文字"
 							value={password}
 							autoComplete="current-password"
-							onChange={(event) => setPassword(event.target.value)}
+							onChange={(e) => setPassword(e.target.value)}
 							sx={{ mb: 0.5 }}
 						/>
 						<Button
