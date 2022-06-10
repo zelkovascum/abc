@@ -22,7 +22,14 @@ SNS風のマッチングアプリです。
 ### 投稿一覧（マップ）
 現在地付近のマップを表示  
 投稿がマップ上に表示されており、クリックすると詳細へ
-![ダウンロード](https://user-images.githubusercontent.com/94943154/173114828-660e3f01-f0cb-4c85-85f5-bdc25b1d2540.gif)
+
+
+### 新規投稿
+<img width="1192" alt="スクリーンショット 2022-06-11 2 03 05" src="https://user-images.githubusercontent.com/94943154/173116714-af620d2a-ff4f-4aeb-a12c-6c9648130364.png">
+
+### チャット
+<img width="1424" alt="スクリーンショット 2022-06-11 2 13 37" src="https://user-images.githubusercontent.com/94943154/173118651-d1d70b09-9681-4c1b-bb98-f449a5052004.png">
+
 
 
 
