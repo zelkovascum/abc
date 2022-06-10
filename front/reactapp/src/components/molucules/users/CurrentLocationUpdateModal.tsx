@@ -7,7 +7,7 @@ import {
 	useState,
 } from "react";
 import { Box, Button, Modal } from "@mui/material";
-import { updateUserCurrentLocation } from "utils/api/user";
+import { updateUser } from "utils/api/user";
 import { PlaceInput } from "components/atoms/PlaceInput";
 import { Modalstyle } from "components/pages/users/Setting";
 
@@ -23,7 +23,7 @@ export const CurrentLocationUpdateModal: FC<Props> = memo((props) => {
 
 	const handleUpdatePrefectures = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		await updateUserCurrentLocation(userId, { address: currentLocation })
+		await updateUser(userId, { address: currentLocation })
 			.then((res) => {
 				setCurrentLocation("");
 				window.location.reload();
