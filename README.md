@@ -25,16 +25,17 @@ SNS風のマッチングアプリです。
 
 <https://user-images.githubusercontent.com/94943154/173119047-ac00c57a-2361-448d-8815-227350bb053d.mov>
 
+### 投稿詳細
+<img width="1020" alt="スクリーンショット 2022-06-11 2 34 17" src="https://user-images.githubusercontent.com/94943154/173121029-cb567800-d626-40ed-be86-477e7c69c8cb.png">
+
 ### 新規投稿
 <img width="1192" alt="スクリーンショット 2022-06-11 2 03 05" src="https://user-images.githubusercontent.com/94943154/173116714-af620d2a-ff4f-4aeb-a12c-6c9648130364.png">
 
+### リアクション一覧
+<img width="1203" alt="スクリーンショット 2022-06-11 2 39 07" src="https://user-images.githubusercontent.com/94943154/173121681-cc436fee-7dfa-43eb-8c31-d54b4ac0abc7.png">
+
 ### チャット
 <img width="1424" alt="スクリーンショット 2022-06-11 2 13 37" src="https://user-images.githubusercontent.com/94943154/173118651-d1d70b09-9681-4c1b-bb98-f449a5052004.png">
-
-
-
-
-<!-- ![top]() -->
 
 # インフラ構成図
 ![インフラ drawio](https://user-images.githubusercontent.com/94943154/171155430-fb99e0a2-94d7-4be4-85c7-f949747f0733.png)
