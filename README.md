@@ -23,6 +23,7 @@ SNS風のマッチングアプリです。
 現在地付近のマップを表示  
 投稿がマップ上に表示されており、クリックすると詳細へ
 
+<https://user-images.githubusercontent.com/94943154/173119047-ac00c57a-2361-448d-8815-227350bb053d.mov>
 
 ### 新規投稿
 <img width="1192" alt="スクリーンショット 2022-06-11 2 03 05" src="https://user-images.githubusercontent.com/94943154/173116714-af620d2a-ff4f-4aeb-a12c-6c9648130364.png">
