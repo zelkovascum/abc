@@ -15,15 +15,3 @@ export const client = applyCaseMiddleware(
 	}),
 	options
 );
-
-export const imageClient = applyCaseMiddleware(
-	axios.create({
-		baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
-	}),
-	{
-		ignoreHeaders: true,
-	}
-);

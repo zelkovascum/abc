@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { AxiosPromise } from "axios";
-import { client, imageClient } from "./client";
+import { client } from "./client";
 
 export const getDetailUser = (id: string) =>
 	client.get(`/users/${id}`, {
@@ -36,7 +36,7 @@ export const updateUserCurrentLocation = (
 
 // アバターアップデート用
 export const updateUserImage = (data: FormData, userId: number): AxiosPromise =>
-	imageClient.patch(`/users/${userId}`, data, {
+	client.patch(`/users/${userId}`, data, {
 		headers: {
 			"access-token": Cookies.get("_access_token") || "",
 			client: Cookies.get("_client") || "",
