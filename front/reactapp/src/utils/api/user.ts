@@ -34,6 +34,15 @@ export const updateUserCurrentLocation = (
 		},
 	});
 
+export const updateUserSns = (id: number, params: { sns: string }) =>
+	client.patch(`/users/${id}`, params, {
+		headers: {
+			"access-token": Cookies.get("_access_token") || "",
+			client: Cookies.get("_client") || "",
+			uid: Cookies.get("_uid") || "",
+		},
+	});
+
 // アバターアップデート用
 export const updateUserImage = (data: FormData, userId: number): AxiosPromise =>
 	client.patch(`/users/${userId}`, data, {

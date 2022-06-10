@@ -55,6 +55,7 @@ export const Profile: FC = memo(() => {
 						name={state.user!.name}
 						handleGetDetailRoom={() => handleGetDetailRoom()}
 						roomId={state.roomId!}
+						snsLink={state.user!.sns}
 					/>
 				)}
 			</Box>

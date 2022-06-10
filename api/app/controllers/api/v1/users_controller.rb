@@ -13,7 +13,8 @@ class Api::V1::UsersController < ApplicationController
       name: user.name,
       email: user.email,
       image: user.image,
-      address: user.address
+      address: user.address,
+      sns: user.sns
     }
     # 相手とのルーム情報
     is_room_exist = false
@@ -54,6 +55,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
     def user_params
-      params.permit(:name, :image, :address)
+      params.permit(:name, :image, :address, :sns)
     end
 end

@@ -2,6 +2,7 @@ type User = {
 	id: number;
 	name: string;
 	image: { url: string };
+	sns: string;
 };
 
 type State = {

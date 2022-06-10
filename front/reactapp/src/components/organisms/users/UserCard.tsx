@@ -13,12 +13,13 @@ import {
 type Props = {
 	imageUrl?: string;
 	name: string;
+	snsLink?: string;
 	handleGetDetailRoom: () => void;
 	roomId: number;
 };
 
 export const UserCard: FC<Props> = memo((props) => {
-	const { imageUrl, name, handleGetDetailRoom, roomId } = props;
+	const { imageUrl, name, snsLink, handleGetDetailRoom, roomId } = props;
 
 	return (
 		<Card sx={CardStyle}>
@@ -35,7 +36,7 @@ export const UserCard: FC<Props> = memo((props) => {
 					SNS:
 				</Grid>
 				<Grid item xs={10} sm={10.5}>
-					<Typography sx={{ fontSize: "16px" }}>twitter</Typography>
+					<Typography sx={{ fontSize: "16px" }}>{snsLink}</Typography>
 				</Grid>
 			</Grid>
 			{roomId !== 0 ? (
