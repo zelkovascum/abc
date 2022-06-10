@@ -33,7 +33,7 @@ export const RoomInputField: FC<Props> = memo((props) => {
 	const createFormData = (id: string): FormData => {
 		const formData = new FormData();
 		formData.append("roomId", id);
-		formData.append("content", content);
+		if (content) formData.append("content", content);
 		if (image) formData.append("image", image);
 		return formData;
 	};
@@ -102,7 +102,7 @@ export const RoomInputField: FC<Props> = memo((props) => {
 					e.preventDefault();
 					handleSubmit(paramsId);
 				}}
-				disabled={!content}
+				disabled={!content && !image}
 				variant="contained"
 				sx={{
 					width: "20%",
