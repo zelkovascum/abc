@@ -135,4 +135,4 @@ CI/CDパイプライン構築
 - ローディング画面（スケルトンスクリーン）
 - レスポンシブ対応
 
-##### [↑ページへ](https://github.com/zelkovascum/Photudio#sns%E5%9E%8B%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%97%E3%83%AA-photudio)
+##### [↑トップへ](https://github.com/zelkovascum/Photudio#sns%E5%9E%8B%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%97%E3%83%AA-photudio)
