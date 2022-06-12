@@ -9,7 +9,7 @@ Qiita: https://qiita.com/scum/items/b62a3c2e939e536de867
 | 番号 | 項目 |
 |:-:|:--|
 | 1 | [概要](https://github.com/zelkovascum/Photudio#%E6%A6%82%E8%A6%81) |
-| 2 | [使用イメージ（動画）](https://github.com/zelkovascum/Photudio#%E4%BD%BF%E7%94%A8%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8) |
+| 2 | [使用イメージ（動画）](https://github.com/zelkovascum/Photudio#%E4%BD%BF%E7%94%A8%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E5%8B%95%E7%94%BB) |
 | 3 | [使用方法](https://github.com/zelkovascum/Photudio#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95) |
 | 4 | [インフラ構成図](https://github.com/zelkovascum/Photudio#%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E6%A7%8B%E6%88%90%E5%9B%B3) |
 | 5 | [使用技術概略・詳細](https://github.com/zelkovascum/Photudio#%E4%BD%BF%E7%94%A8%E6%8A%80%E8%A1%93%E6%A6%82%E7%95%A5)　|
