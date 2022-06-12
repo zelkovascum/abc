@@ -1,7 +1,7 @@
 # SNS型マッチングアプリ Photudio
 URL: https://inzs46.com  
 
-このアプリの開発などについて記載した記事はコチラ↓  
+このアプリの開発などについて記載した記事はこちら↓  
 Qiita: https://qiita.com/scum/items/b62a3c2e939e536de867
 
 ## 目次
