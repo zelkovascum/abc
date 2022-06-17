@@ -37,7 +37,6 @@ export const SignUp: FC = memo(() => {
 		};
 		try {
 			const res = await signUp(params);
-			console.log(res);
 			if (res.status === 200) {
 				// アカウント作成と同時にログイン
 				Cookies.set("_access_token", res.headers["access-token"]);

@@ -16,7 +16,6 @@ export const PlaceInput: FC<Props> = memo((props) => {
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		setPlaceInputValue(e.target.value);
-		console.log(placeInputValue);
 	};
 
 	const onLoad = (autocomplete: any) => {

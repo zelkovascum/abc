@@ -24,10 +24,10 @@ export const Top: FC = memo(() => {
 					Concept
 				</Typography>
 				<Typography align="center" sx={{ fontSize: { xs: 15, sm: 25 } }}>
-					”Photudio”は写真を撮ってくれる人を気軽に探すことができるサービスです。
+					ユーザー同士が気軽にマッチできるサービスです。
 				</Typography>
 				<Typography align="center" sx={{ fontSize: { xs: 15, sm: 25 } }}>
-					SNSを通した多くの人との出会いをサポートします。
+					多くの人との出会いをサポートします。
 				</Typography>
 			</Grid>
 			<Grid item>

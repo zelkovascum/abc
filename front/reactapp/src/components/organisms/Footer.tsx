@@ -33,7 +33,7 @@ export const Footer: FC = memo(() => {
 								color:
 									location.pathname === "/"
 										? "teal"
-										: location.pathname === "/near"
+										: location.pathname === "/circumference"
 										? "teal"
 										: "inherit",
 							}}

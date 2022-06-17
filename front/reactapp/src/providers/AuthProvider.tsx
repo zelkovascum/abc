@@ -32,7 +32,7 @@ export const AuthProvider: FC<Props> = memo((props) => {
 				setIsSignIn(true);
 				setCurrentUser(res?.data.data);
 			} else {
-				console.log("No exist current user");
+				console.log("current user does not exist");
 			}
 		} catch (e) {
 			console.error(e);

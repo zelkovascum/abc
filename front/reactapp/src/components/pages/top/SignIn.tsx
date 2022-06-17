@@ -41,7 +41,7 @@ export const SignIn: FC = () => {
 				setIsSignIn(true);
 				setCurrentUser(res.data.data);
 				navigate("/");
-				console.log("Signed in successfully!");
+				console.log("sign in successful");
 				processing.current = false;
 			} else {
 				setIsAlertMessageOpen(true);
@@ -72,7 +72,7 @@ export const SignIn: FC = () => {
 				setIsSignIn(true);
 				setCurrentUser(res.data.data);
 				navigate("/");
-				console.log("Signed in successfully!");
+				console.log("sign in successful");
 				processing.current = false;
 			} else {
 				setIsAlertMessageOpen(true);
