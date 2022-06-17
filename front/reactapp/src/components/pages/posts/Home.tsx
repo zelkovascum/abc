@@ -55,7 +55,7 @@ export const Home: FC = memo(() => {
 				dispatch({
 					type: "FETCH_SUCCESS",
 					payload:
-						location.pathname === "/near"
+						location.pathname === "/circumference"
 							? sortPostsByDistance([...res.data])
 							: res.data,
 				});

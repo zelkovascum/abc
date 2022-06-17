@@ -36,7 +36,7 @@ export const HomeTabs: FC = memo(() => {
 						label="付近の募集"
 						{...a11yProps(1)}
 						onClick={() => {
-							navigate("/near");
+							navigate("/circumference");
 						}}
 						sx={{ width: "50%" }}
 					/>
