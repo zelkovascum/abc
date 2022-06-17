@@ -33,9 +33,9 @@ export const SignOutModal: FC<Props> = memo((props) => {
 				Cookies.remove("_uid");
 				setIsSignIn(false);
 				navigate("/signin");
-				console.log("Succeeded in sign out");
+				console.log("sign out successful");
 			} else {
-				console.log("Failed in sign out");
+				console.log("sign out failed");
 			}
 		} catch (e) {
 			console.error(e);

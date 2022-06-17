@@ -29,7 +29,6 @@ export const ReactionButton: FC<Props> = memo((props) => {
 				fromUserId,
 				toUserId,
 			});
-			console.log(res.data);
 			// setMessage(res.data.message);
 			notificationDispatch({
 				type: "PUSHBUTTON",
