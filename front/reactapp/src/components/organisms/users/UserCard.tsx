@@ -62,4 +62,10 @@ export const CardStyle = {
 	borderRadius: 1,
 	px: 2,
 	py: 0.5,
+	boxShadow: " 0 0 3px 0 rgba(0,0,0,.1), 0 2px 3px 0 rgba(0,0,0,.2)",
+	transition: ".3s",
+	"&:hover": {
+		boxShadow: "0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1)",
+		transform: "translateY(-3px)",
+	},
 };
