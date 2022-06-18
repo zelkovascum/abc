@@ -1,5 +1,5 @@
 import { FC, memo, useContext, useEffect, useReducer } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDetailPost } from "utils/api/post";
 import { transformDateTime, transformPlace } from "utils/transformForRead";
@@ -51,6 +51,7 @@ export const PostShow: FC = memo(() => {
 					p: "40px",
 				}}
 			>
+				<Typography sx={{ textAlign: "center", mb: 1 }}>募集詳細</Typography>
 				{state.fetchState !== "OK" ? (
 					<CardSkeleton />
 				) : (
