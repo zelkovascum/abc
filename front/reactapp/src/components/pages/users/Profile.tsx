@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { CardSkeleton } from "components/atoms/CardSkeleton";
 import { FC, memo, useEffect, useReducer } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -47,6 +47,9 @@ export const Profile: FC = memo(() => {
 					p: "40px",
 				}}
 			>
+				<Typography sx={{ textAlign: "center", mb: 1 }}>
+					ユーザー詳細
+				</Typography>
 				{state.fetchState !== "OK" ? (
 					<CardSkeleton />
 				) : (
