@@ -7,6 +7,7 @@ import {
 	ListItemAvatar,
 	ListItemText,
 	Grid,
+	Divider,
 } from "@mui/material";
 import { ReactionButton } from "components/atoms/reactions/ReactionButton";
 import { PostDeleteButton } from "components/atoms/posts/PostDeleteButton";
@@ -63,10 +64,13 @@ export const PostCard: FC<Props> = memo((props) => {
 					<></>
 				)}
 			</ListItem>
+			<Divider sx={{ my: 1 }} />
 			<Grid
 				container
 				onClick={() => onClickPost()}
-				sx={{ cursor: postCardType === "home" ? "pointer" : "default" }}
+				sx={{
+					cursor: postCardType === "home" ? "pointer" : "default",
+				}}
 			>
 				<Grid item xs={2} sm={1.5}>
 					場所:
@@ -101,4 +105,10 @@ export const PostCardStyle = {
 	borderRadius: 1,
 	px: 2,
 	py: 0.5,
+	boxShadow: " 0 0 3px 0 rgba(0,0,0,.1), 0 2px 3px 0 rgba(0,0,0,.2)",
+	transition: ".3s",
+	"&:hover": {
+		boxShadow: "0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1)",
+		transform: "translateY(-3px)",
+	},
 };
