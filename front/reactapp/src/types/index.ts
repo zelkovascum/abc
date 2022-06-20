@@ -48,23 +48,6 @@ export type Post = {
 	content: string;
 };
 
-// export type OutputPost = {
-// 	id: number;
-// 	user: {
-// 		id: number;
-// 		name: string;
-// 		email: string;
-// 		image?: {
-// 			url: string;
-// 		};
-// 	};
-// 	lat: number;
-// 	lng: number;
-// 	place: string;
-// 	dateTime: string;
-// 	content: string;
-// };
-
 // 緯度経度
 export type LatLng = {
 	lat: number;
@@ -90,6 +73,7 @@ export type Message = {
 	// roomId: number;
 };
 
+// リアクション
 export type Reaction = {
 	fromUserId: number;
 	toUserId: number;
