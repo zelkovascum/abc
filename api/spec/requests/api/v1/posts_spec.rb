@@ -28,5 +28,23 @@ RSpec.describe 'Api::V1::Posts', type: :request do
         end.to change(Post, :count).by 1
       end
     end
+
+    context 'abnormal' do
+      it 'response when create fails is bad_request' do
+        post(api_v1_posts_path, params: { post: attributes_for(:post, place: nil) }, headers: @auth_headers)
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'error is returned when place is nil' do
+        post(api_v1_posts_path, params: { post: attributes_for(:post, place: nil) }, headers: @auth_headers)
+        expect(JSON.parse(response.body)['place']).to eq ["can't be blank"]
+      end
+
+      it 'records will not increase if place is nil' do
+        expect do
+          post(api_v1_posts_path, params: { post: attributes_for(:post, place: nil) }, headers: @auth_headers)
+        end.not_to change(Post, :count)
+      end
+    end
   end
 end
