@@ -22,6 +22,11 @@ RSpec.describe 'Api::V1::Posts', type: :request do
         expect(JSON.parse(response.body)['place']).to eq('日本、〒103-0027 東京都中央区日本橋')
       end
 
+      it 'same params and json response in date_time' do
+        post(api_v1_posts_path, params: { post: attributes_for(:post, content: 'テスト') }, headers: @auth_headers)
+        expect(JSON.parse(response.body)['content']).to eq('テスト')
+      end
+
       it 'post records increases' do
         expect do
           post(api_v1_posts_path, params: { post: attributes_for(:post) }, headers: @auth_headers)
