@@ -37,32 +37,4 @@ RSpec.describe Post, type: :model do
       expect(post).not_to be_valid
     end
   end
-
-  # describe 'type' do
-  #   let(:post) { build(:post) }
-  #   it 'lat type' do
-  #     type = post.lat.class
-  #     expect(type).to eq BigDecimal
-  #   end
-
-  #   it 'lng type' do
-  #     type = post.lng.class
-  #     expect(type).to eq BigDecimal
-  #   end
-
-  #   it 'place type' do
-  #     type = post.place.class
-  #     expect(type).to eq String
-  #   end
-
-  #   it 'date_time type' do
-  #     type = post.date_time.class
-  #     expect(type).to eq ActiveSupport::TimeWithZone
-  #   end
-
-  #   it 'content type' do
-  #     type = post.content.class
-  #     expect(type).to eq String
-  #   end
-  # end
 end
