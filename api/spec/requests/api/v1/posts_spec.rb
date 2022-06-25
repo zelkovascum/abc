@@ -5,11 +5,11 @@ RSpec.describe 'Api::V1::Posts', type: :request do
   let(:password) { 'password' }
   let(:user) { create(:user, password:) }
 
-  describe '#create' do
-    before do
-      @auth_headers = login(user.email, 'password')
-    end
+  before do
+    @auth_headers = login(user.email, 'password')
+  end
 
+  describe '#create' do
     context 'normal' do
       it 'response at create is created' do
         # attributes_for:モデルオブジェクトではなくハッシュを返す
@@ -52,4 +52,15 @@ RSpec.describe 'Api::V1::Posts', type: :request do
       end
     end
   end
+
+  # describe '#destroy' do
+    # let!(:post) { create(:post, user_id: user.id) }
+
+    # context 'normal' do
+    #   it 'response at destroy is ok' do
+    #     delete(api_v1_posts_path, headers: @auth_headers)
+    #     expect(response).to have_http_status :ok
+    #   end
+    # end
+  # end
 end
