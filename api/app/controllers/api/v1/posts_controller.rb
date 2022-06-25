@@ -48,7 +48,7 @@ class Api::V1::PostsController < ApplicationController
     post = Post.find(params[:id])
     if current_api_v1_user.id == post.user_id
       post.destroy
-      render json: post
+      render json: post, status: :ok
     else
       render json: {}, status: :bad_request
     end
