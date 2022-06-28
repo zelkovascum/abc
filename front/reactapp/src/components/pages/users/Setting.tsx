@@ -42,7 +42,10 @@ export const Setting: FC = memo(() => {
 				</Box>
 				<Divider />
 				<Typography>ユーザーネーム: {currentUser?.name}</Typography>
-				<Button onClick={() => setIsOpenNameUpdateModal(true)}>
+				<Button
+					disabled={currentUser?.email === "guest@mail.com"}
+					onClick={() => setIsOpenNameUpdateModal(true)}
+				>
 					ユーザーネームを変更
 				</Button>
 				<Divider />
