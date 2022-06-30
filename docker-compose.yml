@@ -1,3 +1,6 @@
+# 起動手順
+# https://github.com/zelkovascum/Docker-Rails-React/blob/main/memo.md
+
 version: "3"
 
 services:
