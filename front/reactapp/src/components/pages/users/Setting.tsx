@@ -55,7 +55,10 @@ export const Setting: FC = memo(() => {
 						? transformPlace(currentUser?.address)
 						: "未設定"}
 				</Typography>
-				<Button onClick={() => setIsOpenCurrentLocationUpdateModal(true)}>
+				<Button
+					disabled={currentUser?.email === "guest@mail.com"}
+					onClick={() => setIsOpenCurrentLocationUpdateModal(true)}
+				>
 					現在地を変更
 				</Button>
 				<Divider />
@@ -67,7 +70,10 @@ export const Setting: FC = memo(() => {
 						"未設定"
 					)}
 				</Typography>
-				<Button onClick={() => setIsOpenSnsUpdateModal(true)}>
+				<Button
+					disabled={currentUser?.email === "guest@mail.com"}
+					onClick={() => setIsOpenSnsUpdateModal(true)}
+				>
 					SNSリンク変更
 				</Button>
 				<Divider />
