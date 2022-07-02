@@ -17,12 +17,26 @@ RSpec.describe 'Api::V1::Posts', type: :request do
         expect(response).to have_http_status :created
       end
 
+      it 'same params and json response in lat' do
+        post(api_v1_posts_path, params: { post: attributes_for(:post, lat: 35.6811836) }, headers: @auth_headers)
+        expect(JSON.parse(response.body)['lat']).to eq('35.6811836')
+      end
+
+      it 'same params and json response in lng' do
+        post(api_v1_posts_path, params: { post: attributes_for(:post, lng: 139.7741538) }, headers: @auth_headers)
+        expect(JSON.parse(response.body)['lng']).to eq('139.7741538')
+      end
+
       it 'same params and json response in place' do
         post(api_v1_posts_path, params: { post: attributes_for(:post, place: '日本、〒103-0027 東京都中央区日本橋') }, headers: @auth_headers)
         expect(JSON.parse(response.body)['place']).to eq('日本、〒103-0027 東京都中央区日本橋')
       end
 
-      it 'same params and json response in date_time' do
+      # it 'same params and json response in date_time' do
+      #   post(api_v1_posts_path, params: { post: attributes_for(:post, date_time: 1.week.since) }, headers: @auth_headers)
+      #   expect(JSON.parse(response.body)['date_time']).to eq(1.week.since)
+      # end
+      it 'same params and json response in content' do
         post(api_v1_posts_path, params: { post: attributes_for(:post, content: 'テスト') }, headers: @auth_headers)
         expect(JSON.parse(response.body)['content']).to eq('テスト')
       end
@@ -53,14 +67,31 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     end
   end
 
-  # describe '#destroy' do
-    # let!(:post) { create(:post, user_id: user.id) }
+  # describe '#show' do
+  #   let(:post) { create(:post) }
 
-    # context 'normal' do
-    #   it 'response at destroy is ok' do
-    #     delete(api_v1_posts_path, headers: @auth_headers)
-    #     expect(response).to have_http_status :ok
-    #   end
-    # end
+  #   context 'normal' do
+  #     it 'response at destroy is ok' do
+  #       get(
+  #         api_v1_post_path(post.id),
+  #         headers: @auth_headers
+  #       )
+  #       expect(response).to have_http_status :ok
+  #     end
+  #   end
+  # end
+
+  # describe '#destroy' do
+  #   let(:post) { create(:post, user_id: user.id) }
+
+  #   context 'normal' do
+  #     it 'response at destroy is ok' do
+  #       delete(
+  #         api_v1_post_path(post.id),
+  #         headers: @auth_headers
+  #       )
+  #       expect(response).to have_http_status :ok
+  #     end
+  #   end
   # end
 end
