@@ -63,7 +63,7 @@ SNS（投稿機能）とマッチングアプリ（マッチング機能）の�
 - **Back End:** Ruby on Rails ( APIモード / Puma ), Nginx
 - **Front End:** React ( TypeScript )
 - **Infra:** Docker / Docker-Compose, AWS ( ECS Fargate / ECR / ALB / RDS / S3 / CloudFront / Route53 ), CircleCI
-- **Third Party API:** Google Maps Platform(Maps JavaScript API / Geocoding API/Places API)
+- **Third Party API:** Google Maps Platform(　Maps JavaScript API / Geocoding API　/　Places API　)
 
 # 使用技術詳細
 ## Back End
