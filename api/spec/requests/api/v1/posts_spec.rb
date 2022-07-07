@@ -36,7 +36,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
       #   post(api_v1_posts_path, params: { post: attributes_for(:post, date_time: 1.week.since) }, headers: @auth_headers)
       #   expect(JSON.parse(response.body)['date_time']).to eq(1.week.since)
       # end
-      
+
       it 'same params and json response in content' do
         post(api_v1_posts_path, params: { post: attributes_for(:post, content: 'テスト') }, headers: @auth_headers)
         expect(JSON.parse(response.body)['content']).to eq('テスト')

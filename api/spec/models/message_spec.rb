@@ -8,8 +8,8 @@ RSpec.describe Message, type: :model do
       expect(message).to be_valid
     end
 
-    # it 'Invalid when content is nil' do
-    #   message.content = nil
+    # it 'Invalid when user is nil' do
+    #   message.user_id = nil
     #   expect(message).not_to be_valid
     # end
   end

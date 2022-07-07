@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::Messages', type: :request do
     @auth_headers = login(user.email, 'password')
   end
 
-  describe '#create' do
+  describe 'post /api_v1_messages_path' do
     context 'normal' do
       it 'response at create is created' do
         post(api_v1_messages_path(id: room.id), params: { user_id: user.id, room_id: room.id, content: 'test' }, headers: @auth_headers)
