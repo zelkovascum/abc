@@ -67,31 +67,46 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     end
   end
 
-  # describe '#show' do
-  #   let(:post) { create(:post) }
+  describe '#destroy' do
+    let(:user_post) { create(:post, user_id: user.id) }
 
-  #   context 'normal' do
-  #     it 'response at destroy is ok' do
-  #       get(
-  #         api_v1_post_path(post.id),
-  #         headers: @auth_headers
-  #       )
-  #       expect(response).to have_http_status :ok
-  #     end
-  #   end
-  # end
+    context 'normal' do
+      it 'response at destroy is ok' do
+        # byebug
+        delete(
+          api_v1_post_path(user_post.id),
+          headers: @auth_headers
+        )
+        expect(response).to have_http_status :ok
+      end
+    end
+  end
 
-  # describe '#destroy' do
-  #   let(:post) { create(:post, user_id: user.id) }
+  describe '#show' do
+    let(:user_post) { create(:post) }
 
-  #   context 'normal' do
-  #     it 'response at destroy is ok' do
-  #       delete(
-  #         api_v1_post_path(post.id),
-  #         headers: @auth_headers
-  #       )
-  #       expect(response).to have_http_status :ok
-  #     end
-  #   end
-  # end
+    context 'normal' do
+      it 'response at destroy is ok' do
+        get(
+          api_v1_post_path(user_post.id),
+          headers: @auth_headers
+        )
+        expect(response).to have_http_status :ok
+      end
+    end
+  end
+
+  describe 'get/api_v1_post_path' do
+    let(:user_post) { create(:post) }
+
+    context 'normal' do
+      it 'response at destroy is ok' do
+        get(
+          api_v1_posts_path(user_post.id),
+          headers: @auth_headers
+        )
+        expect(response).to have_http_status :ok
+      end
+    end
+  end
 end
