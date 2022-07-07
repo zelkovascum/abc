@@ -9,7 +9,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     @auth_headers = login(user.email, 'password')
   end
 
-  describe '#create' do
+  describe 'post /api_v1_posts_path' do
     context 'normal' do
       it 'response at create is created' do
         # attributes_for:モデルオブジェクトではなくハッシュを返す
@@ -36,6 +36,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
       #   post(api_v1_posts_path, params: { post: attributes_for(:post, date_time: 1.week.since) }, headers: @auth_headers)
       #   expect(JSON.parse(response.body)['date_time']).to eq(1.week.since)
       # end
+      
       it 'same params and json response in content' do
         post(api_v1_posts_path, params: { post: attributes_for(:post, content: 'テスト') }, headers: @auth_headers)
         expect(JSON.parse(response.body)['content']).to eq('テスト')
@@ -67,12 +68,11 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     end
   end
 
-  describe '#destroy' do
+  describe 'delete /api_v1_post_path' do
     let(:user_post) { create(:post, user_id: user.id) }
 
     context 'normal' do
       it 'response at destroy is ok' do
-        # byebug
         delete(
           api_v1_post_path(user_post.id),
           headers: @auth_headers
@@ -82,7 +82,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     end
   end
 
-  describe '#show' do
+  describe 'get /api_v1_post_path' do
     let(:user_post) { create(:post) }
 
     context 'normal' do
@@ -96,7 +96,7 @@ RSpec.describe 'Api::V1::Posts', type: :request do
     end
   end
 
-  describe 'get/api_v1_post_path' do
+  describe 'get /api_v1_posts_path' do
     let(:user_post) { create(:post) }
 
     context 'normal' do
