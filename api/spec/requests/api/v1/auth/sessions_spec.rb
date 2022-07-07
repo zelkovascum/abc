@@ -5,7 +5,7 @@ RSpec.describe 'api v1 auth session', type: :request do
   let(:password) { 'password' }
   # userのpasswordに'password'を指定
   let(:user) { create(:user, password:) }
-  describe 'post signin' do
+  describe 'post /api_v1_user_session_path' do
     context 'normal' do
       it 'the response is 200' do
         # user作成時パスワードに :password を指定したためここで使う  user.password はハッシュ化されているため使えない

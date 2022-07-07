@@ -4,7 +4,7 @@ RSpec.describe 'api v1 auth registration', type: :request do
   let(:email) { 'test@mail.com' }
   let(:password) { 'password' }
   let(:name) { 'ユーザー' }
-  describe 'post singup' do
+  describe 'post /api_v1_user_registration_path' do
     context 'normal' do
       it 'response of singup is 200' do
         post(api_v1_user_registration_path, params: { email:, password:, name: })
