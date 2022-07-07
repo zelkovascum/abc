@@ -17,8 +17,9 @@ class Api::V1::ReactionsController < ApplicationController
     )
     unless received_reaction
       render json: { message: 'リアクションしました' }, status: :created
+      return
     end
-    return unless received_reaction
+
     sent_reaction.update(matched: true)
     received_reaction.update(matched: true)
     my_entries = Entry.where(user_id: sent_reaction.to_user_id)
@@ -50,5 +51,7 @@ class Api::V1::ReactionsController < ApplicationController
 
     def reaction_params
       params.require(:reaction).permit(:from_user_id, :to_user_id)
+      # from_user_id → current_user
+      # params.require(:reaction).permit(:to_user_id)
     end
 end
