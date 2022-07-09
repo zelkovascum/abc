@@ -49,6 +49,86 @@ RSpec.describe 'Api::V1::Reactions', type: :request do
           expect(Reaction.last.matched).to be false
         end
       end
+
+      context 'There is a reaction from the other' do
+        let(:reaction) { create(:reaction, from_user_id: other_user.id, to_user_id: user.id) }
+        before { reaction }
+
+        it 'http status code is created' do
+          post(
+            api_v1_reactions_path,
+            headers: @auth_headers,
+            params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+          )
+          expect(response).to have_http_status :created
+        end
+
+        it 'same params and json response in room' do
+          post(
+            api_v1_reactions_path,
+            headers: @auth_headers,
+            params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+          )
+          expect(JSON.parse(response.body)['room']).not_to be nil
+        end
+
+        it 'same params and json response in message' do
+          post(
+            api_v1_reactions_path,
+            headers: @auth_headers,
+            params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+          )
+          expect(JSON.parse(response.body)['message']).to eq('マッチしました')
+        end
+
+        it 'room records increases' do
+          expect do
+            post(
+              api_v1_reactions_path,
+              headers: @auth_headers,
+              params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+            )
+          end.to change(Room, :count).by 1
+        end
+
+        it 'reaction records increases' do
+          expect do
+            post(
+              api_v1_reactions_path,
+              headers: @auth_headers,
+              params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+            )
+          end.to change(Reaction, :count).by 1
+        end
+
+        it 'entries increases' do
+          expect do
+            post(
+              api_v1_reactions_path,
+              headers: @auth_headers,
+              params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+            )
+          end.to change(Entry, :count).by 2
+        end
+
+        it 'The match of the last added record is true' do
+          post(
+            api_v1_reactions_path,
+            headers: @auth_headers,
+            params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+          )
+          expect(Reaction.last.matched).to be true
+        end
+
+        it 'The match of the changed record is true' do
+          post(
+            api_v1_reactions_path,
+            headers: @auth_headers,
+            params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+          )
+          expect(reaction.reload.matched).to be true
+        end
+      end
     end
   end
 end
