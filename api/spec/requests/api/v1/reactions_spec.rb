@@ -129,6 +129,45 @@ RSpec.describe 'Api::V1::Reactions', type: :request do
           expect(reaction.reload.matched).to be true
         end
       end
+
+      # context 'reaction 済' do
+      #   it 'http status code is ok' do
+      #     post(
+      #       api_v1_reactions_path,
+      #       headers: @auth_headers,
+      #       params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+      #     )
+      #     expect(response).to have_http_status :ok
+      #   end
+      #   it 'same params and json response in room'
+      #   it 'same params and json response in message'
+      #   it 'room records 増えない'
+      #   it 'reaction records 増えない'
+      # end
+
+      # context 'params 不正' do
+      #   it 'http status code'
+      #   it 'room records 増えない'
+      #   it 'reaction records 増えない'
+      # end
     end
+
+    # context 'abnormal' do
+    #   context 'not login user' do
+    #     let(:other_user) { create(:user) }
+
+    #     it 'http status code is bad_request' do
+    #       post(
+    #         api_v1_reactions_path,
+    #         # headers: @auth_headers,
+    #         params: { reaction: { from_user_id: nil, to_user_id: other_user.id } }
+    #       )
+    #       expect(response).to have_http_status :bad_request
+    #     end
+
+    #     it 'room records 増えない'
+    #     it 'reaction records 増えない'
+    #   end
+    # end
   end
 end
