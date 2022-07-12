@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Reactions', type: :request do
-  describe 'post /api/v1/reactions' do
+  describe 'post /api_v1_reactions_path' do
     context 'normal' do
       let(:password) { 'password' }
       let(:user) { create(:user, password:) }
@@ -144,18 +144,25 @@ RSpec.describe 'Api::V1::Reactions', type: :request do
       #   it 'room records 増えない'
       #   it 'reaction records 増えない'
       # end
-
-      # context 'params 不正' do
-      #   it 'http status code'
-      #   it 'room records 増えない'
-      #   it 'reaction records 増えない'
-      # end
     end
 
     # context 'abnormal' do
-    #   context 'not login user' do
-    #     let(:other_user) { create(:user) }
+      # let(:other_user) { create(:user) }
+      # context 'params 不正' do
+      #   it 'http status code bad_request' do
+      #     post(
+      #       api_v1_reactions_path,
+      #       headers: @auth_headers,
+      #       params: { reaction: { from_user_id: 'a', to_user_id: "other_user.id" } }
+      #     )
+      #     expect(response).to have_http_status :bad_request
+      #   end
 
+      #   it 'room records 増えない'
+      #   it 'reaction records 増えない'
+      # end
+
+    #   context 'not login user' do
     #     it 'http status code is bad_request' do
     #       post(
     #         api_v1_reactions_path,
