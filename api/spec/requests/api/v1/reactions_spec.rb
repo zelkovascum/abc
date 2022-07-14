@@ -130,7 +130,19 @@ RSpec.describe 'Api::V1::Reactions', type: :request do
         end
       end
 
-      # context 'reaction 済' do
+      context 'reaction 済' do
+        let(:reaction) { create(:reaction, from_user_id: user.id, to_user_id: other_user.id) }
+        let(:other_reaction) { create(:reaction, from_user_id: other_user.id, to_user_id: user.id) }
+        # let(:room) { create(:room) }
+        # let(:entry) { create(:entry, user_id: user.id, room_id: room.id) }
+        before { reaction }
+
+        # before { other_reaction }
+
+        # before { room }
+
+        # before { entry }
+
       #   it 'http status code is ok' do
       #     post(
       #       api_v1_reactions_path,
@@ -141,9 +153,26 @@ RSpec.describe 'Api::V1::Reactions', type: :request do
       #   end
       #   it 'same params and json response in room'
       #   it 'same params and json response in message'
-      #   it 'room records 増えない'
-      #   it 'reaction records 増えない'
-      # end
+        # it 'room records 増えない' do
+        #   expect do
+        #     post(
+        #       api_v1_reactions_path,
+        #       headers: @auth_headers,
+        #       params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+        #     )
+        #   end.to change(Room, :count).by 0
+        # end
+
+        it 'reaction records 増えない' do
+          expect do
+            post(
+              api_v1_reactions_path,
+              headers: @auth_headers,
+              params: { reaction: { from_user_id: user.id, to_user_id: other_user.id } }
+            )
+          end.to change(Reaction, :count).by 0
+        end
+      end
     end
 
     # context 'abnormal' do
