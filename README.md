@@ -2,9 +2,6 @@
 URL: https://inzs46.com  
 公開停止しました。　　
 
-このアプリの開発などについて記載した記事はこちら↓  
-Qiita: https://qiita.com/scum/items/b62a3c2e939e536de867
-
 ## 目次
 
 | 番号 | 項目 |
