@@ -1,6 +1,5 @@
 # Photudio
-URL: https://inzs46.com  
-公開停止しました。　　
+URL: 公開停止しました。　　
 
 ## 目次
 
